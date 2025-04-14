@@ -1,0 +1,69 @@
+# Rust artifacts
+target/
+
+# Node artifacts
+build/
+prebuilds/
+node_modules/
+
+# Swift artifacts
+.build/
+
+# Go artifacts
+_obj/
+
+# Python artifacts
+.venv/
+dist/
+*.egg-info
+*.whl
+
+# C artifacts
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.pc
+*.exp
+*.lib
+
+# Zig artifacts
+.zig-cache/
+zig-cache/
+zig-out/
+
+# Example dirs
+/examples/*/
+
+# Grammar volatiles
+*.wasm
+*.obj
+*.o
+
+# Archives
+*.tar.gz
+*.tgz
+*.zip
+
+# General temp files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+
+# Metadata
+*.tsbuildinfo
+.config/
+
+# Editor settings
+.vscode/
+.idea/
+*.code-workspace
+
+# LuaRocks
+*.rock
+*.rockspec
+

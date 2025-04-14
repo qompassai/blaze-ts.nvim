@@ -1,0 +1,15 @@
+[package]
+name = "blaze-ts"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+path = "blaze/bindings/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+tree-sitter = "0.20"
+
+[build-dependencies]
+cc = "1.0"
+
