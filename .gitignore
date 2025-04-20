@@ -1,69 +1,102 @@
-# Rust artifacts
-target/
-
-# Node artifacts
-build/
-prebuilds/
-node_modules/
-
-# Swift artifacts
-.build/
-
-# Go artifacts
-_obj/
-
-# Python artifacts
-.venv/
-dist/
-*.egg-info
-*.whl
-
-# C artifacts
-*.a
-*.so
-*.so.*
-*.dylib
-*.dll
-*.pc
-*.exp
-*.lib
-
-# Zig artifacts
-.zig-cache/
-zig-cache/
-zig-out/
-
-# Example dirs
-/examples/*/
-
-# Grammar volatiles
-*.wasm
-*.obj
-*.o
-
 # Archives
 *.tar.gz
 *.tgz
 *.zip
 
-# General temp files
-*.log
-*.tmp
-*.bak
-*.swp
-*.swo
-*.swn
+# Build artifacts and binaries
+bin/
+build/
+dist/
+obj/
+prebuilds/
+target/
+_obj/
+.build/
+.zig-cache/
+zig-cache/
+zig-out/
+
+# C/C++ artifacts
+*.a
+*.dll
+*.dylib
+*.exp
+*.lib
+*.o
+*.obj
+*.pc
+*.so
+*.so.*
+*.wasm
+
+# Development environment
+.env
+.mypy_cache/
+.npm/
+.pytest_cache/
+__pycache__/
+coverage/
+
+# Editor and IDE files
+.idea/
+.vscode/
+*~
+.netrwhist
+Session.vim
+*.code-workspace
+tags
+cscope.*
+
+# Example directories
+/examples/*/
+
+# Java artifacts
+*.class
+*.jar
+*.war
+*.ear
+
+# Language-specific
+## .NET
+*.rsuser
+*.suo
+*.user
+
+## Python
+*.egg-info
+*.py[cod]
+*.pyo
+*.whl
+.coverage
+.venv/
+
+# LuaRocks
+*.rock
+*.rockspec
 
 # Metadata
 *.tsbuildinfo
 .config/
 
-# Editor settings
-.vscode/
-.idea/
-*.code-workspace
+# Node artifacts
+node_modules/
 
-# LuaRocks
-*.rock
-*.rockspec
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Parser and grammar files
+parser.so
+grammar.json
+node-types.json
+
+# Temporary files
+*.bak
+*.log
+*.swn
+*.swo
+*.swp
+*.tmp
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
 

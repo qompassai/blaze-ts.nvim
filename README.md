@@ -1,4 +1,4 @@
-# 🔥-ts
+# blaze-ts.nvim
 
 ## 🔥 Tree-sitter
 
@@ -17,7 +17,7 @@
 
 This repository provides a [Tree-sitter](https://tree-sitter.github.io) grammar for [Mojo](https://www.modular.com/mojo), a language designed for AI and systems programming.
 
-Used by the [`🔥.nvim`](https://github.com/qompassai/🔥.nvim) Neovim plugin for:
+Used by the [`blaze.nvim`](https://github.com/qompassai/blaze.nvim) Neovim plugin for:
 
 - 🌈 Syntax highlighting
 - 🔬 Incremental parsing
@@ -31,8 +31,9 @@ Used by the [`🔥.nvim`](https://github.com/qompassai/🔥.nvim) Neovim plugin 
 Clone this repo and build the parser:
 
 ```bash
-git clone https://github.com/qompassai/🔥-ts
-cd 🔥-ts
+git clone https://github.com/qompassai/blaze-ts.nvim
+cd blaze-ts.nvim
 tree-sitter generate
 tree-sitter test
 
+```
