@@ -57,7 +57,7 @@ setup(
         "tree_sitter_mojo": ["*.pyi", "py.typed"],
         "tree_sitter_mojo.queries": ["*.scm"],
     },
-    ext_package="blaze-ts",
+    ext_package="blaze-ts.nvim",
     ext_modules=[
         Extension(
             name="_binding",
@@ -73,5 +73,5 @@ setup(
         "bdist_wheel": BdistWheel,
         "egg_info": EggInfo,
     },
-    zip_safe=False
+    zip_safe=False,
 )

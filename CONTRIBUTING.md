@@ -1,4 +1,4 @@
-# Contributing to blaze-ts
+# Contributing to blaze-ts.nvim
 
 Thank you for your interest in contributing to **blaze-ts**, the Tree-sitter grammar for the Mojo language. Whether you're fixing bugs, improving the grammar, writing tests, or helping with docs — every contribution counts! 🔥
 
@@ -9,13 +9,12 @@ Thank you for your interest in contributing to **blaze-ts**, the Tree-sitter gra
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/qompassai/blaze-ts.git
-   cd blaze-ts
+   git clone https://github.com/qompassai/blaze-ts.nvim
+   cd blaze-ts.nvim
    ```
 
 2. **Install Requirements**
 
-   - [`tree-sitter-cli`](https://tree-sitter.github.io/tree-sitter/cli)
    - `node` (for grammar testing and dev)
    - Optionally: `wasm-pack`, `prebuildify`, `node-gyp`
 
