@@ -2,7 +2,6 @@
 *.tar.gz
 *.tgz
 *.zip
-
 # Build artifacts and binaries
 bin/
 build/
@@ -15,7 +14,6 @@ _obj/
 .zig-cache/
 zig-cache/
 zig-out/
-
 # C/C++ artifacts
 *.a
 *.dll
@@ -86,11 +84,15 @@ node_modules/
 Thumbs.db
 
 # Parser and grammar files
-parser.so
-grammar.json
-node-types.json
+# Ignore compiled binaries
+parser/*.so
+parser/*.dylib
+parser/*.dll
 
-# Temporary files
+!src/parser.c
+!src/scanner.c
+
+!queries/**
 *.bak
 *.log
 *.swn
@@ -100,3 +102,21 @@ node-types.json
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
 
+
+# Tree-sitter specific
+.tree-sitter-grammar-cache/
+src/grammar.json
+src/node-types.json
+
+# LSP/DAP test data
+.luarc.json
+.debug/
+
+# Test output
+*.out
+test-results/
+
+# Security
+.env*
+*.pem
+*.key
