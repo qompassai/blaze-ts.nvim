@@ -1,15 +1,15 @@
 -- blaze-ts.nvim/lua/blaze-ts/config.lua
+----------------------------------------
 local M = {}
-
-function M.setup_treesitter(opts)
+---
+function M.setup_ts(opts)
   opts = opts or {}
-  
   require("nvim-treesitter.configs").setup({
-    highlight = { 
+    highlight = {
       enable = opts.highlight ~= false,
       disable = opts.disable_highlight or {},
     },
-    indent = { 
+    indent = {
       enable = opts.indent ~= false,
     },
     incremental_selection = {
@@ -27,57 +27,60 @@ function M.setup_treesitter(opts)
     modules = opts.modules or {},
   })
 end
-
+---
 function M.setup_conform(opts)
   opts = opts or {}
-  local conform_ok, conform = pcall(require, "conform")
+local conform_ok, _ = pcall(require, "conform")
   if not conform_ok then
-    vim.notify("conform.nvim not available for Mojo formatting", vim.log.levels.WARN)
-    return
-  end
-  ---@diagnostic disable-next-line: undefined-field
-  conform.setup({
+    ---@type table
+    local conform = require("conform")
+---@diagnostic disable-next-line: undefined-field
+  conform.formatters = conform.formatters or {}
+  conform.formatters.mojo_fmt = {
+    meta = {
+      url = "https://docs.modular.com/mojo/cli/format",
+      description = "Official Formatter for The Mojo Programming Language"
+    },
+    command = "mojo",
+    ---@diagnostic disable-next-line: unused-local
+    args = function(self, ctx)
+      local args = { "format", "-q" }
+      if opts.line_length then
+        table.insert(args, "--line-length")
+        table.insert(args, tostring(opts.line_length))
+      end
+      table.insert(args, "$FILENAME")
+      return args
+    end,
+    stdin = false,
+  }
+    conform.setup({
     formatters_by_ft = {
       ["mojo"] = { "mojo_fmt" },
       ["🔥"] = { "mojo_fmt" }
     },
-    formatters = {
-      mojo_fmt = {
-        command = opts.command or "mojo",
-        args = opts.args or { "format", "$FILENAME" },
-        stdin = opts.stdin or false,
-        timeout_ms = opts.timeout_ms or 1000,
-        exit_codes = opts.exit_codes or { 0 },
-      }
-    },
     format_on_save = opts.format_on_save,
   })
-  
-  if opts.setup_keymaps then
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "mojo", "🔥" },
-      callback = function()
-        vim.keymap.set("n", "<leader>f", function()
-          ---@diagnostic disable-next-line: undefined-field
-          require("conform").format({ bufnr = 0 })
-        end, { buffer = true, desc = "Format Mojo file" })
-      end
-    })
-  end
 end
-
+---
+    vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "mojo", "🔥" },
+    callback = function()
+      vim.keymap.set("n", "<leader>f", function()
+        ---@diagnostic disable-next-line: undefined-field
+        require("conform").format({ bufnr = 0 })
+      end, { buffer = true, desc = "Format Mojo file" })
+    end
+  })
+end
+---
 function M.setup(opts)
   opts = opts or {}
-  
-  if opts.treesitter ~= false then
-    M.setup_treesitter(opts.treesitter or {})
+  if opts.ts ~= false then
+    M.setup_ts(opts.ts or {})
   end
-  
   if opts.conform ~= false then
     M.setup_conform(opts.conform or {})
   end
-  
-  return M
-end
-
+ end
 return M

@@ -25,6 +25,6 @@ return {
     ignore_install = {},
     auto_install = true,
   })
-  require("blaze-ts.nvim").setup(opts)
+  require("blaze-ts").setup(opts)
   end
 }

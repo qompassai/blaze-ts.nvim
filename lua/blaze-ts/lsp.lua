@@ -1,11 +1,12 @@
 --blaze-ts.nvim/lua/blaze-ts/lsp.lua
+------------------------------------
 local M = {}
-
+---
 function M.setup_lsp(opts)
   opts = opts or {}
-  
+ --- 
   local has_nightly = vim.fn.has('nvim-0.11') == 1
-  
+ --- 
   local default_settings = {
     cmd = opts.cmd or { 'mojo-lsp-server' },
     filetypes = opts.filetypes or { 'mojo', '🔥' },
@@ -65,17 +66,14 @@ Mojo is a new programming language that bridges the gap between research and pro
           local root_dir = vim.fs.dirname(
             vim.fs.find({ '.git', 'pixi.toml', 'pyproject.toml' }, { upward = true })[1]
           ) or vim.fn.getcwd()
-          
           local client = vim.lsp.start({
             name = 'mojo',
             cmd = default_settings.cmd,
             root_dir = root_dir,
             settings = default_settings.settings
           })
-          
           if client then
             vim.lsp.buf_attach_client(0, client)
-            
             if default_settings.on_attach then
               default_settings.on_attach(client, 0)
             end
@@ -84,7 +82,7 @@ Mojo is a new programming language that bridges the gap between research and pro
       })
     end
   end
-
+---
 end
 return M
 
