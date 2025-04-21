@@ -40,6 +40,10 @@ end
     parser.install_parser()
   end
 
+  function M.setup_utils()
+  require("blaze-ts.utils").setup()
+end
+
 ---@class parser_config
 ---@field install_info parser_src
 ---@field filetype string
