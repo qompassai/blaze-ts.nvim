@@ -84,11 +84,6 @@ node_modules/
 Thumbs.db
 
 # Parser and grammar files
-# Ignore compiled binaries
-parser/*.so
-parser/*.dylib
-parser/*.dll
-
 !src/parser.c
 !src/scanner.c
 
