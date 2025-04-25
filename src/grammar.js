@@ -1,15 +1,6 @@
 // blaze-ts.nvim/mojo/treesitter/mojo/grammar.js
-/**
- * @file Python grammar for tree-sitter
- * @author Max Brunsfeld <maxbrunsfeld@gmail.com>
- * @license MIT
- * @see {@link https://docs.python.org/2/reference/grammar.html|Python 2 grammar}
- * @see {@link https://docs.python.org/3/reference/grammar.html|Python 3 grammar}
- */
-
-/// <reference types="tree-sitter-cli/dsl" />
-// @ts-check
-
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const PREC = {
   // this resolves a conflict between the usage of ':' in a lambda vs in a
   // typed parameter. In the case of a lambda, we don't allow typed parameters.
@@ -36,8 +27,7 @@ const PREC = {
 
 const SEMICOLON = ";";
 const SELF = "self";
-
-module.exports = grammar({
+export default grammar({
 	name: "mojo",
 
    extras: ($) => [

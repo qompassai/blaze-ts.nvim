@@ -27,7 +27,6 @@ zig-out/
 *.so.*
 *.wasm
 
-# Development environment
 .env
 .mypy_cache/
 .npm/
@@ -35,7 +34,6 @@ zig-out/
 __pycache__/
 coverage/
 
-# Editor and IDE files
 .idea/
 .vscode/
 *~
