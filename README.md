@@ -1,3 +1,7 @@
+<!-- /qompassai/blaze-ts.nvim/README.md -->
+<!-- ---------------------------- -->
+<!-- Copyright (C) 2025 Qompass AI, All rights reserved -->
+
 # blaze-ts.nvim
 
 ## 🔥 Tree-sitter
@@ -10,6 +14,8 @@
     <img src="https://img.shields.io/badge/license-Q--CDA-lightgrey.svg" alt="License: Q-CDA">
   </a>
 </p>
+
+![Repository Views](https://komarev.com/ghpvc/?username=qompassai-blaze-ts.nvim)
 
 ---
 
