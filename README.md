@@ -16,6 +16,8 @@
 </p>
 
 ![Repository Views](https://komarev.com/ghpvc/?username=qompassai-blaze-ts.nvim)
+![GitHub all releases](https://img.shields.io/github/downloads/qompassai/blaze-ts.nvim/total?style=flat-square)
+
 
 ---
 
