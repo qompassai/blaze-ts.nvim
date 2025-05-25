@@ -2,11 +2,16 @@
 <!-- ---------------------------- -->
 <!-- Copyright (C) 2025 Qompass AI, All rights reserved -->
 
-# blaze-ts.nvim
-
+<h1 align="center">Qompass AI Blaze-ts.nvim</h1>
+<h2 align="center">A 🔥 Tree-sitter</h2>
 ## 🔥 Tree-sitter
 
 <p align="center">
+<a href="https://www.lua.org/"><img src="https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white" alt="Lua"></a>
+  <br>
+  <a href="https://www.lua.org/docs.html"><img src="https://img.shields.io/badge/Lua-Documentation-blue?style=flat-square" alt="Lua Documentation"></a>
+  <a href="https://github.com/topics/lua-tutorial"><img src="https://img.shields.io/badge/Lua-Tutorials-green?style=flat-square" alt="Lua Tutorials"></a>
+  <br>
   <a href="https://www.gnu.org/licenses/agpl-3.0">
     <img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="License: AGPL v3">
   </a>
