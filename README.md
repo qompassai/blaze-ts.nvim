@@ -6,7 +6,6 @@
 
 <h1 align="center">Qompass AI Blaze-ts.nvim</h1>
 <h2 align="center">A 🔥 Tree-sitter</h2>
-## 🔥 Tree-sitter
 
 <p align="center">
 <a href="https://www.lua.org/"><img src="https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white" alt="Lua"></a>
