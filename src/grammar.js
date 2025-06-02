@@ -1,4 +1,3 @@
-// blaze-ts.nvim/mojo/treesitter/mojo/grammar.js
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const PREC = {

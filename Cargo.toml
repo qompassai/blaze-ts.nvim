@@ -1,30 +1,27 @@
+[build-dependencies]
+cc = "1.0"
+tree-sitter-cli = "0.20.8"
+
+[dependencies]
+tree-sitter-language = "0.1"
+pixi = { git = "https://github.com/prefix-dev/pixi.git", rev = "d0146fba19d7e77d5ce04beb7896863c91707091" }
+cargo-zigbuild = "0.16.0"
+
+[dev-dependencies]
+tree-sitter-test = "0.1"
+tree-sitter = "0.25"
+
+[features]
+
+[lib]
+path = "blaze/bindings/lib.rs"
+crate-type = ["cdylib"]
+
 [package]
-name = "blaze-ts.nvim"
+name = "blaze-ts"
 version = "0.1.1"
 edition = "2024"
 license = "AGPL-3.0-or-later AND LicenseRef-Q-CDA"
 readme = "README.md"
 keywords = ["incremental", "parsing", "tree-sitter", "rust"]
 categories = ["parsing", "text-editors"]
-
-[lib]
-path = "blaze/bindings/lib.rs"
-crate-type = ["cdylib"]
-
-[dependencies]
-tree-sitter-language = "0.1"
-pixi = { git = "https://github.com/prefix-dev/pixi.git", rev = "d0146fba19d7e77d5ce04beb7896863c91707091" }
-zig = "0.15.0"
-cargo_zigbuild = "0.16.0"
-
-[build-dependencies]
-cc = "1.0"
-tree-sitter-cli = "0.20.8"
-
-[features]
-default = ["zig-cross"]
-zig-cross = []
-
-[dev-dependencies]
-tree-sitter-test = "0.1"
-tree-sitter = "0.25"
