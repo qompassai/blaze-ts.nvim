@@ -7,7 +7,6 @@
 <h1 align="center">Qompass AI Blaze-ts.nvim</h1>
 <h2 align="center">A 🔥 Tree-sitter</h2>
 
-![Repository Views](https://komarev.com/ghpvc/?username=qompassai-blaze-ts.nvim)
 ![GitHub all releases](https://img.shields.io/github/downloads/qompassai/blaze-ts.nvim/total?style=flat-square)
 
 <p align="center">
@@ -19,8 +18,6 @@
   <a href="https://www.gnu.org/licenses/agpl-3.0">
     <img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="License: AGPL v3">
   </a>
-  <img src="https://komarev.com/ghpvc/?username=qompassai-blaze-ts.nvim" alt="Profile Views">
-  <img src="https://img.shields.io/github/downloads/qompassai/blaze-ts.nvim/total?style=flat-square" alt="GitHub all releases">
   <a href="./LICENSE-QCDA">
     <img src="https://img.shields.io/badge/license-Q--CDA-lightgrey.svg" alt="License: Q-CDA">
   </a>
