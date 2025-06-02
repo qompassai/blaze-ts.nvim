@@ -16,13 +16,12 @@
   <a href="https://www.gnu.org/licenses/agpl-3.0">
     <img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="License: AGPL v3">
   </a>
+  <img src="https://komarev.com/ghpvc/?username=qompassai-blaze-ts.nvim" alt="Profile Views">
+  <img src="https://img.shields.io/github/downloads/qompassai/blaze-ts.nvim/total?style=flat-square" alt="GitHub all releases">
   <a href="./LICENSE-QCDA">
     <img src="https://img.shields.io/badge/license-Q--CDA-lightgrey.svg" alt="License: Q-CDA">
   </a>
 </p>
-
-![Repository Views](https://komarev.com/ghpvc/?username=qompassai-blaze-ts.nvim)
-![GitHub all releases](https://img.shields.io/github/downloads/qompassai/blaze-ts.nvim/total?style=flat-square)
 
 <details>
 <summary style="font-size: 1.4em; font-weight: bold; padding: 15px; background: #667eea; color: white; border-radius: 10px; cursor: pointer; margin: 10px 0;"><strong>🔥 How to Light Up Blaze-TS</strong></summary>
