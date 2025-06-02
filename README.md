@@ -33,6 +33,9 @@
 
 This repository provides a [Tree-sitter](https://tree-sitter.github.io) grammar for [Mojo](https://www.modular.com/mojo), a language designed for AI and systems programming.
 
+\*\* Under Active Development - Expect Breaking Changes Until it's fully
+registered with nvim-tree-sitter\*\*
+
 Used by the [`blaze.nvim`](https://github.com/qompassai/blaze.nvim) Neovim plugin for:
 
 * 🌈 Syntax highlighting
@@ -44,14 +47,33 @@ Used by the [`blaze.nvim`](https://github.com/qompassai/blaze.nvim) Neovim plugi
 
 ## 📦 Installation
 
-Clone this repo and build the parser:
+1. Add to your `init.lua` or plugin loader:
 
-```bash
-git clone https://github.com/qompassai/blaze-ts.nvim
-cd blaze-ts.nvim
-tree-sitter generate
-tree-sitter test
+```lua
+-- 📁 ~/.config/nvim/lua/plugins/init.lua
+-- If you're using lazy.nvim or packer.nvim, this goes in your plugin spec list:
+```
 
+```lua
+-- 👉 For lazy.nvim
+return {
+"qompassai/blaze.nvim",
+"qompassai/blaze-ts.nvim",
+}
+```
+
+```lua
+-- 👉 For packer.nvim
+use {
+  "qompassai/blaze-ts.nvim",
+  requires = {
+    "qompassai/blaze.nvim",
+  },
+  config = function()
+    require("blaze").setup()
+  end,
+  ft = { "mojo", "🔥" }
+}
 ```
 
 </blockquote>
