@@ -7,6 +7,9 @@
 <h1 align="center">Qompass AI Blaze-ts.nvim</h1>
 <h2 align="center">A 🔥 Tree-sitter</h2>
 
+![Repository Views](https://komarev.com/ghpvc/?username=qompassai-blaze-ts.nvim)
+![GitHub all releases](https://img.shields.io/github/downloads/qompassai/blaze-ts.nvim/total?style=flat-square)
+
 <p align="center">
 <a href="https://www.lua.org/"><img src="https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white" alt="Lua"></a>
   <br>
