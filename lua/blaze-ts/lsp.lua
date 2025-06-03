@@ -50,10 +50,9 @@ function M.setup(opts)
 
     if not config_success then
       vim.notify("Nightly LSP config failed: " .. tostring(config_error), vim.log.levels.WARN)
-      has_nightly = false -- Fallback to legacy method
+      has_nightly = false
     end
   end
-
   if not has_nightly then
     local has_lspconfig, lspconfig = pcall(require, "lspconfig")
     if has_lspconfig then
@@ -63,7 +62,6 @@ function M.setup(opts)
     end
   end
 end
-
 function M.setup_with_lspconfig(lspconfig, default_settings)
   local setup_success, setup_error = pcall(function()
     if lspconfig.mojo then
@@ -83,10 +81,8 @@ function M.setup_with_lspconfig(lspconfig, default_settings)
             },
             docs = {
               description = [[
-https://github.com/modularml/mojo
-
+https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/mojo.lua
 `mojo-lsp-server` can be installed [via Modular](https://developer.modular.com/download)
-
 Mojo is a new programming language that bridges the gap between research and production by combining Python syntax and ecosystem with systems programming and metaprogramming features.
 ]],
             },

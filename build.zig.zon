@@ -1,21 +1,32 @@
-// qompassai/qudaz/build.zig.zon
+// qompassai/blaze-ts.nvim/build.zig.zon
 // Copyright (C) 2025 Qompass AI, All rights reserved
 .{
-    .name = "blaze_ts_nvim",
+    .name = .blaze_ts_nvim,
     .version = "0.1.0",
+    .fingerprint = 0x852bfba289cd640d,
     .minimum_zig_version = "0.14.0",
-    .dependencies = .{},
-    .paths = .{
-        "build.zig",
-        "build.zig.zon",
-        "src",
-        "README.md",
-        "LICENSE-QCDA",
-        "LICENSE-AGPL",
-        "CITATION.cff",
-        "citation.bib",
-        "grammar.js",
-        "queries",
-        "bindings",
+    .dependencies = .{
+        .tree_sitter = .{
+            .url = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.22.2.tar.gz",
+            .hash = "",
+        },
+        .tree_sitter_mojo = .{
+            .url = "https://github.com/modularml/tree-sitter-mojo/archive/main.tar.gz",
+            .hash = "",
+        },
+        .paths = .{
+            "build.zig",
+            "build.zig.zon",
+            "src",
+            "README.md",
+            "LICENSE-QCDA",
+            "LICENSE-AGPL",
+            "CITATION.cff",
+            "citation.bib",
+            "grammar.js",
+            "parser",
+            "queries",
+            "bindings",
+        },
     },
 }

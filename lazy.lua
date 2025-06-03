@@ -3,10 +3,6 @@ return {
   "qompassai/blaze-ts.nvim",
   lazy = true,
   ft = { "mojo", "🔥" },
-  build = function()
-    vim.cmd("TSUpdate")
-    pcall(vim.cmd, "TSInstall mojo")
-  end,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-lua/plenary.nvim",
@@ -19,7 +15,6 @@ return {
   },
   opts = {
     parser = {
-      install_dir = vim.fn.stdpath("data") .. "/lazy/blaze-ts.nvim/parser",
       auto_install = true,
     },
     nvim_treesitter = {

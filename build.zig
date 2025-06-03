@@ -1,72 +1,61 @@
+// /qompassai/blaze-ts.nvim/build.zig
 const std = @import("std");
-
-// runner.
 pub fn build(b: *std.Build) void {
-    const target = b.standardTargetOptions(.{});
-
+    const target = b.standardTargetOptions(.{
+        .default_target = .{
+            .cpu_arch = .wasm32,
+            .os_tag = .wasi,
+        },
+    });
     const optimize = b.standardOptimizeOption(.{});
-
-    const lib_mod = b.createModule(.{
-        .root_source_file = b.path("src/root.zig"),
+    const tree_sitter = b.dependency("tree_sitter", .{
         .target = target,
         .optimize = optimize,
     });
-
-    const exe_mod = b.createModule(.{
-        .root_source_file = b.path("src/main.zig"),
+    const ts_mojo = b.dependency("tree_sitter_mojo", .{
         .target = target,
         .optimize = optimize,
     });
-    exe_mod.addImport("blaze_ts_nvim_lib", lib_mod);
-
-    const lib = b.addLibrary(.{
-        .linkage = .static,
-        .name = "blaze_ts_nvim",
-        .root_module = lib_mod,
+    const parser = b.addSharedLibrary(.{
+        .name = "mojo",
+        .root_source_file = .{ .path = "src/parser.zig" },
+        .target = target,
+        .optimize = optimize,
     });
-
-    // running `zig build`).
-    b.installArtifact(lib);
-
+    parser.addCSourceFile(.{
+        .file = ts_mojo.path("src/parser.c"),
+        .flags = &.{"-std=c11"},
+    });
+    if (fileExists(ts_mojo.path("src/scanner.c"))) {
+        parser.addCSourceFile(.{
+            .file = ts_mojo.path("src/scanner.c"),
+            .flags = &.{"-std=c11"},
+        });
+    }
+    parser.linkLibrary(tree_sitter.artifact("tree-sitter"));
+    parser.linkLibC();
+    const install_parser = b.addInstallArtifact(parser, .{
+        .dest_dir = .{ .override = .{ .custom = "parser" } },
+    });
     const exe = b.addExecutable(.{
         .name = "blaze_ts_nvim",
-        .root_module = exe_mod,
-    });
-
-    const zts = b.dependency("zts", {
+        .root_source_file = .{ .path = "src/main.zig" },
         .target = target,
         .optimize = optimize,
     });
-
-    exe.root_module.addImport("zts", zts.module("zts"));
-
+    exe.linkLibC();
+    exe.addModule("tree-sitter", tree_sitter.module("tree-sitter"));
     b.installArtifact(exe);
-
-    const run_cmd = b.addRunArtifact(exe);
-
-    run_cmd.step.dependOn(b.getInstallStep());
-
-    if (b.args) |args| {
-        run_cmd.addArgs(args);
-    }
-
-    const run_step = b.step("run", "Run the app");
-    run_step.dependOn(&run_cmd.step);
-
-    const lib_unit_tests = b.addTest(.{
-        .root_module = lib_mod,
+    const test_step = b.step("test", "Run tests");
+    const lib_tests = b.addTest(.{
+        .root_source_file = .{ .path = "src/root.zig" },
+        .target = target,
+        .optimize = optimize,
     });
-
-    const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
-
-    const exe_unit_tests = b.addTest(.{
-        .root_module = exe_mod,
-    });
-
-    const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
-
-    const test_step = b.step("test", "Run unit tests");
-    test_step.dependOn(&run_lib_unit_tests.step);
-    test_step.dependOn(&run_exe_unit_tests.step);
+    test_step.dependOn(&b.addRunArtifact(lib_tests).step);
+    exe.step.dependOn(&install_parser.step);
 }
-
+fn fileExists(path: std.Build.LazyPath) bool {
+    const file = path.getPath2(.{}, &.{});
+    return std.fs.accessAbsolute(file, .{}) catch false;
+}
