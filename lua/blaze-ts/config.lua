@@ -10,6 +10,21 @@ function M.setup_ts(opts)
     return
   end
 
+  local plugin_path = vim.fn.stdpath("data") .. "/lazy/blaze-ts.nvim"
+  if vim.fn.isdirectory(plugin_path .. "/runtime") == 1 then
+    vim.opt.runtimepath:prepend(plugin_path .. "/runtime")
+  end
+  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+  parser_config.mojo = {
+    install_info = {
+      url = "https://github.com/qompassai/blaze-ts.nvim",
+      files = { "src/parser.c", "src/grammar.js" },
+      branch = "main",
+      requires_generate_from_grammar = false,
+    },
+    filetype = { "mojo", "🔥" },
+    maintainers = { "@qompassai" },
+  }
   ts_configs.setup({
     highlight = {
       enable = opts.highlight ~= false,
@@ -18,6 +33,9 @@ function M.setup_ts(opts)
     },
     indent = {
       enable = opts.indent ~= false,
+    },
+    fold = {
+      enable = opts.fold ~= false,
     },
     incremental_selection = {
       enable = opts.incremental_selection ~= false,
@@ -28,12 +46,26 @@ function M.setup_ts(opts)
         scope_incremental = "<C-s>",
       },
     },
+    query_linting = {
+      enable = opts.query_linting ~= false,
+      use_virtual_text = true,
+    },
     ensure_installed = opts.ensure_installed or { "mojo" },
     sync_install = opts.sync_install or false,
     ignore_install = opts.ignore_install or {},
     auto_install = opts.auto_install ~= false,
     modules = opts.modules or {},
   })
+
+  vim.defer_fn(function()
+    local queries = { "highlights", "indents", "folds", "locals" }
+    for _, query_type in ipairs(queries) do
+      local query = vim.treesitter.query.get(query_type, "mojo")
+      if query then
+        vim.notify("Loaded " .. query_type .. ".scm for mojo", vim.log.levels.DEBUG)
+      end
+    end
+  end, 100)
 end
 
 function M.setup_conform(opts)
@@ -67,7 +99,6 @@ function M.setup_conform(opts)
     stdin = false,
     exit_codes = { 0, 1 },
   }
-
   conform.setup({
     formatters_by_ft = {
       ["mojo"] = { "mojo_fmt" },
@@ -103,9 +134,9 @@ function M.setup_lsp(opts)
     end
   end
 end
+
 function M.setup_completion(opts)
   opts = opts or {}
-
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "mojo", "🔥" },
     callback = function()
@@ -137,10 +168,8 @@ function M.setup_diagnostics(opts)
     },
   })
 end
-
 function M.setup_keymaps(opts)
   opts = opts or {}
-
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "mojo", "🔥" },
     callback = function()

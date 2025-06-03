@@ -1,7 +1,6 @@
 -- blaze-ts.nvim/lua/blaze-ts/parser.lua
 ----------------------------------------
 local M = {}
-
 function M.get_parser_path()
   local possible_paths = {
     vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/parser/mojo.so",
@@ -13,20 +12,16 @@ function M.get_parser_path()
     vim.fn.stdpath("data") .. "/site/parser/mojo.so",
     vim.fn.fnamemodify(vim.fn.expand("<sfile>"), ":p:h:h:h") .. "/parser/mojo.so",
   }
-
   for _, path in ipairs(possible_paths) do
     if vim.fn.filereadable(path) == 1 then
       return path
     end
   end
-
   return nil
 end
-
 function M.load_parser(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
   local lang = "mojo"
-
   local success, parser = pcall(vim.treesitter.get_parser, bufnr, lang)
   if not success or not parser then
     vim.notify("Failed to load Mojo parser for current buffer", vim.log.levels.WARN)
@@ -35,40 +30,32 @@ function M.load_parser(bufnr)
 
   return parser
 end
-
 function M.get_tree(bufnr)
   local parser = M.load_parser(bufnr)
   if not parser then
     return nil
   end
-
   local success, trees = pcall(parser.parse, parser)
   if not success or not trees or #trees == 0 then
     vim.notify("Failed to parse Mojo buffer", vim.log.levels.WARN)
     return nil
   end
-
   return trees[1]
 end
-
 function M.is_mojo_file(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
   local ft = vim.bo[bufnr].filetype
   local filename = vim.fn.expand("%:t")
   local extension = vim.fn.expand("%:e")
-
   return ft == "mojo" or extension == "mojo" or extension == "🔥" or filename:match("%.mojo$") or filename:match("%.🔥$")
 end
-
 function M.setup_parser_configs()
   local success, parser_configs = pcall(require, "nvim-treesitter.parsers")
   if not success then
     vim.notify("nvim-treesitter.parsers not available", vim.log.levels.WARN)
     return false
   end
-
   local parser_config = parser_configs.get_parser_configs()
-
   if not parser_config.mojo then
     parser_config.mojo = {
       install_info = {
@@ -84,29 +71,23 @@ function M.setup_parser_configs()
   else
     vim.notify("Mojo parser already configured", vim.log.levels.DEBUG)
   end
-
   return true
 end
-
 function M.install_parser()
   if not M.setup_parser_configs() then
     return false
   end
-
   local ts_success, ts_install = pcall(require, "nvim-treesitter.install")
   if not ts_success then
     vim.notify("nvim-treesitter.install not available", vim.log.levels.ERROR)
     return false
   end
-
   local parser_name = "mojo"
-
   local is_installed_success, is_installed = pcall(ts_install.is_installed, parser_name)
   if is_installed_success and is_installed then
     vim.notify("Mojo parser is already installed", vim.log.levels.INFO)
     return true
   end
-
   vim.notify("Installing Mojo parser...", vim.log.levels.INFO)
   local install_success, result = pcall(ts_install.install_parsers, { parser_name })
 
@@ -173,17 +154,13 @@ function M.reinstall_parser()
   pcall(function()
     require("nvim-treesitter.install").update({}, "mojo")
   end)
-
   return M.install_parser()
 end
-
 function M.setup()
   M.setup_parser_paths()
-
   if not M.setup_parser_configs() then
     return false
   end
-
   local parser_path = M.get_parser_path()
   if not parser_path then
     vim.notify("Mojo parser not found, attempting to install...", vim.log.levels.INFO)
@@ -193,17 +170,14 @@ function M.setup()
     return true
   end
 end
-
 function M.health()
   local status = M.check_parser_status()
-
   print("Mojo Parser Health Check:")
   print("========================")
   print("Config registered: " .. tostring(status.config_registered))
   print("Parser installed: " .. tostring(status.parser_installed))
   print("Parser path: " .. tostring(status.parser_path or "Not found"))
   print("Can load parser: " .. tostring(status.can_load))
-
   if status.config_registered and status.parser_installed and status.can_load then
     print("Status: ✅ All good!")
   else
@@ -218,8 +192,6 @@ function M.health()
       print("  - Parser installed but cannot load")
     end
   end
-
   return status
 end
-
 return M

@@ -13,60 +13,64 @@ return {
   },
   cmd = {
     "BlazeHealth",
-    "BlazeParserHealth", 
+    "BlazeParserHealth",
     "BlazeReinstallParser",
     "TSInstall mojo",
+  },
+  opts = {
+    parser = {
+      install_dir = vim.fn.stdpath("data") .. "/lazy/blaze-ts.nvim/parser",
+      auto_install = true,
+    },
+    nvim_treesitter = {
+      ensure_installed = { "mojo" },
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+      },
+      indent = { enable = true },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = "<C-space>",
+          node_incremental = "<C-space>",
+          node_decremental = "<bs>",
+        },
+      },
+      parser_config = {
+        mojo = {
+          install_info = {
+            url = "https://github.com/qompassai/blaze-ts.nvim",
+            files = { "src/parser.c", "src/grammar.js", "src/main.zig", "src/root.zig", "src/scanner.c" },
+            branch = "main",
+            requires_generate_from_grammar = false,
+          },
+          filetype = { "mojo", "🔥" },
+          maintainers = { "@qompassai" },
+        },
+      },
+    },
   },
   config = function(_, opts)
     local success, error_msg = pcall(function()
       local ts_success, ts_config = pcall(require, "nvim-treesitter.configs")
-      if ts_success then
-        local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-        parser_config.mojo = {
-          install_info = {
-            url = "https://github.com/qompassai/blaze-ts.nvim",
-            files = { "src/parser.c", "src/grammar.js", "src/scanner.c", "main.zig", "root.zig" },
-            branch = "main",
-            requires_generate_from_grammar = true,
-          },
-          filetype = { "mojo", "🔥" },
-          maintainers = { "@qompassai" },
-        }
-        ts_config.setup({
-          ensure_installed = { "mojo" },
-          highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-          },
-          indent = { enable = true },
-          incremental_selection = {
-            enable = true,
-            keymaps = {
-              init_selection = "<C-space>",
-              node_incremental = "<C-space>",
-              node_decremental = "<bs>",
-            },
-          },
-        })
-      else
+      if not ts_success then
         vim.notify("nvim-treesitter not available", vim.log.levels.WARN)
+        return
       end
-
-      local blaze_ts_opts = vim.tbl_deep_extend("force", {
-        parser = {
-          install_dir = vim.fn.stdpath("data") .. "/lazy/blaze-ts.nvim",
-          auto_install = true,
-        },
-      }, opts or {})
-
-      require("blaze-ts").setup(blaze_ts_opts)
+      if opts.nvim_treesitter and opts.nvim_treesitter.parser_config then
+        local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+        for name, config in pairs(opts.nvim_treesitter.parser_config) do
+          parser_config[name] = config
+        end
+      end
+      ts_config.setup(opts.nvim_treesitter or {})
+      require("blaze-ts").setup(opts)
     end)
-
     if not success then
       vim.notify("Failed to setup blaze-ts.nvim: " .. tostring(error_msg), vim.log.levels.ERROR)
     end
   end,
-
   keys = {
     {
       "<leader>mh",
@@ -77,7 +81,7 @@ return {
       ft = { "mojo", "🔥" },
     },
     {
-      "<leader>mp", 
+      "<leader>mp",
       function()
         require("blaze-ts").parser_health()
       end,
@@ -94,4 +98,3 @@ return {
     },
   },
 }
-

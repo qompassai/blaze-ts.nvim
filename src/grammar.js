@@ -1252,7 +1252,6 @@ export default grammar({
   },
 });
 
-module.exports.PREC = PREC;
 
 /**
  * Creates a rule to match one or more of the rules separated by a comma
