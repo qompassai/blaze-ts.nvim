@@ -1,3 +1,4 @@
+TREE_SITTER_INCLUDE = $(shell tree-sitter init-config && tree-sitter parse 2>/dev/null || echo ~/.node_modules/tree-sitter/lib/include)
 ifeq ($(OS),Windows_NT)
 $(error Windows is not supported)
 endif

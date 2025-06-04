@@ -1,4 +1,5 @@
 // qompassai/blaze-ts.nvim/build.zig.zon
+// blaze-ts zig object notation (zon)
 // Copyright (C) 2025 Qompass AI, All rights reserved
 .{
     .name = .blaze_ts_nvim,
@@ -11,22 +12,19 @@
             .hash = "",
         },
         .tree_sitter_mojo = .{
-            .url = "https://github.com/modularml/tree-sitter-mojo/archive/main.tar.gz",
-            .hash = "",
+            .path = "src",
         },
-        .paths = .{
-            "build.zig",
-            "build.zig.zon",
-            "src",
-            "README.md",
-            "LICENSE-QCDA",
-            "LICENSE-AGPL",
-            "CITATION.cff",
-            "citation.bib",
-            "grammar.js",
-            "parser",
-            "queries",
-            "bindings",
-        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        "parser",
+        "README.md",
+        "LICENSE-*",
+        "CITATION.*",
+        "grammar.js",
+        "queries",
+        "bindings",
     },
 }

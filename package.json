@@ -1,7 +1,20 @@
 {
-  "name": "blaze-ts",
+  "name": "blaze-ts.nvim",
   "version": "0.1.0",
-  "description": "A 🔥 Tree-sitter for the Mojo language",
+  "description": "A 🔥 Tree-sitter parser for the Mojo language with WASM, Zig, and Neovim integration.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./bindings/node/index.d.ts",
+      "require": "./bindings/node/index.js",
+      "default": "./bindings/node/index.js"
+    }
+  },
+  "main": "bindings/node/index.js",
+  "types": "bindings/node/index.d.ts",
+  "browser": {
+    "./bindings/node/index.js": "./tree-sitter-mojo.wasm"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/qompassai/blaze-ts.nvim"
@@ -32,50 +45,54 @@
   "author": {
     "name": "Matt A. Porter",
     "email": "map@qompass.ai",
-    "url": "https://github.com/phaedrusflow"
+    "url": "https://github.com/qompassai"
   },
-  "main": "bindings/node",
-  "types": "bindings/node",
   "keywords": [
-    "incremental",
-    "parsing",
     "tree-sitter",
     "mojo",
+    "zig",
+    "wasm",
     "nvim",
     "neovim",
-    "syntax-highlighting"
+    "syntax-highlighting",
+    "parser"
   ],
   "files": [
     "grammar.js",
     "tree-sitter.json",
+    "tree-sitter-mojo.wasm",
     "binding.gyp",
     "bindings/",
     "queries/",
+    "lua/",
     "src/",
-    "package.json",
-    "README.md"
+    "parser/",
+    "README.md",
+    "package.json"
   ],
   "tree-sitter": [
     {
       "scope": "source.mojo",
-      "file-types": [
-        "mojo",
-        "🔥"
-      ]
+      "file-types": ["mojo", "🔥"]
     }
   ],
+  "scripts": {
+    "build": "tree-sitter generate && tree-sitter build && zig build",
+    "build:wasm": "tree-sitter build-wasm",
+    "test": "tree-sitter test",
+    "install": "node-gyp-build"
+  },
   "dependencies": {
     "node-gyp-build": "^4.6.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.0"
-  },
-  "scripts": {
-    "build": "tree-sitter generate && tree-sitter build",
-    "test": "tree-sitter test",
-    "install": "node-gyp-build"
+    "tree-sitter-cli": "^0.22.2"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
+
