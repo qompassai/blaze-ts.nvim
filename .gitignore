@@ -8,3 +8,6 @@ shell.nix
 /.nix/
 /result*
 /nix/
+/.nix/
+result*
+/nix/
