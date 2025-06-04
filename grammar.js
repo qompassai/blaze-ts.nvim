@@ -1,12 +1,9 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const PREC = {
-  // this resolves a conflict between the usage of ':' in a lambda vs in a
-  // typed parameter. In the case of a lambda, we don't allow typed parameters.
   lambda: -2,
   typed_parameter: -1,
   conditional: -1,
-
   parenthesized_expression: 1,
   parenthesized_list_splat: 1,
   or: 10,
@@ -66,15 +63,8 @@ export default grammar({
     $.escape_interpolation,
     $.string_end,
 
-    // Mark comments as external tokens so that the external scanner is always
-    // invoked, even if no external token is expected. This allows for better
-    // error recovery, because the external scanner can maintain the overall
-    // structure by returning dedent tokens whenever a dedent occurs, even
-    // if no dedent is expected.
     $.comment,
 
-    // Allow the external scanner to check for the validity of closing brackets
-    // so that it can avoid returning dedent tokens between brackets.
     "]",
     ")",
     "}",
@@ -96,8 +86,6 @@ export default grammar({
     module: ($) => repeat($._statement),
 
     _statement: ($) => choice($._simple_statements, $._compound_statement),
-
-    // Simple statements
 
     _simple_statements: ($) =>
       seq(
@@ -225,8 +213,6 @@ export default grammar({
     pass_statement: (_) => prec.left("pass"),
     break_statement: (_) => prec.left("break"),
     continue_statement: (_) => prec.left("continue"),
-
-    // Compound statements
 
     _compound_statement: ($) =>
       choice(
@@ -696,8 +682,6 @@ export default grammar({
         choice($.identifier, $.keyword_identifier, $.subscript, $.attribute),
       ),
 
-    // Extended patterns (patterns allowed in match statement are far more flexible than simple patterns though still a subset of "expression")
-
     as_pattern: ($) =>
       prec.left(
         seq(
@@ -706,8 +690,6 @@ export default grammar({
           field("alias", alias($.expression, $.as_pattern_target)),
         ),
       ),
-
-    // Expressions
 
     _expression_within_for_in_clause: ($) =>
       choice($.expression, alias($.lambda_within_for_in_clause, $.lambda)),

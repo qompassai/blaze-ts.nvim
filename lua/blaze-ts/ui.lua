@@ -1,6 +1,6 @@
 -- lua/blaze-ts/config_ui.lua
+-- luacheck: globals vim
 local M = {}
-
 M.options = {
 	highlight = true,
 	indent = true,
@@ -9,7 +9,5 @@ M.options = {
 	format_on_save = false,
 	lsp_enabled = true,
 }
-
 M.original_options = vim.deepcopy(M.options)
-
 return M

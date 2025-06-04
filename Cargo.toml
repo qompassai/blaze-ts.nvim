@@ -18,11 +18,10 @@ path = "blaze/bindings/lib.rs"
 crate-type = ["cdylib"]
 
 [package]
-name = "blaze-ts"
+name = "blaze_ts_nvim"
 version = "0.1.1"
 authors = ["Matt A. Porter <map@qompass.ai>"]
 edition = "2024"
-default-run = "blaze-ts"
 license = "AGPL-3.0-or-later AND LicenseRef-Q-CDA"
 readme = "README.md"
 keywords = ["incremental", "parsing", "tree-sitter", "rust"]

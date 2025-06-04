@@ -1,119 +1,150 @@
-# ~/.GH/Qompass/Lua/Blaze-ts.nvim/flake.nix
-# -----------------------------------------
+#  /qompassai/blaze-ts.nvim/flake.nix
 # Copyright (C) 2025 Qompass AI, All rights reserved
+#
 {
-  description = "Performant, batteries-included completion plugin for Neovim";
+  description = " Blaze-ts.nvim: A 🔥 Tree-Sitter parser for Mojo";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    fenix.url = "github:nix-community/fenix";
-    fenix.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    tree-sitter.url = "github:tree-sitter/tree-sitter";
+    blaze-ts.url = "github:qompassai/blaze-ts.nvim?ref=main";
   };
 
-  outputs = inputs @ {
-    flake-parts,
-    nixpkgs,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin"];
-
-      perSystem = {
-        self,
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        lib,
-        ...
-      }: {
-        _module.args.pkgs = import nixpkgs {
+  outputs = { self, nixpkgs, flake-utils, tree-sitter, blaze-ts }:
+    flake-utils.lib.eachSystem [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "x86_64-windows"
+      "aarch64-windows"
+    ] (system:
+      let
+        pkgs = import nixpkgs {
           inherit system;
-          overlays = [inputs.fenix.overlays.default];
+          overlays = [ tree-sitter.overlays.default ];
         };
-        packages = let
-          fs = lib.fileset;
-          nixFs = fs.fileFilter (file: file.hasExt == "nix") ./.;
-          rustFs = fs.unions [
-            (fs.fileFilter (file: lib.hasPrefix "Cargo" file.name) ./.)
-            (fs.fileFilter (file: file.hasExt "rs") ./.)
-            ./.cargo
-            ./rust-toolchain.toml
+
+        nodeEnv = pkgs.nodePackages_latest;
+
+        mojo-parser = pkgs.tree-sitter.buildGrammar {
+          language = "mojo";
+          version = "0.1.0";
+          src = ./.;
+          buildPhase = ''
+            export HOME=$TMPDIR
+            ${nodeEnv.node-gyp}/bin/node-gyp configure
+            ${nodeEnv.node-gyp}/bin/node-gyp build
+            tree-sitter generate
+            tree-sitter build-wasm
+            zig build -Doptimize=ReleaseSafe
+          '';
+          installPhase = ''
+            mkdir -p $out/{parser,queries,bindings}
+            cp -r src tree-sitter-mojo.wasm $out/
+            cp -r bindings/node $out/bindings/
+            cp queries/* $out/queries/
+          '';
+          nativeBuildInputs = with pkgs; [
+            nodeEnv.node-gyp
+            nodeEnv.tree-sitter-cli
+            zig
+            gcc
           ];
-          # nvim source files
-          # all that are not nix, nor rust, nor other ignored files
-          nvimFs =
-            fs.difference ./. (fs.unions [nixFs rustFs ./doc ./repro.lua]);
-          version = "1.3.1";
-        in {
-          blink-fuzzy-lib = let
-            inherit (inputs'.fenix.packages.minimal) toolchain;
-            rustPlatform = pkgs.makeRustPlatform {
-              cargo = toolchain;
-              rustc = toolchain;
-            };
-          in
-            rustPlatform.buildRustPackage {
-              pname = "blink-fuzzy-lib";
-              inherit version;
-              src = fs.toSource {
-                root = ./.;
-                fileset = rustFs;
-              };
-              cargoLock = {lockFile = ./Cargo.lock;};
-              buildInputs = with pkgs; lib.optionals stdenv.hostPlatform.isAarch64 [rust-jemalloc-sys]; # revisit once https://github.com/NixOS/nix/issues/12426 is solved
-              nativeBuildInputs = with pkgs; [git];
-            };
+          meta = with pkgs.lib; {
+            description = "Blaze-ts.nvim: A 🔥 Tree-Sitter parser for Mojo programming language";
+            longDescription = ''
+              Derived from:
+              • Modular (https://github.com/modular)
+              • mojo.vim (Apache-2.0)
+              • mojo-syntax (MIT)
+              • pixi (BSD-3)
+              • magic-docker
 
-          blink-cmp = pkgs.vimUtils.buildVimPlugin {
-            pname = "blink-cmp";
-            inherit version;
-            src = fs.toSource {
-              root = ./.;
-              fileset = nvimFs;
-            };
-            preInstall = ''
-              mkdir -p target/release
-              ln -s ${self'.packages.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.* target/release/
+              LICENSING NOTICE:
+              • Modular Mojo Lang: Licensed under Modular's Apache 2.0 license
+              • Qompass AI packaging, build scripts, and configuration: Dual-licensed under:
+                - GNU AGPL v3.0 for non-commercial, open-source use
+                - Qompass Commercial Distribution Agreement (Q-CDA) v1.0 for commercial use
             '';
+            homepage = "https://developer.nvidia.com/hpc-sdk";
+            downloadPage = "https://developer.nvidia.com/hpc-sdk-downloads";
+            license = with licenses; [
+              agpl3Only
+              {
+                fullName = "Qompass AI Commercial Distribution Agreement v1.0";
+                shortName = "Q-CDA-1.0";
+                spdxId = "Q-CDA-1.0";
+                url = "https://github.com/qompassai/nur/blob/main/LICENSE-QCDA";
+                free = false;
+                redistributable = true;
+              }
+              unfree
+            ];
+            sourceProvenance = with sourceTypes; [
+              binaryNativeCode
+              binaryBytecode
+              fromSource
+            ];
+            maintainers = [
+              {
+                github = "qompassai";
+                githubId = 137334444;
+                name = "Qompass AI";
+              }
+              maintainers.phaedrusflow
+            ];
+            platforms = [
+              "x86_64-linux"
+              "aarch64-linux"
+              "x86_64-darwin"
+              "x86_64-windows"
+              "aarch64-windows"
+            ];
+            outputsToInstall = [ "out" ];
+            mainProgram = "nvc";
+            timeout = 7200;
+            broken = false;
+            badPlatforms = [ ];
+            knownVulnerabilities = [ ];
           };
-
-          default = self'.packages.blink-cmp;
         };
 
-        # builds the native module of the plugin
-        apps.build-plugin = {
-          type = "app";
-          program = let
-            buildScript = pkgs.writeShellApplication {
-              name = "build-plugin";
-              runtimeInputs = with pkgs; [fenix.minimal.toolchain gcc];
-              text = ''
-                export LIBRARY_PATH="${lib.makeLibraryPath [pkgs.libiconv]}";
-                cargo build --release
-              '';
-            };
-          in (lib.getExe buildScript);
+      in
+      {
+        packages = {
+          default = mojo-parser;
+          mojo = mojo-parser;
         };
 
         devShells.default = pkgs.mkShell {
-          name = "blaze-ts.nvim";
-          inputsFrom = [
-            self'.packages.blink-fuzzy-lib
-            self'.packages.blink-cmp
-            self'.apps.build-plugin
+          packages = with pkgs; [
+            nodejs
+            tree-sitter
+            gcc
+          ] ++ pkgs.lib.optionals (system == "x86_64-windows" || system == "aarch64-windows") [
+            pkgs.pkgsCross.mingw32.buildPackages.gcc
           ];
-          packages = with pkgs; [rust-analyzer-nightly];
         };
-        formatter = pkgs.nixfmt-classic;
+
+        checks = {
+          build = mojo-parser;
+          test = pkgs.runCommand "test-mojo-parser" { } ''
+            ${mojo-parser}/bin/tree-sitter parse ${./test}/*.mojo
+            touch $out
+          '';
+        };
+      }
+    ) // {
+      overlays = {
+        default = _: prev: {
+          vimPlugins = prev.vimPlugins // {
+            blaze-ts = prev.vimPlugins.buildVimPlugin {
+              name = "blaze-ts.nvim";
+              src = blaze-ts;
+            };
+          };
+        };
       };
     };
-  nixConfig = {
-    extra-substituters = ["https://nix-community.cachix.org"];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs"
-    ];
-  };
 }

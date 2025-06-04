@@ -969,7 +969,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "blaze-ts"
+name = "blaze_ts_nvim"
 version = "0.1.1"
 dependencies = [
  "cargo-zigbuild",

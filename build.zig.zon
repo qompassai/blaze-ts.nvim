@@ -3,28 +3,37 @@
 // Copyright (C) 2025 Qompass AI, All rights reserved
 .{
     .name = .blaze_ts_nvim,
+    .fingerprint = 0x852bfba24b360a44,
     .version = "0.1.0",
-    .fingerprint = 0x852bfba289cd640d,
     .minimum_zig_version = "0.14.0",
+
     .dependencies = .{
         .tree_sitter = .{
-            .url = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.22.2.tar.gz",
-            .hash = "",
+            .url = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.24.1.tar.gz",
+            .hash = "sha256-..............................................................",
         },
+
+        .zts = .{
+            .url = "git+https://github.com/lfcm64/z-tree-sitter#90c687ce0c00cd9585cda5c529e3675380357029",
+            .hash = "zts-0.1.0-AAAAACKnAABeUKXcwClAUA7YT6A3UqXg54WfvRbBfbAV",
+        },
+
         .tree_sitter_mojo = .{
             .path = "src",
         },
     },
+
     .paths = .{
+        "bindings",
         "build.zig",
         "build.zig.zon",
-        "src",
-        "parser",
-        "README.md",
-        "LICENSE-*",
         "CITATION.*",
         "grammar.js",
-        "queries",
-        "bindings",
+        "LICENSE-*",
+        "parser/mojo.so",
+        "README.md",
+        "queries/mojo/*.scm",
+        "src/scanner.c",
+        "src/parser.c",
     },
 }
