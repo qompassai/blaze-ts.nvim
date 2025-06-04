@@ -1,2 +1,3 @@
 /.zig-cache/
+/.nix/
 /lua/blaze-ts/tools/
