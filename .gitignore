@@ -5,3 +5,6 @@ shell.nix
 /lua/blaze-ts/tools/
 /result*
 /result-link*
+/.nix/
+/result*
+/nix/
