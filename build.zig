@@ -20,7 +20,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    exe_mod.addImport("blaze_ts", lib_mod);
+    exe_mod.addImport("blaze_ts_nvim", lib_mod);
     exe_mod.addImport("zts", zts_pkg.module("zts"));
 
     const lib = b.addStaticLibrary(.{
@@ -46,7 +46,7 @@ pub fn build(b: *std.Build) void {
 
     const wasm_target = b.resolveTargetQuery(.{ .cpu_arch = .wasm32, .os_tag = .freestanding });
     const wasm = b.addSharedLibrary(.{
-        .name = "tree-sitter-mojo",
+        .name = .blaze_ts_nvim,
         .root_source_file = .{ .path = "src/parser.c" },
         .target = wasm_target,
         .optimize = optimize,

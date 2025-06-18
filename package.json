@@ -73,7 +73,10 @@
   "tree-sitter": [
     {
       "scope": "source.mojo",
-      "file-types": ["mojo", "🔥"]
+      "file-types": [
+        "mojo",
+        "🔥"
+      ]
     }
   ],
   "scripts": {
@@ -83,6 +86,7 @@
     "install": "node-gyp-build"
   },
   "dependencies": {
+    "js-beautify": "^1.15.4",
     "node-gyp-build": "^4.6.0"
   },
   "devDependencies": {
@@ -95,4 +99,3 @@
     "access": "public"
   }
 }
-

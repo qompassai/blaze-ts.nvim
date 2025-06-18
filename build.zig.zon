@@ -10,7 +10,7 @@
     .dependencies = .{
         .tree_sitter = .{
             .url = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.24.1.tar.gz",
-            .hash = "sha256-..............................................................",
+            .hash = "10s6dbjrvlifrzcpvhxmh9m55wzvz0ys3ac0r7yz9i62nfrmpnvs",
         },
 
         .zts = .{

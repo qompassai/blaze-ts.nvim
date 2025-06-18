@@ -1,12 +1,7 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 const PREC = {
-  // this resolves a conflict between the usage of ':' in a lambda vs in a
-  // typed parameter. In the case of a lambda, we don't allow typed parameters.
   lambda: -2,
   typed_parameter: -1,
   conditional: -1,
-
   parenthesized_expression: 1,
   parenthesized_list_splat: 1,
   or: 10,
@@ -66,15 +61,8 @@ export default grammar({
     $.escape_interpolation,
     $.string_end,
 
-    // Mark comments as external tokens so that the external scanner is always
-    // invoked, even if no external token is expected. This allows for better
-    // error recovery, because the external scanner can maintain the overall
-    // structure by returning dedent tokens whenever a dedent occurs, even
-    // if no dedent is expected.
     $.comment,
 
-    // Allow the external scanner to check for the validity of closing brackets
-    // so that it can avoid returning dedent tokens between brackets.
     "]",
     ")",
     "}",
@@ -96,8 +84,6 @@ export default grammar({
     module: ($) => repeat($._statement),
 
     _statement: ($) => choice($._simple_statements, $._compound_statement),
-
-    // Simple statements
 
     _simple_statements: ($) =>
       seq(
@@ -165,7 +151,7 @@ export default grammar({
 
     print_statement: ($) =>
       choice(
-        prec(
+        PREC(
           1,
           seq(
             "print",
@@ -174,9 +160,9 @@ export default grammar({
             optional(","),
           ),
         ),
-        prec(
+        PREC(
           -3,
-          prec.dynamic(
+          PREC.dynamic(
             -1,
             seq(
               "print",
@@ -222,11 +208,9 @@ export default grammar({
         optional(seq("from", field("cause", $.expression))),
       ),
 
-    pass_statement: (_) => prec.left("pass"),
-    break_statement: (_) => prec.left("break"),
-    continue_statement: (_) => prec.left("continue"),
-
-    // Compound statements
+    pass_statement: (_) => PREC.left("pass"),
+    break_statement: (_) => PREC.left("break"),
+    continue_statement: (_) => PREC.left("continue"),
 
     _compound_statement: ($) =>
       choice(
@@ -363,7 +347,7 @@ export default grammar({
         seq("(", commaSep1($.with_item), optional(","), ")"),
       ),
 
-    with_item: ($) => prec.dynamic(1, seq(field("value", $.expression))),
+    with_item: ($) => PREC.dynamic(1, seq(field("value", $.expression))),
 
     function_definition: ($) =>
       seq(
@@ -415,7 +399,7 @@ export default grammar({
       ),
 
     type_alias_statement: ($) =>
-      prec.dynamic(1, seq("type", $.type, "=", $.type)),
+      PREC.dynamic(1, seq("type", $.type, "=", $.type)),
 
     class_definition: ($) =>
       seq(
@@ -441,7 +425,7 @@ export default grammar({
       seq("(", optional(commaSep1($.identifier)), optional(","), ")"),
 
     parenthesized_list_splat: ($) =>
-      prec(
+      PREC(
         PREC.parenthesized_list_splat,
         seq(
           "(",
@@ -507,19 +491,19 @@ export default grammar({
     block: ($) => seq(repeat($._statement), $._dedent),
 
     expression_list: ($) =>
-      prec.right(
+      PREC.right(
         seq(
           $.expression,
           choice(",", seq(repeat1(seq(",", $.expression)), optional(","))),
         ),
       ),
 
-    dotted_name: ($) => prec(1, sep1($.identifier, ".")),
+    dotted_name: ($) => PREC(1, sep1($.identifier, ".")),
 
     // Match cases
 
     case_pattern: ($) =>
-      prec(
+      PREC(
         1,
         choice(
           alias($._as_pattern, $.as_pattern),
@@ -529,7 +513,7 @@ export default grammar({
       ),
 
     _simple_pattern: ($) =>
-      prec(
+      PREC(
         1,
         choice(
           $.class_pattern,
@@ -553,8 +537,8 @@ export default grammar({
     _as_pattern: ($) => seq($.case_pattern, "as", $.identifier),
 
     union_pattern: ($) =>
-      prec.right(
-        seq($._simple_pattern, repeat1(prec.left(seq("|", $._simple_pattern)))),
+      PREC.right(
+        seq($._simple_pattern, repeat1(PREC.left(seq("|", $._simple_pattern)))),
       ),
 
     _list_pattern: ($) =>
@@ -581,7 +565,7 @@ export default grammar({
     keyword_pattern: ($) => seq($.identifier, "=", $._simple_pattern),
 
     splat_pattern: ($) =>
-      prec(1, seq(choice("*", "**"), choice($.identifier, "_"))),
+      PREC(1, seq(choice("*", "**"), choice($.identifier, "_"))),
 
     class_pattern: ($) =>
       seq(
@@ -592,7 +576,7 @@ export default grammar({
       ),
 
     complex_pattern: ($) =>
-      prec(
+      PREC(
         1,
         seq(
           optional("-"),
@@ -652,7 +636,7 @@ export default grammar({
     self_parameter: ($) => seq(optional($.argument_convention), SELF),
 
     typed_parameter: ($) =>
-      prec(
+      PREC(
         PREC.typed_parameter,
         seq(
           choice(
@@ -673,7 +657,7 @@ export default grammar({
       ),
 
     typed_default_parameter: ($) =>
-      prec(
+      PREC(
         PREC.typed_parameter,
         seq(
           field("name", $.identifier),
@@ -696,18 +680,14 @@ export default grammar({
         choice($.identifier, $.keyword_identifier, $.subscript, $.attribute),
       ),
 
-    // Extended patterns (patterns allowed in match statement are far more flexible than simple patterns though still a subset of "expression")
-
     as_pattern: ($) =>
-      prec.left(
+      PREC.left(
         seq(
           $.expression,
           "as",
           field("alias", alias($.expression, $.as_pattern_target)),
         ),
       ),
-
-    // Expressions
 
     _expression_within_for_in_clause: ($) =>
       choice($.expression, alias($.lambda_within_for_in_clause, $.lambda)),
@@ -739,7 +719,7 @@ export default grammar({
         $.none,
         $.unary_operator,
         $.attribute,
-        choice(prec.dynamic(-1, $.subscript), prec.dynamic(1, $.call)),
+        choice(PREC.dynamic(-1, $.subscript), PREC.dynamic(1, $.call)),
         $.list,
         $.list_comprehension,
         $.dictionary,
@@ -755,11 +735,11 @@ export default grammar({
       ),
 
     not_operator: ($) =>
-      prec(PREC.not, seq("not", field("argument", $.expression))),
+      PREC(PREC.not, seq("not", field("argument", $.expression))),
 
     boolean_operator: ($) =>
       choice(
-        prec.left(
+        PREC.left(
           PREC.and,
           seq(
             field("left", $.expression),
@@ -767,7 +747,7 @@ export default grammar({
             field("right", $.expression),
           ),
         ),
-        prec.left(
+        PREC.left(
           PREC.or,
           seq(
             field("left", $.expression),
@@ -779,19 +759,19 @@ export default grammar({
 
     binary_operator: ($) => {
       const table = [
-        [prec.left, "+", PREC.plus],
-        [prec.left, "-", PREC.plus],
-        [prec.left, "*", PREC.times],
-        [prec.left, "@", PREC.times],
-        [prec.left, "/", PREC.times],
-        [prec.left, "%", PREC.times],
-        [prec.left, "//", PREC.times],
-        [prec.right, "**", PREC.power],
-        [prec.left, "|", PREC.bitwise_or],
-        [prec.left, "&", PREC.bitwise_and],
-        [prec.left, "^", PREC.xor],
-        [prec.left, "<<", PREC.shift],
-        [prec.left, ">>", PREC.shift],
+        [PREC.left, "+", PREC.plus],
+        [PREC.left, "-", PREC.plus],
+        [PREC.left, "*", PREC.times],
+        [PREC.left, "@", PREC.times],
+        [PREC.left, "/", PREC.times],
+        [PREC.left, "%", PREC.times],
+        [PREC.left, "//", PREC.times],
+        [PREC.right, "**", PREC.power],
+        [PREC.left, "|", PREC.bitwise_or],
+        [PREC.left, "&", PREC.bitwise_and],
+        [PREC.left, "^", PREC.xor],
+        [PREC.left, "<<", PREC.shift],
+        [PREC.left, ">>", PREC.shift],
       ];
 
       // @ts-ignore
@@ -811,7 +791,7 @@ export default grammar({
     },
 
     unary_operator: ($) =>
-      prec(
+      PREC(
         PREC.unary,
         seq(
           field("operator", choice("+", "-", "~")),
@@ -824,7 +804,7 @@ export default grammar({
     _is_not: (_) => seq("is", "not"),
 
     comparison_operator: ($) =>
-      prec.left(
+      PREC.left(
         PREC.compare,
         seq(
           $.primary_expression,
@@ -853,7 +833,7 @@ export default grammar({
       ),
 
     lambda: ($) =>
-      prec(
+      PREC(
         PREC.lambda,
         seq(
           "lambda",
@@ -930,7 +910,7 @@ export default grammar({
       ),
 
     yield: ($) =>
-      prec.right(
+      PREC.right(
         seq(
           "yield",
           choice(seq("from", $.expression), optional($._expressions)),
@@ -938,7 +918,7 @@ export default grammar({
       ),
 
     attribute: ($) =>
-      prec(
+      PREC(
         PREC.call,
         seq(
           field("object", $.primary_expression),
@@ -951,7 +931,7 @@ export default grammar({
       ),
 
     subscript: ($) =>
-      prec(
+      PREC(
         PREC.call,
         seq(
           field("value", $.primary_expression),
@@ -973,7 +953,7 @@ export default grammar({
     ellipsis: (_) => "...",
 
     call: ($) =>
-      prec(
+      PREC(
         PREC.call,
         seq(
           field("function", $.primary_expression),
@@ -991,10 +971,10 @@ export default grammar({
         $.constrained_type,
         $.member_type,
       ),
-    splat_type: ($) => prec(1, seq(choice("*", "**"), $.identifier)),
-    generic_type: ($) => prec(1, seq($.identifier, $.type_parameter)),
-    union_type: ($) => prec.left(seq($.type, "|", $.type)),
-    constrained_type: ($) => prec.right(seq($.type, ":", $.type)),
+    splat_type: ($) => PREC(1, seq(choice("*", "**"), $.identifier)),
+    generic_type: ($) => PREC(1, seq($.identifier, $.type_parameter)),
+    union_type: ($) => PREC.left(seq($.type, "|", $.type)),
+    constrained_type: ($) => PREC.right(seq($.type, ":", $.type)),
     member_type: ($) => seq($.type, ".", $.identifier),
 
     keyword_argument: ($) =>
@@ -1027,7 +1007,7 @@ export default grammar({
       ),
 
     _mlir_type: ($) =>
-      prec.left(
+      PREC.left(
         seq(
           optional(">"),
           choice(
@@ -1044,7 +1024,7 @@ export default grammar({
         ),
       ),
     _mlir_type_def: ($) =>
-      prec.left(
+      PREC.left(
         seq(
           optional(":"),
           choice(
@@ -1087,7 +1067,7 @@ export default grammar({
       seq($.for_in_clause, repeat(choice($.for_in_clause, $.if_clause))),
 
     parenthesized_expression: ($) =>
-      prec(
+      PREC(
         PREC.parenthesized_expression,
         seq("(", choice($.expression, $.yield), ")"),
       ),
@@ -1106,7 +1086,7 @@ export default grammar({
       ),
 
     for_in_clause: ($) =>
-      prec.left(
+      PREC.left(
         seq(
           optional("async"),
           "for",
@@ -1120,7 +1100,7 @@ export default grammar({
     if_clause: ($) => seq("if", $.expression),
 
     conditional_expression: ($) =>
-      prec.right(
+      PREC.right(
         PREC.conditional,
         seq($.expression, "if", $.expression, "else", $.expression),
       ),
@@ -1135,7 +1115,7 @@ export default grammar({
       ),
 
     string_content: ($) =>
-      prec.right(
+      PREC.right(
         repeat1(
           choice(
             $.escape_interpolation,
@@ -1161,7 +1141,7 @@ export default grammar({
 
     escape_sequence: (_) =>
       token.immediate(
-        prec(
+        PREC(
           1,
           seq(
             "\\",
@@ -1185,7 +1165,7 @@ export default grammar({
         ":",
         repeat(
           choice(
-            token(prec(1, /[^{}\n]+/)),
+            token(PREC(1, /[^{}\n]+/)),
             alias($.interpolation, $.format_expression),
           ),
         ),
@@ -1229,7 +1209,7 @@ export default grammar({
 
     keyword_identifier: ($) =>
       choice(
-        prec(
+        PREC(
           -3,
           alias(choice("print", "exec", "async", "await"), $.identifier),
         ),
@@ -1240,7 +1220,7 @@ export default grammar({
     false: (_) => "False",
     none: (_) => "None",
 
-    await: ($) => prec(PREC.unary, seq("await", $.primary_expression)),
+    await: ($) => PREC(PREC.unary, seq("await", $.primary_expression)),
 
     comment: (_) => token(seq("#", /.*/)),
 

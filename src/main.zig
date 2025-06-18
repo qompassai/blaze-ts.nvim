@@ -23,7 +23,6 @@ test "fuzz: input should not match 'canyoufindme'" {
             try std.testing.expect(!std.mem.eql(u8, "canyoufindme", input));
         }
     };
-    try std.testing.FuzzTarget.run(FuzzTarget.run);
+    try std.testing.FuzzTarget.run(FuzzTarget.run).testWithSeed(1234);
 }
-        .testWithSeed(1234);
-}
+

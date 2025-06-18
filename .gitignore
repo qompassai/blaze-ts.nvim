@@ -1,7 +1,7 @@
 /.zig-cache/
 /.nix/
-flake.nix
 shell.nix
+/node_modules/
 /lua/blaze-ts/tools/
 /result*
 /result-link*
