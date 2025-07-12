@@ -3,7 +3,7 @@ return {
   lazy = true,
   ft   = { "mojo", "🔥" },
   dependencies = {
-    "nvim-treesitter/nvim-treesitter",
+    'nvim-treesitter/nvim-treesitter',
     "nvim-lua/plenary.nvim",
   },
   cmd = {
@@ -17,7 +17,6 @@ return {
   opts = {
     parser = { auto_install = true },
     nvim_treesitter = {
-      ensure_installed = { "mojo" },
       highlight = { enable = true, additional_vim_regex_highlighting = false },
       indent    = { enable = true },
       incremental_selection = {
@@ -40,7 +39,7 @@ return {
               "src/scanner.c",
             },
             branch = "main",
-            requires_generate_from_grammar = false,
+            requires_generate_from_grammar = true,
           },
           filetype    = { "mojo", "🔥" },
           maintainers = { "@qompassai" },
@@ -48,14 +47,12 @@ return {
       },
     },
   },
-
   config = function(_, opts)
     local ok, treesitter = pcall(require, "nvim-treesitter.configs")
     if not ok then
       vim.notify("nvim-treesitter not available", vim.log.levels.WARN)
       return
     end
-
     if opts.nvim_treesitter and opts.nvim_treesitter.parser_config then
       local pcfg = require("nvim-treesitter.parsers").get_parser_configs()
       for lang, cfg in pairs(opts.nvim_treesitter.parser_config) do
