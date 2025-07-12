@@ -57,8 +57,8 @@ Used by the [`blaze.nvim`](https://github.com/qompassai/blaze.nvim) Neovim plugi
 ```lua
 -- 👉 For lazy.nvim
 return {
-"qompassai/blaze.nvim",
-"qompassai/blaze-ts.nvim",
+'qompassai/blaze.nvim',
+'qompassai/blaze-ts.nvim",
 }
 ```
 
