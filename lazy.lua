@@ -4,7 +4,7 @@ return {
   ft   = { "mojo", "🔥" },
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
-    "nvim-lua/plenary.nvim",
+    'nvim-lua/plenary.nvim',
   },
   cmd = {
     "BlazeHealth",
