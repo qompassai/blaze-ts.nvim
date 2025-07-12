@@ -22,9 +22,9 @@ const PREC = {
 const SEMICOLON = ";";
 const SELF = "self";
 export default grammar({
-	name: "mojo",
+  name: "mojo",
 
-   extras: ($) => [
+  extras: ($) => [
     $.comment,
     /[\s\f\uFEFF\u2060\u200B]|\r?\n/,
     $.line_continuation,
@@ -80,7 +80,7 @@ export default grammar({
 
   word: ($) => $.identifier,
 
-      rules: {
+  rules: {
     module: ($) => repeat($._statement),
 
     _statement: ($) => choice($._simple_statements, $._compound_statement),
@@ -151,7 +151,7 @@ export default grammar({
 
     print_statement: ($) =>
       choice(
-        PREC(
+        prec(
           1,
           seq(
             "print",
@@ -160,9 +160,9 @@ export default grammar({
             optional(","),
           ),
         ),
-        PREC(
+        prec(
           -3,
-          PREC.dynamic(
+          prec.dynamic(
             -1,
             seq(
               "print",
@@ -208,9 +208,9 @@ export default grammar({
         optional(seq("from", field("cause", $.expression))),
       ),
 
-    pass_statement: (_) => PREC.left("pass"),
-    break_statement: (_) => PREC.left("break"),
-    continue_statement: (_) => PREC.left("continue"),
+    pass_statement: (_) => prec.left("pass"),
+    break_statement: (_) => prec.left("break"),
+    continue_statement: (_) => prec.left("continue"),
 
     _compound_statement: ($) =>
       choice(
@@ -347,7 +347,7 @@ export default grammar({
         seq("(", commaSep1($.with_item), optional(","), ")"),
       ),
 
-    with_item: ($) => PREC.dynamic(1, seq(field("value", $.expression))),
+    with_item: ($) => prec.dynamic(1, seq(field("value", $.expression))),
 
     function_definition: ($) =>
       seq(
@@ -399,7 +399,7 @@ export default grammar({
       ),
 
     type_alias_statement: ($) =>
-      PREC.dynamic(1, seq("type", $.type, "=", $.type)),
+      prec.dynamic(1, seq("type", $.type, "=", $.type)),
 
     class_definition: ($) =>
       seq(
@@ -425,7 +425,7 @@ export default grammar({
       seq("(", optional(commaSep1($.identifier)), optional(","), ")"),
 
     parenthesized_list_splat: ($) =>
-      PREC(
+      prec(
         PREC.parenthesized_list_splat,
         seq(
           "(",
@@ -491,19 +491,17 @@ export default grammar({
     block: ($) => seq(repeat($._statement), $._dedent),
 
     expression_list: ($) =>
-      PREC.right(
+      prec.right(
         seq(
           $.expression,
           choice(",", seq(repeat1(seq(",", $.expression)), optional(","))),
         ),
       ),
 
-    dotted_name: ($) => PREC(1, sep1($.identifier, ".")),
-
-    // Match cases
+    dotted_name: ($) => prec(1, sep1($.identifier, ".")),
 
     case_pattern: ($) =>
-      PREC(
+      prec(
         1,
         choice(
           alias($._as_pattern, $.as_pattern),
@@ -513,7 +511,7 @@ export default grammar({
       ),
 
     _simple_pattern: ($) =>
-      PREC(
+      prec(
         1,
         choice(
           $.class_pattern,
@@ -537,8 +535,8 @@ export default grammar({
     _as_pattern: ($) => seq($.case_pattern, "as", $.identifier),
 
     union_pattern: ($) =>
-      PREC.right(
-        seq($._simple_pattern, repeat1(PREC.left(seq("|", $._simple_pattern)))),
+      prec.right(
+        seq($._simple_pattern, repeat1(prec.left(seq("|", $._simple_pattern)))),
       ),
 
     _list_pattern: ($) =>
@@ -565,7 +563,7 @@ export default grammar({
     keyword_pattern: ($) => seq($.identifier, "=", $._simple_pattern),
 
     splat_pattern: ($) =>
-      PREC(1, seq(choice("*", "**"), choice($.identifier, "_"))),
+      prec(1, seq(choice("*", "**"), choice($.identifier, "_"))),
 
     class_pattern: ($) =>
       seq(
@@ -576,7 +574,7 @@ export default grammar({
       ),
 
     complex_pattern: ($) =>
-      PREC(
+      prec(
         1,
         seq(
           optional("-"),
@@ -636,7 +634,7 @@ export default grammar({
     self_parameter: ($) => seq(optional($.argument_convention), SELF),
 
     typed_parameter: ($) =>
-      PREC(
+      prec(
         PREC.typed_parameter,
         seq(
           choice(
@@ -657,7 +655,7 @@ export default grammar({
       ),
 
     typed_default_parameter: ($) =>
-      PREC(
+      prec(
         PREC.typed_parameter,
         seq(
           field("name", $.identifier),
@@ -681,7 +679,7 @@ export default grammar({
       ),
 
     as_pattern: ($) =>
-      PREC.left(
+      prec.left(
         seq(
           $.expression,
           "as",
@@ -719,7 +717,7 @@ export default grammar({
         $.none,
         $.unary_operator,
         $.attribute,
-        choice(PREC.dynamic(-1, $.subscript), PREC.dynamic(1, $.call)),
+        choice(prec.dynamic(-1, $.subscript), prec.dynamic(1, $.call)),
         $.list,
         $.list_comprehension,
         $.dictionary,
@@ -735,11 +733,11 @@ export default grammar({
       ),
 
     not_operator: ($) =>
-      PREC(PREC.not, seq("not", field("argument", $.expression))),
+      prec(PREC.not, seq("not", field("argument", $.expression))),
 
     boolean_operator: ($) =>
       choice(
-        PREC.left(
+        prec.left(
           PREC.and,
           seq(
             field("left", $.expression),
@@ -747,7 +745,7 @@ export default grammar({
             field("right", $.expression),
           ),
         ),
-        PREC.left(
+        prec.left(
           PREC.or,
           seq(
             field("left", $.expression),
@@ -757,31 +755,29 @@ export default grammar({
         ),
       ),
 
-    binary_operator: ($) => {
+    binary_operator: $ => {
       const table = [
-        [PREC.left, "+", PREC.plus],
-        [PREC.left, "-", PREC.plus],
-        [PREC.left, "*", PREC.times],
-        [PREC.left, "@", PREC.times],
-        [PREC.left, "/", PREC.times],
-        [PREC.left, "%", PREC.times],
-        [PREC.left, "//", PREC.times],
-        [PREC.right, "**", PREC.power],
-        [PREC.left, "|", PREC.bitwise_or],
-        [PREC.left, "&", PREC.bitwise_and],
-        [PREC.left, "^", PREC.xor],
-        [PREC.left, "<<", PREC.shift],
-        [PREC.left, ">>", PREC.shift],
+        [prec.left, "+", PREC.plus],
+        [prec.left, "-", PREC.plus],
+        [prec.left, "*", PREC.times],
+        [prec.left, "@", PREC.times],
+        [prec.left, "/", PREC.times],
+        [prec.left, "%", PREC.times],
+        [prec.left, "//", PREC.times],
+        [prec.right, "**", PREC.power],
+        [prec.left, "|", PREC.bitwise_or],
+        [prec.left, "&", PREC.bitwise_and],
+        [prec.left, "^", PREC.xor],
+        [prec.left, "<<", PREC.shift],
+        [prec.left, ">>", PREC.shift],
       ];
 
-      // @ts-ignore
       return choice(
         ...table.map(([fn, operator, precedence]) =>
           fn(
             precedence,
             seq(
               field("left", $.primary_expression),
-              // @ts-ignore
               field("operator", operator),
               field("right", $.primary_expression),
             ),
@@ -789,9 +785,8 @@ export default grammar({
         ),
       );
     },
-
     unary_operator: ($) =>
-      PREC(
+      prec(
         PREC.unary,
         seq(
           field("operator", choice("+", "-", "~")),
@@ -804,7 +799,7 @@ export default grammar({
     _is_not: (_) => seq("is", "not"),
 
     comparison_operator: ($) =>
-      PREC.left(
+      prec.left(
         PREC.compare,
         seq(
           $.primary_expression,
@@ -833,7 +828,7 @@ export default grammar({
       ),
 
     lambda: ($) =>
-      PREC(
+      prec(
         PREC.lambda,
         seq(
           "lambda",
@@ -910,7 +905,7 @@ export default grammar({
       ),
 
     yield: ($) =>
-      PREC.right(
+      prec.right(
         seq(
           "yield",
           choice(seq("from", $.expression), optional($._expressions)),
@@ -918,7 +913,7 @@ export default grammar({
       ),
 
     attribute: ($) =>
-      PREC(
+      prec(
         PREC.call,
         seq(
           field("object", $.primary_expression),
@@ -931,7 +926,7 @@ export default grammar({
       ),
 
     subscript: ($) =>
-      PREC(
+      prec(
         PREC.call,
         seq(
           field("value", $.primary_expression),
@@ -953,7 +948,7 @@ export default grammar({
     ellipsis: (_) => "...",
 
     call: ($) =>
-      PREC(
+      prec(
         PREC.call,
         seq(
           field("function", $.primary_expression),
@@ -971,10 +966,10 @@ export default grammar({
         $.constrained_type,
         $.member_type,
       ),
-    splat_type: ($) => PREC(1, seq(choice("*", "**"), $.identifier)),
-    generic_type: ($) => PREC(1, seq($.identifier, $.type_parameter)),
-    union_type: ($) => PREC.left(seq($.type, "|", $.type)),
-    constrained_type: ($) => PREC.right(seq($.type, ":", $.type)),
+    splat_type: ($) => prec(1, seq(choice("*", "**"), $.identifier)),
+    generic_type: ($) => prec(1, seq($.identifier, $.type_parameter)),
+    union_type: ($) => prec.left(seq($.type, "|", $.type)),
+    constrained_type: ($) => prec.right(seq($.type, ":", $.type)),
     member_type: ($) => seq($.type, ".", $.identifier),
 
     keyword_argument: ($) =>
@@ -1007,7 +1002,7 @@ export default grammar({
       ),
 
     _mlir_type: ($) =>
-      PREC.left(
+      prec.left(
         seq(
           optional(">"),
           choice(
@@ -1024,7 +1019,7 @@ export default grammar({
         ),
       ),
     _mlir_type_def: ($) =>
-      PREC.left(
+      prec.left(
         seq(
           optional(":"),
           choice(
@@ -1067,7 +1062,7 @@ export default grammar({
       seq($.for_in_clause, repeat(choice($.for_in_clause, $.if_clause))),
 
     parenthesized_expression: ($) =>
-      PREC(
+      prec(
         PREC.parenthesized_expression,
         seq("(", choice($.expression, $.yield), ")"),
       ),
@@ -1086,7 +1081,7 @@ export default grammar({
       ),
 
     for_in_clause: ($) =>
-      PREC.left(
+      prec.left(
         seq(
           optional("async"),
           "for",
@@ -1100,7 +1095,7 @@ export default grammar({
     if_clause: ($) => seq("if", $.expression),
 
     conditional_expression: ($) =>
-      PREC.right(
+      prec.right(
         PREC.conditional,
         seq($.expression, "if", $.expression, "else", $.expression),
       ),
@@ -1115,7 +1110,7 @@ export default grammar({
       ),
 
     string_content: ($) =>
-      PREC.right(
+      prec.right(
         repeat1(
           choice(
             $.escape_interpolation,
@@ -1141,7 +1136,7 @@ export default grammar({
 
     escape_sequence: (_) =>
       token.immediate(
-        PREC(
+        prec(
           1,
           seq(
             "\\",
@@ -1165,7 +1160,7 @@ export default grammar({
         ":",
         repeat(
           choice(
-            token(PREC(1, /[^{}\n]+/)),
+            token(prec(1, /[^{}\n]+/)),
             alias($.interpolation, $.format_expression),
           ),
         ),
@@ -1209,7 +1204,7 @@ export default grammar({
 
     keyword_identifier: ($) =>
       choice(
-        PREC(
+        prec(
           -3,
           alias(choice("print", "exec", "async", "await"), $.identifier),
         ),
@@ -1220,7 +1215,7 @@ export default grammar({
     false: (_) => "False",
     none: (_) => "None",
 
-    await: ($) => PREC(PREC.unary, seq("await", $.primary_expression)),
+    await: ($) => prec(PREC.unary, seq("await", $.primary_expression)),
 
     comment: (_) => token(seq("#", /.*/)),
 
@@ -1256,4 +1251,4 @@ function commaSep1(rule) {
 function sep1(rule, separator) {
   return seq(rule, repeat(seq(separator, rule)));
 }
-	
+
