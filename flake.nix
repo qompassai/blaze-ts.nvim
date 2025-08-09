@@ -8,9 +8,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     tree-sitter.url = "github:tree-sitter/tree-sitter";
-    blaze-ts.url = "github:qompassai/blaze-ts.nvim?ref=main";
   };
-  outputs = { self, nixpkgs, flake-utils, tree-sitter, blaze-ts }:
+  outputs = { self, nixpkgs, flake-utils, tree-sitter, ... }:
     flake-utils.lib.eachSystem [
       "x86_64-linux"
       "aarch64-linux"
@@ -135,7 +134,6 @@
           vimPlugins = prev.vimPlugins // {
             blaze-ts = prev.vimPlugins.buildVimPlugin {
               name = "blaze-ts.nvim";
-              src = blaze-ts;
             };
           };
         };
