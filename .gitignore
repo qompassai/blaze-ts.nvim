@@ -1,6 +1,7 @@
 /.zig-cache/
 /.nix/
 shell.nix
+/.forge/
 /node_modules/
 /lua/blaze-ts/tools/
 /result*

@@ -1,16 +1,15 @@
 #  /qompassai/blaze-ts.nvim/flake.nix
+# Qompass AI Blaze-TS Nix Flake
 # Copyright (C) 2025 Qompass AI, All rights reserved
-#
+#####################################################
 {
   description = " Blaze-ts.nvim: A 🔥 Tree-Sitter parser for Mojo";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     tree-sitter.url = "github:tree-sitter/tree-sitter";
     blaze-ts.url = "github:qompassai/blaze-ts.nvim?ref=main";
   };
-
   outputs = { self, nixpkgs, flake-utils, tree-sitter, blaze-ts }:
     flake-utils.lib.eachSystem [
       "x86_64-linux"
@@ -24,9 +23,7 @@
           inherit system;
           overlays = [ tree-sitter.overlays.default ];
         };
-
         nodeEnv = pkgs.nodePackages_latest;
-
         mojo-parser = pkgs.tree-sitter.buildGrammar {
           language = "mojo";
           version = "0.1.0";
@@ -109,14 +106,12 @@
             knownVulnerabilities = [ ];
           };
         };
-
       in
       {
         packages = {
           default = mojo-parser;
           mojo = mojo-parser;
         };
-
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs
@@ -126,7 +121,6 @@
             pkgs.pkgsCross.mingw32.buildPackages.gcc
           ];
         };
-
         checks = {
           build = mojo-parser;
           test = pkgs.runCommand "test-mojo-parser" { } ''
