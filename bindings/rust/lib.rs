@@ -1,3 +1,14 @@
+// -------------------------------------------------------------------------------
+// /qompassai/blaze-ts.nvim/bindings/rust/lib.rs
+// Qompass AI Rust binding for the Mojo grammar
+// SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 Qompass AI
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+// use this file except in compliance with the License. You may obtain a copy
+// of the License at http://www.apache.org/licenses/LICENSE-2.0
+// -------------------------------------------------------------------------------
+
 //! This crate provides Mojo language support for the [tree-sitter][] parsing library.
 //!
 //! Typically, you will use the [LANGUAGE][] constant to add this language to a
@@ -34,12 +45,11 @@ pub const LANGUAGE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_mojo)
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers/6-static-node-types
 pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
 
-// NOTE: uncomment these to include any queries that this grammar contains:
+/// The highlight query shipped with this grammar.
+pub const HIGHLIGHTS_QUERY: &str = include_str!("../../runtime/queries/mojo/highlights.scm");
 
-// pub const HIGHLIGHTS_QUERY: &str = include_str!("../../queries/highlights.scm");
-// pub const INJECTIONS_QUERY: &str = include_str!("../../queries/injections.scm");
-// pub const LOCALS_QUERY: &str = include_str!("../../queries/locals.scm");
-// pub const TAGS_QUERY: &str = include_str!("../../queries/tags.scm");
+/// The locals query shipped with this grammar.
+pub const LOCALS_QUERY: &str = include_str!("../../runtime/queries/mojo/locals.scm");
 
 #[cfg(test)]
 mod tests {

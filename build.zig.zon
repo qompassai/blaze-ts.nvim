@@ -1,39 +1,28 @@
-// qompassai/blaze-ts.nvim/build.zig.zon
-// blaze-ts zig object notation (zon)
-// Copyright (C) 2025 Qompass AI, All rights reserved
+// -------------------------------------------------------------------------------
+// /qompassai/blaze-ts.nvim/build.zig.zon
+// Qompass AI Zig package manifest
+// SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 Qompass AI
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+// use this file except in compliance with the License. You may obtain a copy
+// of the License at http://www.apache.org/licenses/LICENSE-2.0
+// -------------------------------------------------------------------------------
+
 .{
     .name = .blaze_ts_nvim,
+    .version = "0.1.1",
     .fingerprint = 0x852bfba24b360a44,
-    .version = "0.1.0",
-    .minimum_zig_version = "0.14.0",
-
-    .dependencies = .{
-        .tree_sitter = .{
-            .url = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.24.1.tar.gz",
-            .hash = "10s6dbjrvlifrzcpvhxmh9m55wzvz0ys3ac0r7yz9i62nfrmpnvs",
-        },
-
-        .zts = .{
-            .url = "git+https://github.com/lfcm64/z-tree-sitter#90c687ce0c00cd9585cda5c529e3675380357029",
-            .hash = "zts-0.1.0-AAAAACKnAABeUKXcwClAUA7YT6A3UqXg54WfvRbBfbAV",
-        },
-
-        .tree_sitter_mojo = .{
-            .path = "src",
-        },
-    },
-
+    .minimum_zig_version = "0.16.0",
+    .dependencies = .{},
     .paths = .{
-        "bindings",
         "build.zig",
         "build.zig.zon",
-        "CITATION.*",
-        "grammar.js",
-        "LICENSE-*",
-        "parser/mojo.so",
-        "README.md",
-        "queries/mojo/*.scm",
-        "src/scanner.c",
+        "src/grammar.json",
+        "src/node-types.json",
         "src/parser.c",
+        "src/root.zig",
+        "src/scanner.c",
+        "src/tree_sitter",
     },
 }

@@ -1,33 +1,33 @@
-[build-dependencies]
-cc = "1.0"
-tree-sitter-cli = "0.20.8"
+# -------------------------------------------------------------------------------
+# /qompassai/blaze-ts.nvim/Cargo.toml
+# Qompass AI Rust crate manifest
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Qompass AI
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+# -------------------------------------------------------------------------------
+
+[package]
+name = "tree-sitter-mojo"
+version = "0.1.1"
+description = "Mojo grammar for tree-sitter"
+authors = ["Matt A. Porter <map@qompass.ai>"]
+license = "Apache-2.0"
+edition = "2021"
+readme = "README.md"
+keywords = ["incremental", "parsing", "tree-sitter", "mojo"]
+categories = ["parsing", "text-editors"]
+
+[lib]
+path = "bindings/rust/lib.rs"
 
 [dependencies]
 tree-sitter-language = "0.1"
-pixi = { git = "https://github.com/prefix-dev/pixi.git", rev = "d0146fba19d7e77d5ce04beb7896863c91707091" }
-cargo-zigbuild = "0.16.0"
+
+[build-dependencies]
+cc = "1.2"
 
 [dev-dependencies]
-tree-sitter-test = "0.1"
 tree-sitter = "0.25"
-
-[features]
-
-[lib]
-path = "blaze/bindings/lib.rs"
-crate-type = ["cdylib"]
-
-[package]
-name = "blaze_ts_nvim"
-version = "0.1.1"
-authors = ["Matt A. Porter <map@qompass.ai>"]
-edition = "2024"
-license = "AGPL-3.0-or-later AND LicenseRef-Q-CDA"
-readme = "README.md"
-keywords = ["incremental", "parsing", "tree-sitter", "rust"]
-categories = ["parsing", "text-editors"]
-
-[profile.release]
-opt-level = 3
-lto = true
-debug = false

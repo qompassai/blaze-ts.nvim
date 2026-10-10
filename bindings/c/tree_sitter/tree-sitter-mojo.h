@@ -1,3 +1,14 @@
+// -------------------------------------------------------------------------------
+// /qompassai/blaze-ts.nvim/bindings/c/tree_sitter/tree-sitter-mojo.h
+// Qompass AI C header for the Mojo grammar
+// SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 Qompass AI
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+// use this file except in compliance with the License. You may obtain a copy
+// of the License at http://www.apache.org/licenses/LICENSE-2.0
+// -------------------------------------------------------------------------------
+
 #ifndef TREE_SITTER_MOJO_H_
 #define TREE_SITTER_MOJO_H_
 

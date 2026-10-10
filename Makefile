@@ -1,3 +1,14 @@
+# -------------------------------------------------------------------------------
+# /qompassai/blaze-ts.nvim/Makefile
+# Qompass AI Build rules for the Mojo parser
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Qompass AI
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+# -------------------------------------------------------------------------------
+
 TREE_SITTER_INCLUDE = $(shell tree-sitter init-config && tree-sitter parse 2>/dev/null || echo ~/.node_modules/tree-sitter/lib/include)
 ifeq ($(OS),Windows_NT)
 $(error Windows is not supported)
@@ -5,7 +16,7 @@ endif
 
 LANGUAGE_NAME := mojo
 HOMEPAGE_URL := https://github.com/qompassai/blaze-ts.nvim
-VERSION := 0.1.0
+VERSION := 0.1.1
 BUILD_DIR := build
 PARSER_NAME := $(LANGUAGE_NAME).so
 PARSER_PATH := $(BUILD_DIR)/$(PARSER_NAME)
@@ -27,7 +38,7 @@ $(PARSER_PATH): $(SRC_DIR)/parser.c $(SCANNER_FILE)
 
 $(SRC_DIR)/parser.c: $(GRAMMAR_FILE)
 	@mkdir -p $(SRC_DIR)
-	$(NODE) ./node_modules/.bin/tree-sitter generate $(GRAMMAR_FILE)
+	$(TS) generate $(GRAMMAR_FILE)
 
 $(SRC_DIR)/node-types.json: $(SRC_DIR)/parser.c
 

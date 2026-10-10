@@ -1,67 +1,48 @@
-// /qompassai/blze-ts.nvim/build.zig
-// blaze-ts.nvim zig build
-// Copyright (C) 2025 Qompass AI, All rights reserved
+// -------------------------------------------------------------------------------
+// /qompassai/blaze-ts.nvim/build.zig
+// Qompass AI Zig build script
+// SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 Qompass AI
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not
+// use this file except in compliance with the License. You may obtain a copy
+// of the License at http://www.apache.org/licenses/LICENSE-2.0
+// -------------------------------------------------------------------------------
 
 const std = @import("std");
+
+/// Build the Mojo tree-sitter parser as a static library from its C sources,
+/// and test the Zig binding that exposes the language symbol.
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const zts_pkg = b.dependency("zts", .{ .target = target, .optimize = optimize });
+    const parser_mod = b.createModule(.{
+        .target = target,
+        .optimize = optimize,
+        .link_libc = true,
+    });
+    parser_mod.addCSourceFiles(.{
+        .files = &.{ "src/parser.c", "src/scanner.c" },
+        .flags = &.{"-std=c11"},
+    });
+    parser_mod.addIncludePath(b.path("src"));
 
-    const lib_mod = b.addModule("blaze_ts", .{
+    const lib = b.addLibrary(.{
+        .name = "tree-sitter-mojo",
+        .linkage = .static,
+        .root_module = parser_mod,
+    });
+    b.installArtifact(lib);
+
+    const binding_mod = b.createModule(.{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
     });
+    binding_mod.linkLibrary(lib);
 
-    const exe_mod = b.addModule("blaze_ts_cli", .{
-        .root_source_file = b.path("src/main.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    exe_mod.addImport("blaze_ts_nvim", lib_mod);
-    exe_mod.addImport("zts", zts_pkg.module("zts"));
-
-    const lib = b.addStaticLibrary(.{
-        .name = "blaze_ts_nvim",
-        .root_module = lib_mod,
-        .target = target,
-        .optimize = optimize,
-    });
-    b.installArtifact(lib);
-
-    const exe = b.addExecutable(.{
-        .name = "blaze_ts_nvim",
-        .root_module = exe_mod,
-        .target = target,
-        .optimize = optimize,
-    });
-    b.installArtifact(exe);
-
-    const run_cmd = b.addRunArtifact(exe);
-    if (b.args) |cli_args| run_cmd.addArgs(cli_args);
-    const run_step = b.step("run", "Run example CLI");
-    run_step.dependOn(&run_cmd.step);
-
-    const wasm_target = b.resolveTargetQuery(.{ .cpu_arch = .wasm32, .os_tag = .freestanding });
-    const wasm = b.addSharedLibrary(.{
-        .name = .blaze_ts_nvim,
-        .root_source_file = .{ .path = "src/parser.c" },
-        .target = wasm_target,
-        .optimize = optimize,
-    });
-    wasm.addCSourceFile(.{ .file = .{ .path = "src/parser.c" }, .flags = &[_][]const u8{"-std=c99"} });
-    if (std.fs.cwd().openFile("src/scanner.c", .{}) catch null) |f| {
-        defer f.close();
-        wasm.addCSourceFile(.{ .file = .{ .path = "src/scanner.c" }, .flags = &[_][]const u8{"-std=c99"} });
-    }
-    wasm.linkLibC();
-    b.installArtifact(wasm);
-
-    const lib_tests = b.addTest(.{ .root_module = lib_mod, .target = target, .optimize = optimize });
-    const exe_tests = b.addTest(.{ .root_module = exe_mod, .target = target, .optimize = optimize });
-    const test_step = b.step("test", "Run all unit tests");
-    test_step.dependOn(&b.addRunArtifact(lib_tests).step);
-    test_step.dependOn(&b.addRunArtifact(exe_tests).step);
+    const binding_tests = b.addTest(.{ .root_module = binding_mod });
+    const run_binding_tests = b.addRunArtifact(binding_tests);
+    b.step("test", "Run the Zig binding test").dependOn(&run_binding_tests.step);
 }
