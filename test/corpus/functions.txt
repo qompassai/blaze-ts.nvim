@@ -1,0 +1,149 @@
+================================================================================
+Function definition with fn and typed parameters
+================================================================================
+
+fn add(a: Int, b: Int) -> Int:
+    return a + b
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier)))
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (binary_operator
+          (identifier)
+          (identifier))))))
+
+================================================================================
+Function with raises and no return type
+================================================================================
+
+fn risky() raises:
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (pass_statement))))
+
+================================================================================
+Function with raises and return type
+================================================================================
+
+fn load(path: String) raises -> String:
+    return path
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (identifier)))))
+
+================================================================================
+Python-style def with default parameter
+================================================================================
+
+def greet(name, greeting="Hello"):
+    print(greeting, name)
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (identifier)
+      (default_parameter
+        (identifier)
+        (string
+          (string_start)
+          (string_content)
+          (string_end))))
+    (block
+      (expression_statement
+        (call
+          (identifier)
+          (argument_list
+            (identifier)
+            (identifier)))))))
+
+================================================================================
+Method with self conventions and generic struct context
+================================================================================
+
+struct Buffer:
+    fn __init__(out self, size: Int):
+        self.size = size
+
+    fn read[origin: Origin](ref self) -> String:
+        return "data"
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (block
+      (function_definition
+        (identifier)
+        (parameters
+          (self_parameter
+            (argument_convention))
+          (typed_parameter
+            (identifier)
+            (type
+              (identifier))))
+        (block
+          (expression_statement
+            (assignment
+              (attribute
+                (identifier)
+                (identifier))
+              (identifier)))))
+      (function_definition
+        (identifier)
+        (type_parameter
+          (type
+            (constrained_type
+              (type
+                (identifier))
+              (type
+                (identifier)))))
+        (parameters
+          (self_parameter
+            (argument_convention)))
+        (type
+          (identifier))
+        (block
+          (return_statement
+            (string
+              (string_start)
+              (string_content)
+              (string_end))))))))

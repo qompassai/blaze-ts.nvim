@@ -1,0 +1,133 @@
+================================================================================
+Struct with type parameters and fields
+================================================================================
+
+struct Pair[T: AnyType]:
+    var first: T
+    var second: T
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (block
+      (expression_statement
+        (assignment
+          (identifier)
+          (type
+            (identifier))))
+      (expression_statement
+        (assignment
+          (identifier)
+          (type
+            (identifier)))))))
+
+================================================================================
+Trait definition
+================================================================================
+
+trait Greeter:
+    fn greet(self) -> String:
+        ...
+
+--------------------------------------------------------------------------------
+
+(module
+  (trait_definition
+    (identifier)
+    (block
+      (function_definition
+        (identifier)
+        (parameters
+          (self_parameter))
+        (type
+          (identifier))
+        (block
+          (expression_statement
+            (ellipsis)))))))
+
+================================================================================
+Class with superclass and decorator
+================================================================================
+
+@value
+struct Point:
+    var x: Float64
+    var y: Float64
+
+class Child(Base):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (decorated_definition
+    (decorator
+      (identifier))
+    (class_definition
+      (identifier)
+      (block
+        (expression_statement
+          (assignment
+            (identifier)
+            (type
+              (identifier))))
+        (expression_statement
+          (assignment
+            (identifier)
+            (type
+              (identifier)))))))
+  (class_definition
+    (identifier)
+    (argument_list
+      (identifier))
+    (block
+      (pass_statement))))
+
+================================================================================
+Match statement
+================================================================================
+
+match value:
+    case 0:
+        print("zero")
+    case _:
+        print("other")
+
+--------------------------------------------------------------------------------
+
+(module
+  (match_statement
+    (identifier)
+    (block
+      (case_clause
+        (case_pattern
+          (integer))
+        (block
+          (expression_statement
+            (call
+              (identifier)
+              (argument_list
+                (string
+                  (string_start)
+                  (string_content)
+                  (string_end)))))))
+      (case_clause
+        (case_pattern)
+        (block
+          (expression_statement
+            (call
+              (identifier)
+              (argument_list
+                (string
+                  (string_start)
+                  (string_content)
+                  (string_end))))))))))

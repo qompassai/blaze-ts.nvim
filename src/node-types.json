@@ -3514,10 +3514,6 @@
     }
   },
   {
-    "type": " ",
-    "named": false
-  },
-  {
     "type": "!",
     "named": false
   },
@@ -3876,6 +3872,10 @@
   },
   {
     "type": "lambda",
+    "named": false
+  },
+  {
+    "type": "let",
     "named": false
   },
   {

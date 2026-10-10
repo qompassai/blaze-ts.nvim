@@ -1,0 +1,253 @@
+================================================================================
+If elif else
+================================================================================
+
+if x > 0:
+    print("positive")
+elif x == 0:
+    print("zero")
+else:
+    print("negative")
+
+--------------------------------------------------------------------------------
+
+(module
+  (if_statement
+    (comparison_operator
+      (identifier)
+      (integer))
+    (block
+      (expression_statement
+        (call
+          (identifier)
+          (argument_list
+            (string
+              (string_start)
+              (string_content)
+              (string_end))))))
+    (elif_clause
+      (comparison_operator
+        (identifier)
+        (integer))
+      (block
+        (expression_statement
+          (call
+            (identifier)
+            (argument_list
+              (string
+                (string_start)
+                (string_content)
+                (string_end)))))))
+    (else_clause
+      (block
+        (expression_statement
+          (call
+            (identifier)
+            (argument_list
+              (string
+                (string_start)
+                (string_content)
+                (string_end)))))))))
+
+================================================================================
+For and while loops with else
+================================================================================
+
+for i in range(10):
+    total += i
+else:
+    print("done")
+
+while total > 100:
+    total -= 10
+
+--------------------------------------------------------------------------------
+
+(module
+  (for_statement
+    (identifier)
+    (call
+      (identifier)
+      (argument_list
+        (integer)))
+    (block
+      (expression_statement
+        (augmented_assignment
+          (identifier)
+          (identifier))))
+    (else_clause
+      (block
+        (expression_statement
+          (call
+            (identifier)
+            (argument_list
+              (string
+                (string_start)
+                (string_content)
+                (string_end))))))))
+  (while_statement
+    (comparison_operator
+      (identifier)
+      (integer))
+    (block
+      (expression_statement
+        (augmented_assignment
+          (identifier)
+          (integer))))))
+
+================================================================================
+Try except finally
+================================================================================
+
+try:
+    raise Error("boom")
+except e:
+    print(e)
+finally:
+    print("cleanup")
+
+--------------------------------------------------------------------------------
+
+(module
+  (try_statement
+    (block
+      (raise_statement
+        (call
+          (identifier)
+          (argument_list
+            (string
+              (string_start)
+              (string_content)
+              (string_end))))))
+    (except_clause
+      (identifier)
+      (block
+        (expression_statement
+          (call
+            (identifier)
+            (argument_list
+              (identifier))))))
+    (finally_clause
+      (block
+        (expression_statement
+          (call
+            (identifier)
+            (argument_list
+              (string
+                (string_start)
+                (string_content)
+                (string_end)))))))))
+
+================================================================================
+With statement and imports
+================================================================================
+
+import std.math
+from collections import List
+
+with open("data.txt") as f:
+    content = f.read()
+
+--------------------------------------------------------------------------------
+
+(module
+  (import_statement
+    (dotted_name
+      (identifier)
+      (identifier)))
+  (import_from_statement
+    (dotted_name
+      (identifier))
+    (dotted_name
+      (identifier)))
+  (with_statement
+    (with_clause
+      (with_item
+        (as_pattern
+          (call
+            (identifier)
+            (argument_list
+              (string
+                (string_start)
+                (string_content)
+                (string_end))))
+          (as_pattern_target
+            (identifier)))))
+    (block
+      (expression_statement
+        (assignment
+          (identifier)
+          (call
+            (attribute
+              (identifier)
+              (identifier))
+            (argument_list)))))))
+
+================================================================================
+Declarations and assignments
+================================================================================
+
+alias MAX_SIZE = 1024
+var counter: Int = 0
+var name: String
+let immutable = 42
+counter += 1
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (integer)))
+  (expression_statement
+    (assignment
+      (identifier)
+      (type
+        (identifier))
+      (integer)))
+  (expression_statement
+    (assignment
+      (identifier)
+      (type
+        (identifier))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (integer)))
+  (expression_statement
+    (augmented_assignment
+      (identifier)
+      (integer))))
+
+================================================================================
+Comments and blank lines around blocks
+================================================================================
+
+# leading comment
+fn f():
+    # inner comment
+    return 1  # trailing comment
+
+# after comment
+x = f()
+
+--------------------------------------------------------------------------------
+
+(module
+  (comment)
+  (function_definition
+    (identifier)
+    (parameters)
+    (comment)
+    (block
+      (return_statement
+        (integer))
+      (comment)))
+  (comment)
+  (expression_statement
+    (assignment
+      (identifier)
+      (call
+        (identifier)
+        (argument_list)))))

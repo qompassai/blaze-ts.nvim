@@ -1707,55 +1707,62 @@
                   "type": "CHOICE",
                   "members": [
                     {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "CHOICE",
-                          "members": [
-                            {
-                              "type": "STRING",
-                              "value": "raises"
-                            },
-                            {
-                              "type": "STRING",
-                              "value": "capturing"
-                            },
-                            {
-                              "type": "STRING",
-                              "value": "escaping"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "REPEAT",
-                          "content": {
-                            "type": "SEQ",
-                            "members": [
-                              {
-                                "type": "STRING",
-                                "value": " "
-                              },
-                              {
-                                "type": "CHOICE",
-                                "members": [
-                                  {
-                                    "type": "STRING",
-                                    "value": "raises"
-                                  },
-                                  {
-                                    "type": "STRING",
-                                    "value": "capturing"
-                                  },
-                                  {
-                                    "type": "STRING",
-                                    "value": "escaping"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      ]
+                      "type": "STRING",
+                      "value": "raises"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "capturing"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "escaping"
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "raises"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "capturing"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "escaping"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "->"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_ref_convention"
                     },
                     {
                       "type": "BLANK"
@@ -1763,33 +1770,12 @@
                   ]
                 },
                 {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "->"
-                    },
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_ref_convention"
-                        },
-                        {
-                          "type": "BLANK"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "FIELD",
-                      "name": "return_type",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "type"
-                      }
-                    }
-                  ]
+                  "type": "FIELD",
+                  "name": "return_type",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "type"
+                  }
                 }
               ]
             },
@@ -3584,6 +3570,10 @@
           "value": "mut"
         },
         {
+          "type": "STRING",
+          "value": "ref"
+        },
+        {
           "type": "SYMBOL",
           "name": "_ref_convention"
         }
@@ -4784,6 +4774,10 @@
                 {
                   "type": "STRING",
                   "value": "var"
+                },
+                {
+                  "type": "STRING",
+                  "value": "let"
                 },
                 {
                   "type": "STRING",

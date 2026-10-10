@@ -1,0 +1,146 @@
+================================================================================
+Plain strings and concatenation
+================================================================================
+
+a = "hello"
+b = 'world'
+c = "hello " + "world"
+d = "part1" "part2"
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content)
+        (string_end))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content)
+        (string_end))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (binary_operator
+        (string
+          (string_start)
+          (string_content)
+          (string_end))
+        (string
+          (string_start)
+          (string_content)
+          (string_end)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (concatenated_string
+        (string
+          (string_start)
+          (string_content)
+          (string_end))
+        (string
+          (string_start)
+          (string_content)
+          (string_end))))))
+
+================================================================================
+F-string with interpolation and format specifier
+================================================================================
+
+msg = f"answer: {total}"
+wide = f"value: {x:>10.2f}"
+literal = f"braces {{here}}"
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content)
+        (interpolation
+          (identifier))
+        (string_end))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content)
+        (interpolation
+          (identifier)
+          (format_specifier))
+        (string_end))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content
+          (escape_interpolation)
+          (escape_interpolation))
+        (string_end)))))
+
+================================================================================
+Triple-quoted and raw strings
+================================================================================
+
+doc = """multi
+line"""
+raw = r"no \n escape"
+single = 'it\'s'
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content)
+        (string_end))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content)
+        (string_end))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content
+          (escape_sequence))
+        (string_end)))))
+
+================================================================================
+String escapes
+================================================================================
+
+s = "tab\tnewline\nquote\"backslash\\"
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (string
+        (string_start)
+        (string_content
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence))
+        (string_end)))))

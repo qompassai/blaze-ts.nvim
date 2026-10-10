@@ -1,0 +1,139 @@
+================================================================================
+Calls subscripts and attributes
+================================================================================
+
+result = obj.method(arg1, key=value)[0]
+items = [1, 2, 3]
+mapping = {"a": 1, "b": 2}
+pair = (1, 2)
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (subscript
+        (call
+          (attribute
+            (identifier)
+            (identifier))
+          (argument_list
+            (identifier)
+            (keyword_argument
+              (identifier)
+              (identifier))))
+        (integer))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (list
+        (integer)
+        (integer)
+        (integer))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (dictionary
+        (pair
+          (string
+            (string_start)
+            (string_content)
+            (string_end))
+          (integer))
+        (pair
+          (string
+            (string_start)
+            (string_content)
+            (string_end))
+          (integer)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (tuple
+        (integer)
+        (integer)))))
+
+================================================================================
+Operators and conditional expression
+================================================================================
+
+value = a + b * 2 - c / 4
+check = x > 0 and y < 10 or not z
+sign = 1 if x >= 0 else -1
+power = base ** 2
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (binary_operator
+        (binary_operator
+          (identifier)
+          (binary_operator
+            (identifier)
+            (integer)))
+        (binary_operator
+          (identifier)
+          (integer)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (boolean_operator
+        (boolean_operator
+          (comparison_operator
+            (identifier)
+            (integer))
+          (comparison_operator
+            (identifier)
+            (integer)))
+        (not_operator
+          (identifier)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (conditional_expression
+        (integer)
+        (comparison_operator
+          (identifier)
+          (integer))
+        (unary_operator
+          (integer)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (binary_operator
+        (identifier)
+        (integer)))))
+
+================================================================================
+Lambda and comprehension-free expressions
+================================================================================
+
+f = lambda v: v * 2
+squares = [n * n for n in nums]
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (lambda
+        (lambda_parameters
+          (identifier))
+        (binary_operator
+          (identifier)
+          (integer)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (list_comprehension
+        (binary_operator
+          (identifier)
+          (identifier))
+        (for_in_clause
+          (identifier)
+          (identifier))))))
