@@ -1,7 +1,7 @@
 {
   "name": "blaze-ts.nvim",
-  "version": "0.1.0",
-  "description": "A 🔥 Tree-sitter parser for the Mojo language with WASM, Zig, and Neovim integration.",
+  "version": "0.1.1",
+  "description": "A \ud83d\udd25 Tree-sitter parser for the Mojo language with WASM, Zig, and Neovim integration.",
   "type": "module",
   "exports": {
     ".": {
@@ -13,7 +13,7 @@
   "main": "bindings/node/index.js",
   "types": "bindings/node/index.d.ts",
   "browser": {
-    "./bindings/node/index.js": "./tree-sitter-mojo.wasm"
+    "./bindings/node/index.js": "./parser/mojo.wasm"
   },
   "repository": {
     "type": "git",
@@ -41,7 +41,7 @@
       "url": "https://liberapay.com/qompassai"
     }
   ],
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "author": {
     "name": "Matt A. Porter",
     "email": "map@qompass.ai",
@@ -58,12 +58,12 @@
     "parser"
   ],
   "files": [
-    "grammar.js",
+    "src/grammar.js",
     "tree-sitter.json",
-    "tree-sitter-mojo.wasm",
+    "parser/mojo.wasm",
     "binding.gyp",
     "bindings/",
-    "queries/",
+    "runtime/queries/",
     "lua/",
     "src/",
     "parser/",
@@ -75,22 +75,25 @@
       "scope": "source.mojo",
       "file-types": [
         "mojo",
-        "🔥"
+        "\ud83d\udd25"
       ]
     }
   ],
   "scripts": {
-    "build": "tree-sitter generate && tree-sitter build && zig build",
-    "build:wasm": "tree-sitter build-wasm",
+    "build": "tree-sitter generate src/grammar.js && tree-sitter build",
+    "build:wasm": "tree-sitter build --wasm",
     "test": "tree-sitter test",
     "install": "node-gyp-build"
   },
   "dependencies": {
-    "js-beautify": "^1.15.4",
+    "node-addon-api": "^8.3.0",
     "node-gyp-build": "^4.6.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.22.2"
+    "eslint": "^9.0.0",
+    "eslint-config-treesitter": "^1.0.0",
+    "tree-sitter-cli": "^0.26.0",
+    "tree-sitter": "^0.25.0"
   },
   "engines": {
     "node": ">=22.0.0"

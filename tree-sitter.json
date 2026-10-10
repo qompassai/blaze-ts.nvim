@@ -8,13 +8,10 @@
       "path": ".",
       "file-types": [
         "mojo",
-        "🔥"
+        "\ud83d\udd25"
       ],
-       "highlights": [
+      "highlights": [
         "runtime/queries/mojo/highlights.scm"
-       ],
-       "injections": [
-        "/runtime/queries/mojo/injections.scm"
       ],
       "injection-regex": "^mojo$",
       "class-name": "TreeSitterMojo"
@@ -22,8 +19,8 @@
   ],
   "metadata": {
     "version": "0.1.1",
-    "license": "AGPL-3.0 AND Q-CDA",
-    "description": "Tree-sitter grammar for the 🔥 language",
+    "license": "Apache-2.0",
+    "description": "Tree-sitter grammar for the \ud83d\udd25 language",
     "authors": [
       {
         "name": "Matt A. Porter",
@@ -46,4 +43,3 @@
     "zig": true
   }
 }
-

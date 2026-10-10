@@ -72,4 +72,4 @@ Thank you for your interest in contributing to **blaze-ts**, the Tree-sitter gra
 
 ## 📜 License
 
-All contributions are licensed under the dual AGPL-3.0 and Q-CDA license terms of this repository. See `LICENSE-AGPL` and `LICENSE-QCDA` for details.
+All contributions are licensed under the Apache License, Version 2.0, the license of this repository. See `LICENSE` for details.
