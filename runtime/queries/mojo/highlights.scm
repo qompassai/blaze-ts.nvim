@@ -1,209 +1,230 @@
-; =============================================================================
-; KEYWORDS AND CONTROL FLOW
-; =============================================================================
+; -------------------------------------------------------------------------------
+; /qompassai/blaze-ts.nvim/runtime/queries/mojo/highlights.scm
+; Qompass AI Tree-sitter highlights query for Mojo
+; SPDX-License-Identifier: Apache-2.0
+; Copyright (c) 2026 Qompass AI
+;
+; Licensed under the Apache License, Version 2.0 (the "License"); you may not
+; use this file except in compliance with the License. You may obtain a copy
+; of the License at http://www.apache.org/licenses/LICENSE-2.0
+; -------------------------------------------------------------------------------
 
-; Basic Keywords
-(
-  [
-    "def"
-    "elif"
-    "else"
-    "except"
-    "finally"
-    "fn"
-    "for"
-    "if"
-    "let"
-    "raise"
-    "return"
-    "struct"
-    "trait"
-    "try"
-    "var"
-    "while"
-    "with"
-  ] @keyword
-)
+; Highlights for the Mojo grammar.
+;
+; Written against this grammar's actual node inventory (src/node-types.json).
+; Structure follows the tree-sitter-python highlights query, whose grammar
+; this one adapts, with Mojo-specific additions (fn/struct/trait, raises,
+; argument conventions, builtin type names).
 
-; Additional Keywords via Pattern Matching
-((identifier) @keyword
- (#match? @keyword "^(async|await|borrowed|class|copy|inout|mut|mutmove|owned|raise|read|sink|try|with)$"))
+; Identifier naming conventions
 
-; Function/Method Modifiers
-((identifier) @keyword.modifier
- (#match? @keyword.modifier "^(capturing|raises)$"))
+(identifier) @variable
 
-; =============================================================================
-; TYPES AND DECLARATIONS
-; =============================================================================
+((identifier) @constructor
+  (#match? @constructor "^[A-Z]"))
 
-; Standard Types
-(type_identifier) @type
+((identifier) @constant
+  (#match? @constant "^[A-Z][A-Z_]*$"))
 
-; Mojo numeric types
-((identifier) @type.builtin
- (#match? @type.builtin "^(Int|UInt|Int8|UInt8|Int16|UInt16|Int32|UInt32|Int64|UInt64|Int128|UInt128|Int256|UInt256|Float16|Float32|Float64|SIMD|DType)$"))
+; Function calls
 
-; Builtin Types
-((identifier) @type.builtin
- (#match? @type.builtin "^(Bool|Object|Self|String|MyTensor|VariadicList|VariadicListMem|VariadicPack)$"))
+(decorator) @attribute
 
-; Pointer Type Identifiers
-((identifier) @type.builtin
- (#match? @type.builtin "^(ArcPointer|OwnedPointer|Pointer|UnsafePointer)$"))
+(call
+  function: (attribute
+    attribute: (identifier) @function.method.call))
 
-; Special MLIR Types
-((identifier) @type.builtin
- (#match? @type.builtin "^(__mlir_type)$"))
+(call
+  function: (identifier) @function.call)
 
-; Function Type Aliases 
-((identifier) @type.builtin
- (#match? @type.builtin "^(BinaryTile1DTileUnitFunc|Dynamic1DTileUnitFunc|Dynamic1DTileUnswitchUnitFunc|Static1DTileUnitFunc|Static1DTileUnitFuncWithFlag|Static1DTileUnitFuncWithFlags|Static1DTileUnswitchUnitFunc|Static2DTileUnitFunc|SwitchedFunction|SwitchedFunction2)$"))
+; Builtin functions
 
-; Type casting
-((call_expression 
-  function: (identifier) @type.cast)
- (#match? @type.cast "^(Int|UInt|Int8|UInt8|Int16|UInt16|Int32|UInt32|Int64|UInt64|Int128|UInt128|Int256|UInt256|Float16|Float32|Float64|SIMD)$")
- (#set! priority 105))
+((call
+  function: (identifier) @function.builtin)
+  (#match?
+    @function.builtin
+    "^(abs|bool|debug_assert|enumerate|float|hash|int|len|max|min|print|range|repr|reversed|sorted|static_assert|str|sum|type|zip)$"))
 
-; =============================================================================
-; FUNCTIONS AND METHODS
-; =============================================================================
-
-; Function Definitions
-(def_function
-  name: (identifier) @function)
-
-(fn_function
-  name: (identifier) @function)
+; Function definitions
 
 (function_definition
   name: (identifier) @function)
 
-; Built-in Functions
-((identifier) @function.builtin
- (#match? @function.builtin "^(int|float|len|print|range|str)$"))
+(attribute
+  attribute: (identifier) @variable.member)
 
-; Functional Module Built-ins
-((identifier) @function.builtin
- (#match? @function.builtin "^(elementwise|map|parallelize|stencil|stencil_gpu|sync_parallelize|tile|tile_and_unswitch|tile_middle_unswitch_boundaries|unswitch|vectorize)$"))
+; Types
 
-; MLIR Operations
-((identifier) @function.builtin
- (#match? @function.builtin "^(__mlir_op)$"))
+(type
+  (identifier) @type)
 
-; Function Calls
-(call_expression
-  function: (identifier) @function.call)
+(generic_type
+  (identifier) @type)
 
-; Method Calls
-(call_expression
-  function: (field_expression
-    field: (identifier) @function.method.call))
-
-; Tool Definition Objects
-((object
-  (pair
-    key: (string (string_content) @keyword.tool)
-    value: (object)))
- (#match? @keyword.tool "^(tools|parameters|function|type|properties)$"))
-
-; Tool Definition Types
-((string (string_content) @type.tool)
- (#match? @type.tool "^(function|string|object|boolean|number|array)$"))
-
-; Tool-use Function Calls
-((call_expression
-  function: (identifier) @function.tool)
- (#match? @function.tool "^(get_weather|search_web|fetch_data|execute_command)$"))
-
-; Tool Response Handling
-((call_expression
-  function: (field_expression
-    object: (identifier) @variable.tool
-    field: (identifier) @function.tool.method))
- (#match? @variable.tool "^(tool_response|client|response|completion)$")
- (#match? @function.tool.method "^(tool_calls|choices|message|create)$"))
-
-; =============================================================================
-; PARAMETERS AND ARGUMENTS
-; =============================================================================
-
-; Parameters (Compile-time)
-(parameter_list
-  (parameter
-    name: (identifier) @parameter))
-
-; Parameter Brackets (for Compile-time Parameters)
-(parameter_list
-  "[" @punctuation.bracket
-  "]" @punctuation.bracket)
-
-; Parameter Type Definitions
-(parameter
-  name: (identifier) @parameter
-  type: (type_identifier) @type)
-
-; Arguments (Runtime)
-(argument_list
-  (argument
-    name: (identifier) @variable.parameter))
-
-; =============================================================================
-; STRUCTS AND OBJECTS
-; =============================================================================
-
-; Structure/Trait Definitions
-(struct_definition
+(class_definition
   name: (identifier) @type)
 
 (trait_definition
   name: (identifier) @type)
 
-; Pointer Methods
-((call_expression
-  function: (identifier) @function.method)
- (#match? @function.method "^(address_of)$"))
+((type
+  (identifier) @type.builtin)
+  (#match?
+    @type.builtin
+    "^(Bool|Int|UInt|Int8|UInt8|Int16|UInt16|Int32|UInt32|Int64|UInt64|Int128|UInt128|Float16|Float32|Float64|SIMD|DType|String|StringSlice|List|Dict|Object|Self|UnsafePointer|OwnedPointer|ArcPointer|Pointer|VariadicList|VariadicPack)$"))
 
-((call_expression
-  function: (field_expression
-    field: (identifier) @function.method))
- (#match? @function.method "^(each|get|len)$"))
+(mlir_type) @type.builtin
 
-; Pointer Dereferencing
-(subscript_expression
-  value: (identifier)
-  subscript: (empty) @operator.special)
+; Parameters
 
-; =============================================================================
-; LITERALS AND BASIC SYNTAX
-; =============================================================================
+(parameters
+  (identifier) @variable.parameter)
 
-; Numeric Literals
-(integer_literal) @number
-(hex_integer_literal) @number
-(octal_integer_literal) @number
-(binary_integer_literal) @number
-(float_literal) @number.float
+(parameters
+  (typed_parameter
+    (identifier) @variable.parameter))
 
-; SIMD vector declarations and operations
-(subscript_expression
-  value: ((identifier) @_simd_type)
-  subscript: (tuple_expression
-               (identifier) @type.builtin
-               (integer_literal) @number)
-  (#match? @_simd_type "^(SIMD)$")
-  (#match? @type.builtin "^(DType|float32|float64|float16|int8|int16|int32|int64)$"))
+(parameters
+  (default_parameter
+    name: (identifier) @variable.parameter))
 
-; Basic Syntax Elements
+(parameters
+  (typed_default_parameter
+    name: (identifier) @variable.parameter))
+
+(self_parameter
+  "self" @variable.parameter.builtin)
+
+(argument_convention) @keyword.modifier
+
+(keyword_argument
+  name: (identifier) @variable.parameter)
+
+; Literals
+
+[
+  (none)
+  (true)
+  (false)
+] @constant.builtin
+
+(integer) @number
+
+(float) @number.float
+
 (comment) @comment
+
 (string) @string
-(number) @number
 
-; Special Punctuation 
-"*" @punctuation.special
-"**" @punctuation.special
-"/" @punctuation.delimiter
-"[]" @operator.special
-"->" @operator.special
+(escape_sequence) @string.escape
 
+(interpolation
+  "{" @punctuation.special
+  "}" @punctuation.special)
+
+; Operators
+
+[
+  "-"
+  "-="
+  "!="
+  "*"
+  "**"
+  "**="
+  "*="
+  "/"
+  "//"
+  "//="
+  "/="
+  "&"
+  "&="
+  "%"
+  "%="
+  "^"
+  "^="
+  "+"
+  "->"
+  "+="
+  "<"
+  "<<"
+  "<<="
+  "<="
+  "<>"
+  "="
+  ":="
+  "=="
+  ">"
+  ">="
+  ">>"
+  ">>="
+  "|"
+  "|="
+  "~"
+  "@="
+  "and"
+  "in"
+  "is"
+  "not"
+  "or"
+] @operator
+
+; Punctuation
+
+[
+  "("
+  ")"
+  "["
+  "]"
+  "{"
+  "}"
+] @punctuation.bracket
+
+[
+  ","
+  "."
+  ":"
+  ";"
+] @punctuation.delimiter
+
+; Keywords
+
+[
+  "as"
+  "assert"
+  "async"
+  "await"
+  "break"
+  "class"
+  "continue"
+  "def"
+  "del"
+  "elif"
+  "else"
+  "except"
+  "exec"
+  "finally"
+  "fn"
+  "for"
+  "from"
+  "global"
+  "if"
+  "import"
+  "lambda"
+  "let"
+  "nonlocal"
+  "pass"
+  "print"
+  "raise"
+  "raises"
+  "return"
+  "struct"
+  "trait"
+  "try"
+  "var"
+  "alias"
+  "while"
+  "with"
+  "yield"
+  "match"
+  "case"
+] @keyword
