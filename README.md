@@ -1,194 +1,130 @@
-<!-- /qompassai/blaze-ts.nvim/README.md -->
+# blaze-ts.nvim
 
-<!-- ---------------------------- -->
+<a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0"></a>
 
-<!-- Copyright (C) 2025 Qompass AI, All rights reserved -->
+A tree-sitter grammar for the [Mojo](https://docs.modular.com/mojo/) programming language, packaged as a Neovim plugin.
 
-<h1 align="center">Qompass AI Blaze-ts.nvim</h1>
-<h2 align="center">A 🔥 Tree-sitter</h2>
+The grammar is adapted from tree-sitter-python's architecture (Mojo's syntax is a Python superset) and extended with Mojo's own constructs: `fn`/`struct`/`trait` declarations, `var`/`let`/`alias`, effect specifiers (`raises`), argument conventions (`inout`, `owned`, `borrowed`, `out`, `read`, `mut`, `ref`), parametric declarations, and f-string interpolation. The external scanner is a full indentation/string scanner, and the grammar is covered by a tree-sitter corpus suite (`test/corpus`, 24 cases including malformed-input cases).
 
-![GitHub all releases](https://img.shields.io/github/downloads/qompassai/blaze-ts.nvim/total?style=flat-square)
-
-<p align="center">
-<a href="https://www.lua.org/"><img src="https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white" alt="Lua"></a>
-  <br>
-  <a href="https://www.lua.org/docs.html"><img src="https://img.shields.io/badge/Lua-Documentation-blue?style=flat-square" alt="Lua Documentation"></a>
-  <a href="https://github.com/topics/lua-tutorial"><img src="https://img.shields.io/badge/Lua-Tutorials-green?style=flat-square" alt="Lua Tutorials"></a>
-  <br>
-  <a href="https://www.gnu.org/licenses/agpl-3.0">
-    <img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="License: AGPL v3">
-  </a>
-  <a href="./LICENSE-QCDA">
-    <img src="https://img.shields.io/badge/license-Q--CDA-lightgrey.svg" alt="License: Q-CDA">
-  </a>
-</p>
+The Neovim plugin ships a prebuilt parser (`parser/mojo.so`, plus a WebAssembly build at `parser/mojo.wasm`), the tree-sitter queries (`runtime/queries/mojo/`), and opt-in editor integrations. nvim-treesitter is **not** required: the bundled parser registers with Neovim's built-in tree-sitter support. When nvim-treesitter is present, the plugin also registers a parser config so `:TSInstall mojo` builds the parser from this repository's C sources.
 
 <details>
-<summary style="font-size: 1.4em; font-weight: bold; padding: 15px; background: #667eea; color: white; border-radius: 10px; cursor: pointer; margin: 10px 0;"><strong>🔥 How to Light Up Blaze-TS</strong></summary>
-<blockquote style="font-size: 1.2em; line-height: 1.8; padding: 25px; background: #f8f9fa; border-left: 6px solid #667eea; border-radius: 8px; margin: 15px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<summary>Installation</summary>
 
-***
-
-## ✨ Overview
-
-This repository provides a [Tree-sitter](https://tree-sitter.github.io) grammar for [Mojo](https://www.modular.com/mojo), a language designed for AI and systems programming.
-
-\*\* Under Active Development - Expect Breaking Changes Until it's fully
-registered with nvim-tree-sitter\*\*
-
-Used by the [`blaze.nvim`](https://github.com/qompassai/blaze.nvim) Neovim plugin for:
-
-* 🌈 Syntax highlighting
-* 🔬 Incremental parsing
-* 🎯 Smart indentation
-* 🧠 Semantic analysis
-
-***
-
-## 📦 Installation
-
-1. Add to your `init.lua` or plugin loader:
+### lazy.nvim
 
 ```lua
--- 📁 ~/.config/nvim/lua/plugins/init.lua
--- If you're using lazy.nvim or packer.nvim, this goes in your plugin spec list:
-```
-
-```lua
--- 👉 For lazy.nvim
-return {
-'qompassai/blaze.nvim',
-'qompassai/blaze-ts.nvim",
-}
-```
-
-```lua
--- 👉 For packer.nvim
-use {
+{
   "qompassai/blaze-ts.nvim",
-  requires = {
-    "qompassai/blaze.nvim",
-  },
+  ft = { "mojo", "🔥" },
   config = function()
-    require("blaze").setup()
+    require("blaze-ts").setup({})
   end,
-  ft = { "mojo", "🔥" }
 }
 ```
 
-</blockquote>
+This repository's root `lazy.lua` is a ready-made spec with keymaps for the health commands.
+
+### Manual
+
+Clone the repository anywhere on your `runtimepath`, then:
+
+```lua
+require("blaze-ts").setup({})
+```
+
+`setup()` registers the `.mojo` (and `.🔥`) filetype, adds the plugin's `runtime/` directory so the queries resolve, registers the bundled parser, and — when nvim-treesitter's parser registry is available — registers the `mojo` parser config.
+
+### Nix
+
+```console
+nix build .#nvim-plugin   # the plugin as a Vim plugin package
+nix build                 # just the parser (parser/mojo.so) and queries
+nix develop               # dev shell with every toolchain used below
+```
+
+Both packages and the corpus/query checks are exercised by `nix flake check`.
+
 </details>
 
 <details>
-<summary style="font-size: 1.4em; font-weight: bold; padding: 15px; background: #667eea; color: white; border-radius: 10px; cursor: pointer; margin: 10px 0;"><strong>🧭 About Qompass AI</strong></summary>
-<blockquote style="font-size: 1.2em; line-height: 1.8; padding: 25px; background: #f8f9fa; border-left: 6px solid #667eea; border-radius: 8px; margin: 15px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<summary>Commands and configuration</summary>
 
-<div align="center">
-  <p>Matthew A. Porter<br>
-  Former Intelligence Officer<br>
-  Educator & Learner<br>
-  DeepTech Founder & CEO</p>
-</div>
+| Command                 | Action                                                                 |
+| ----------------------- | ---------------------------------------------------------------------- |
+| `:BlazeTS`              | Run `require("blaze-ts").setup()`                                       |
+| `:BlazeHealth`          | Full health report (parser, queries, Mojo environment probe)            |
+| `:BlazeParserHealth`    | Parser-only health (config registration, parser path, loadability)      |
+| `:BlazeReinstallParser` | Reinstall via nvim-treesitter when available, else re-register the bundled parser |
 
-<h3>Publications</h3>
-  <p>
-    <a href="https://orcid.org/0000-0002-0302-4812">
-      <img src="https://img.shields.io/badge/ORCID-0000--0002--0302--4812-green?style=flat-square&logo=orcid" alt="ORCID">
-    </a>
-    <a href="https://www.researchgate.net/profile/Matt-Porter-7">
-      <img src="https://img.shields.io/badge/ResearchGate-Open--Research-blue?style=flat-square&logo=researchgate" alt="ResearchGate">
-    </a>
-    <a href="https://zenodo.org/communities/qompassai">
-      <img src="https://img.shields.io/badge/Zenodo-Publications-blue?style=flat-square&logo=zenodo" alt="Zenodo">
-    </a>
-  </p>
+The same functions are available from Lua: `require("blaze-ts").setup(opts)`, `.health_check()`, `.parser_health()`, `.reinstall_parser()`.
 
-<h3>Developer Programs</h3>
+`setup()` is intentionally thin. The opinionated editor stack lives in `blaze-ts.config` and is applied only when `setup()` receives one of its section tables:
 
-[![NVIDIA Developer](https://img.shields.io/badge/NVIDIA-Developer_Program-76B900?style=for-the-badge\&logo=nvidia\&logoColor=white)](https://developer.nvidia.com/)
-[![Meta Developer](https://img.shields.io/badge/Meta-Developer_Program-0668E1?style=for-the-badge\&logo=meta\&logoColor=white)](https://developers.facebook.com/)
-[![HackerOne](https://img.shields.io/badge/-HackerOne-%23494649?style=for-the-badge\&logo=hackerone\&logoColor=white)](https://hackerone.com/phaedrusflow)
-[![HuggingFace](https://img.shields.io/badge/HuggingFace-qompass-yellow?style=flat-square\&logo=huggingface)](https://huggingface.co/qompass)
-[![Epic Games Developer](https://img.shields.io/badge/Epic_Games-Developer_Program-313131?style=for-the-badge\&logo=epic-games\&logoColor=white)](https://dev.epicgames.com/)
+```lua
+require("blaze-ts").setup({
+  ts = {},          -- nvim-treesitter setup + parser registration
+  conform = {},      -- conform.nvim formatter definition (mojo format)
+  lsp = {},          -- mojo-lsp-server wiring (requires the binary on PATH)
+  completion = {},   -- omnifunc on Mojo buffers
+  diagnostics = {},  -- vim.diagnostic configuration
+  keymaps = {},      -- buffer-local keymaps on Mojo buffers
+  filetype = {},     -- filetype and buffer options
+})
+```
 
-<h3>Professional Profiles</h3>
-  <p>
-    <a href="https://www.linkedin.com/in/matt-a-porter-103535224/">
-      <img src="https://img.shields.io/badge/LinkedIn-Matt--Porter-blue?style=flat-square&logo=linkedin" alt="Personal LinkedIn">
-    </a>
-    <a href="https://www.linkedin.com/company/95058568/">
-      <img src="https://img.shields.io/badge/LinkedIn-Qompass--AI-blue?style=flat-square&logo=linkedin" alt="Startup LinkedIn">
-    </a>
-  </p>
+Each integration degrades gracefully when its companion plugin or binary is absent.
 
-<h3>Social Media</h3>
-  <p>
-    <a href="https://twitter.com/PhaedrusFlow">
-      <img src="https://img.shields.io/badge/Twitter-@PhaedrusFlow-blue?style=flat-square&logo=twitter" alt="X/Twitter">
-    </a>
-    <a href="https://www.instagram.com/phaedrusflow">
-      <img src="https://img.shields.io/badge/Instagram-phaedrusflow-purple?style=flat-square&logo=instagram" alt="Instagram">
-    </a>
-    <a href="https://www.youtube.com/@qompassai">
-      <img src="https://img.shields.io/badge/YouTube-QompassAI-red?style=flat-square&logo=youtube" alt="YouTube">
-    </a>
-  </p>
-
-</blockquote>
 </details>
 
 <details>
-<summary style="font-size: 1.4em; font-weight: bold; padding: 15px; background: #ff6b6b; color: white; border-radius: 10px; cursor: pointer; margin: 10px 0;"><strong>🔥 How Do I Support</strong></summary>
-<blockquote style="font-size: 1.2em; line-height: 1.8; padding: 25px; background: #fff5f5; border-left: 6px solid #ff6b6b; border-radius: 8px; margin: 15px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+<summary>Development</summary>
 
-<div align="center">
+Regenerate the parser after editing `src/grammar.js`:
 
-<table>
-<tr>
-<th align="center">🏛️ Qompass AI Pre-Seed Funding 2023-2025</th>
-<th align="center">🏆 Amount</th>
-<th align="center">📅 Date</th>
-</tr>
-<tr>
-<td><a href="https://github.com/qompassai/r4r" title="RJOS/Zimmer Biomet Research Grant Repository">RJOS/Zimmer Biomet Research Grant</a></td>
-<td align="center">$30,000</td>
-<td align="center">March 2024</td>
-</tr>
-<tr>
-<td><a href="https://github.com/qompassai/PathFinders" title="GitHub Repository">Pathfinders Intern Program</a><br>
-<small><a href="https://www.linkedin.com/posts/evergreenbio_bioscience-internships-workforcedevelopment-activity-7253166461416812544-uWUM/" target="_blank">View on LinkedIn</a></small></td>
-<td align="center">$2,000</td>
-<td align="center">October 2024</td>
-</tr>
-</table>
+```console
+tree-sitter generate src/grammar.js
+tree-sitter build -o parser/mojo.so
+tree-sitter build --wasm -o parser/mojo.wasm .
+```
 
-<br>
-<h4>🤝 How To Support Our Mission</h4>
+Validate:
 
-[![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsor-EA4AAA?style=for-the-badge\&logo=github-sponsors\&logoColor=white)](https://github.com/sponsors/phaedrusflow)
-[![Patreon](https://img.shields.io/badge/Patreon-Support-F96854?style=for-the-badge\&logo=patreon\&logoColor=white)](https://patreon.com/qompassai)
-[![Liberapay](https://img.shields.io/badge/Liberapay-Donate-F6C915?style=for-the-badge\&logo=liberapay\&logoColor=black)](https://liberapay.com/qompassai)
-[![Open Collective](https://img.shields.io/badge/Open%20Collective-Support-7FADF2?style=for-the-badge\&logo=opencollective\&logoColor=white)](https://opencollective.com/qompassai)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-FFDD00?style=for-the-badge\&logo=buy-me-a-coffee\&logoColor=black)](https://www.buymeacoffee.com/phaedrusflow)
+```console
+tree-sitter test                 # corpus suite (24 cases)
+npx eslint src/grammar.js        # grammar lint (eslint-config-treesitter)
+make                             # build build/mojo.so via the Makefile
+cmake -B build && cmake --build build
+```
 
-<details markdown="1">
-<summary><strong>🔐 Cryptocurrency Donations</strong></summary>
+The scanner (`src/scanner.c`) implements indentation, newline, and string tokens with fixed-size state (indent stack 128, delimiter stack 32); serialization is bounds-checked against tree-sitter's buffer limit.
 
-**Monero (XMR):**
-
-<div align="center">
-  <img src="./assets/monero-qr.png" alt="Monero QR Code" width="180">
-</div>
-
-<div style="margin: 10px 0;">
-    <code>42HGspSFJQ4MjM5ZusAiKZj9JZWhfNgVraKb1eGCsHoC6QJqpo2ERCBZDhhKfByVjECernQ6KeZwFcnq8hVwTTnD8v4PzyH</code>
-  </div>
-
-<button onclick="navigator.clipboard.writeText('42HGspSFJQ4MjM5ZusAiKZj9JZWhfNgVraKb1eGCsHoC6QJqpo2ERCBZDhhKfByVjECernQ6KeZwFcnq8hVwTTnD8v4PzyH')" style="padding: 6px 12px; background: #FF6600; color: white; border: none; border-radius: 4px; cursor: pointer;">
-    📋 Copy Address
-  </button>
-<p><i>Funding helps us continue our research at the intersection of AI, healthcare, and education</i></p>
-
-</blockquote>
 </details>
+
+<details>
+<summary>Language bindings</summary>
+
+| Binding | Status |
+| ------- | ------ |
+| C       | `src/parser.c` + `src/scanner.c`; CMake and Makefile builds verified |
+| Rust    | `cargo test` — grammar load test and doc test pass |
+| Go      | `bindings/go` — `go test ./...` passes |
+| Python  | `pip install .` — `bindings/python/tests/test_binding.py` passes |
+| Node.js | `bindings/node` — `index.d.ts` type-checks under `tsc --strict` and the native module compiles with node-gyp; the JS binding test itself is blocked upstream: the `tree-sitter` JS runtime (latest 0.25.1) ships no prebuild for Node 26's ABI |
+| Zig     | `zig build` / `zig build test` — static library and binding test pass (Zig 0.16) |
+| Swift   | `Package.swift` + `bindings/swift` — present but **not verified**: no Swift toolchain was available in the development environment |
+
 </details>
+
+<details>
+<summary>Attribution</summary>
+
+The grammar's structure and the external scanner's logic are adapted from [tree-sitter-python](https://github.com/tree-sitter/tree-sitter-python) (MIT License, Copyright (c) 2014 Max Brunsfeld); the adaptation is noted in `src/scanner.c`. Everything else in this repository is Qompass AI work under the license below.
+
+</details>
+
+## License
+
+Apache License, Version 2.0 — see [LICENSE](./LICENSE).
+
+Copyright 2026 Qompass AI
