@@ -1,142 +1,144 @@
-#  /qompassai/blaze-ts.nvim/flake.nix
-# Qompass AI Blaze-TS Nix Flake
-# Copyright (C) 2025 Qompass AI, All rights reserved
-#####################################################
+# -------------------------------------------------------------------------------
+# /qompassai/blaze-ts.nvim/flake.nix
+# Qompass AI Nix flake
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Qompass AI
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+# -------------------------------------------------------------------------------
+# Packages:
+#   default     — the Mojo parser (parser/mojo.so) and its queries, compiled
+#                 from the checked-in generated C sources.
+#   nvim-plugin — the full plugin tree as a Vim plugin package.
+# Checks:
+#   corpus      — the tree-sitter corpus suite (test/corpus).
+#   queries     — every shipped query compiles against the grammar.
+# devShell: the toolchains this repo builds with (tree-sitter CLI, Node,
+# a C compiler, Rust, Go, Zig, Python).
 {
-  description = " Blaze-ts.nvim: A 🔥 Tree-Sitter parser for Mojo";
+  description = "blaze-ts.nvim: tree-sitter grammar and Neovim plugin for the Mojo language";
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    tree-sitter.url = "github:tree-sitter/tree-sitter";
   };
-  outputs = { self, nixpkgs, flake-utils, tree-sitter, ... }:
-    flake-utils.lib.eachSystem [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "x86_64-windows"
-      "aarch64-windows"
-    ] (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ tree-sitter.overlays.default ];
-        };
-        nodeEnv = pkgs.nodePackages_latest;
-        mojo-parser = pkgs.tree-sitter.buildGrammar {
-          language = "mojo";
-          version = "0.1.0";
-          src = ./.;
-          buildPhase = ''
-            export HOME=$TMPDIR
-            ${nodeEnv.node-gyp}/bin/node-gyp configure
-            ${nodeEnv.node-gyp}/bin/node-gyp build
-            tree-sitter generate
-            tree-sitter build-wasm
-            zig build -Doptimize=ReleaseSafe
-          '';
-          installPhase = ''
-            mkdir -p $out/{parser,queries,bindings}
-            cp -r src tree-sitter-mojo.wasm $out/
-            cp -r bindings/node $out/bindings/
-            cp queries/* $out/queries/
-          '';
-          nativeBuildInputs = with pkgs; [
-            nodeEnv.node-gyp
-            nodeEnv.tree-sitter-cli
-            zig
-            gcc
-          ];
-          meta = with pkgs.lib; {
-            description = "Blaze-ts.nvim: A 🔥 Tree-Sitter parser for Mojo programming language";
-            longDescription = ''
-              Derived from:
-              • Modular (https://github.com/modular)
-              • mojo.vim (Apache-2.0)
-              • mojo-syntax (MIT)
-              • pixi (BSD-3)
-              • magic-docker
 
-              LICENSING NOTICE:
-              • Modular Mojo Lang: Licensed under Modular's Apache 2.0 license
-              • Qompass AI packaging, build scripts, and configuration: Dual-licensed under:
-                - GNU AGPL v3.0 for non-commercial, open-source use
-                - Qompass Commercial Distribution Agreement (Q-CDA) v1.0 for commercial use
+  outputs =
+    { self, nixpkgs }:
+    let
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+    in
+    {
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.stdenv.mkDerivation {
+            pname = "tree-sitter-mojo";
+            version = "0.1.1";
+            src = ./.;
+
+            buildPhase = ''
+              runHook preBuild
+              $CC -O2 -shared -fPIC -Isrc src/parser.c src/scanner.c -o mojo.so
+              runHook postBuild
             '';
-            homepage = "https://developer.nvidia.com/hpc-sdk";
-            downloadPage = "https://developer.nvidia.com/hpc-sdk-downloads";
-            license = with licenses; [
-              agpl3Only
-              {
-                fullName = "Qompass AI Commercial Distribution Agreement v1.0";
-                shortName = "Q-CDA-1.0";
-                spdxId = "Q-CDA-1.0";
-                url = "https://github.com/qompassai/nur/blob/main/LICENSE-QCDA";
-                free = false;
-                redistributable = true;
-              }
-              unfree
-            ];
-            sourceProvenance = with sourceTypes; [
-              binaryNativeCode
-              binaryBytecode
-              fromSource
-            ];
-            maintainers = [
-              {
-                github = "qompassai";
-                githubId = 137334444;
-                name = "Qompass AI";
-              }
-              maintainers.phaedrusflow
-            ];
-            platforms = [
-              "x86_64-linux"
-              "aarch64-linux"
-              "x86_64-darwin"
-              "x86_64-windows"
-              "aarch64-windows"
-            ];
-            outputsToInstall = [ "out" ];
-            mainProgram = "nvc";
-            timeout = 7200;
-            broken = false;
-            badPlatforms = [ ];
-            knownVulnerabilities = [ ];
-          };
-        };
-      in
-      {
-        packages = {
-          default = mojo-parser;
-          mojo = mojo-parser;
-        };
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            nodejs
-            tree-sitter
-            gcc
-          ] ++ pkgs.lib.optionals (system == "x86_64-windows" || system == "aarch64-windows") [
-            pkgs.pkgsCross.mingw32.buildPackages.gcc
-          ];
-        };
-        checks = {
-          build = mojo-parser;
-          test = pkgs.runCommand "test-mojo-parser" { } ''
-            ${mojo-parser}/bin/tree-sitter parse ${./test}/*.mojo
-            touch $out
-          '';
-        };
-      }
-    ) // {
-      overlays = {
-        default = _: prev: {
-          vimPlugins = prev.vimPlugins // {
-            blaze-ts = prev.vimPlugins.buildVimPlugin {
-              name = "blaze-ts.nvim";
+
+            installPhase = ''
+              runHook preInstall
+              mkdir -p $out/parser $out/queries
+              cp mojo.so $out/parser/mojo.so
+              cp -r runtime/queries/mojo $out/queries/mojo
+              runHook postInstall
+            '';
+
+            meta = {
+              description = "Tree-sitter grammar for the Mojo language (parser and queries)";
+              homepage = "https://github.com/qompassai/blaze-ts.nvim";
+              license = pkgs.lib.licenses.asl20;
+              platforms = systems;
             };
           };
-        };
-      };
+
+          nvim-plugin = pkgs.vimUtils.buildVimPlugin {
+            pname = "blaze-ts.nvim";
+            version = "0.1.1";
+            src = ./.;
+            meta = {
+              description = "Neovim plugin for Mojo tree-sitter support";
+              homepage = "https://github.com/qompassai/blaze-ts.nvim";
+              license = pkgs.lib.licenses.asl20;
+              platforms = systems;
+            };
+          };
+        }
+      );
+
+      checks = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          corpus = pkgs.runCommand "blaze-ts-corpus-tests" { nativeBuildInputs = [ pkgs.gcc pkgs.tree-sitter ]; } ''
+            export HOME=$TMPDIR
+            cp -r ${./.} src
+            chmod -R +w src
+            cd src
+            tree-sitter test
+            touch $out
+          '';
+
+          queries =
+            pkgs.runCommand "blaze-ts-query-checks"
+              {
+                nativeBuildInputs = [ pkgs.gcc pkgs.tree-sitter ];
+              }
+              ''
+                export HOME=$TMPDIR
+                cp -r ${./.} src
+                chmod -R +w src
+                cd src
+                cat > sample.mojo <<'EOF'
+                fn greet(name: String) -> String:
+                    return f"hello {name}"
+                EOF
+                for q in highlights indents folds locals; do
+                  tree-sitter query runtime/queries/mojo/$q.scm sample.mojo > /dev/null
+                done
+                touch $out
+              '';
+        }
+      );
+
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              cargo
+              gcc
+              go
+              nodejs
+              python3
+              rustc
+              tree-sitter
+              zig
+            ];
+          };
+        }
+      );
     };
 }
