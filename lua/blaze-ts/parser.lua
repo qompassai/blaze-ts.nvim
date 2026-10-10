@@ -1,5 +1,13 @@
--- blaze-ts.nvim/lua/blaze-ts/parser.lua
--- -------------------------------------
+-- -------------------------------------------------------------------------------
+-- /qompassai/blaze-ts.nvim/lua/blaze-ts/parser.lua
+-- Qompass AI Parser discovery and registration
+-- SPDX-License-Identifier: Apache-2.0
+-- Copyright (c) 2026 Qompass AI
+--
+-- Licensed under the Apache License, Version 2.0 (the "License"); you may not
+-- use this file except in compliance with the License. You may obtain a copy
+-- of the License at http://www.apache.org/licenses/LICENSE-2.0
+-- -------------------------------------------------------------------------------
 -- luacheck: globals vim
 
 local Parser = {}
@@ -16,7 +24,7 @@ local function candidate_paths()
     join(data, "lazy", "nvim-treesitter", "parser", "mojo.so"),
     join(data, "site", "parser", "mojo.so"),
     vim.fn.expand("~/.local/share/nvim/site/parser/mojo.so"),
-    join(script_dir(), "../parser", "mojo.so"),
+    join(script_dir(), "../../parser", "mojo.so"),
   }
 end
 
@@ -26,9 +34,9 @@ function Parser.get_parser_path()
   end
 end
 
-local function register_config()
+function Parser.register_config()
   local ok, parsers = pcall(require, "nvim-treesitter.parsers")
-  if not ok then return false end
+  if not ok or type(parsers.get_parser_configs) ~= "function" then return false end
   local cfgs = parsers.get_parser_configs()
   if cfgs.mojo then return true end
   cfgs.mojo = {
@@ -44,7 +52,7 @@ local function register_config()
 end
 
 function Parser.install()
-  if not register_config() then return false end
+  if not Parser.register_config() then return false end
   local ok, install = pcall(require, "nvim-treesitter.install")
   if not ok then return false end
   if install.is_installed("mojo") then return true end
@@ -63,7 +71,7 @@ end
 
 function Parser.health()
   local status = {
-    config     = register_config(),
+    config     = Parser.register_config(),
     path       = Parser.get_parser_path(),
   }
   status.installed = status.path ~= nil

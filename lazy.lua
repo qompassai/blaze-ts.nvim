@@ -1,3 +1,14 @@
+-- -------------------------------------------------------------------------------
+-- /qompassai/blaze-ts.nvim/lazy.lua
+-- Qompass AI lazy.nvim plugin spec
+-- SPDX-License-Identifier: Apache-2.0
+-- Copyright (c) 2026 Qompass AI
+--
+-- Licensed under the Apache License, Version 2.0 (the "License"); you may not
+-- use this file except in compliance with the License. You may obtain a copy
+-- of the License at http://www.apache.org/licenses/LICENSE-2.0
+-- -------------------------------------------------------------------------------
+
 return {
   "qompassai/blaze-ts.nvim",
   lazy = true,
@@ -7,10 +18,10 @@ return {
     'nvim-lua/plenary.nvim',
   },
   cmd = {
+    "BlazeTS",
     "BlazeHealth",
     "BlazeParserHealth",
     "BlazeReinstallParser",
-    "TSInstall mojo",
   },
 
   ---@type table
@@ -33,13 +44,10 @@ return {
             url   = "https://github.com/qompassai/blaze-ts.nvim",
             files = {
               "src/parser.c",
-              "src/grammar.js",
-              "src/main.zig",
-              "src/root.zig",
               "src/scanner.c",
             },
             branch = "main",
-            requires_generate_from_grammar = true,
+            requires_generate_from_grammar = false,
           },
           filetype    = { "mojo", "🔥" },
           maintainers = { "@qompassai" },
@@ -54,9 +62,12 @@ return {
       return
     end
     if opts.nvim_treesitter and opts.nvim_treesitter.parser_config then
-      local pcfg = require("nvim-treesitter.parsers").get_parser_configs()
-      for lang, cfg in pairs(opts.nvim_treesitter.parser_config) do
-        pcfg[lang] = cfg
+      local ok_p, parsers_mod = pcall(require, "nvim-treesitter.parsers")
+      if ok_p and type(parsers_mod.get_parser_configs) == "function" then
+        local pcfg = parsers_mod.get_parser_configs()
+        for lang, cfg in pairs(opts.nvim_treesitter.parser_config) do
+          pcfg[lang] = cfg
+        end
       end
     end
     treesitter.setup(opts.nvim_treesitter or {})

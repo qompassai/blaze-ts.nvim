@@ -1,5 +1,13 @@
--- blaze-ts.nvim/lua/blaze-ts/config.lua
--- ------------------------------------
+-- -------------------------------------------------------------------------------
+-- /qompassai/blaze-ts.nvim/lua/blaze-ts/config.lua
+-- Qompass AI Neovim plugin configuration
+-- SPDX-License-Identifier: Apache-2.0
+-- Copyright (c) 2026 Qompass AI
+--
+-- Licensed under the Apache License, Version 2.0 (the "License"); you may not
+-- use this file except in compliance with the License. You may obtain a copy
+-- of the License at http://www.apache.org/licenses/LICENSE-2.0
+-- -------------------------------------------------------------------------------
 -- luacheck: globals vim
 
 local Config = {}
@@ -17,17 +25,19 @@ function Config.setup_ts(opts)
     return
   end
 
-  local plugin_path = vim.fn.stdpath("data") .. "/lazy/blaze-ts.nvim"
-  if vim.fn.isdirectory(plugin_path .. "/runtime") == 1 then
-    vim.opt.runtimepath:prepend(plugin_path .. "/runtime")
-  end
+  require("blaze-ts.parser").setup_runtime_path()
 
-  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+  local ok_parsers, parsers_mod = pcall(require, "nvim-treesitter.parsers")
+  if not ok_parsers or type(parsers_mod.get_parser_configs) ~= "function" then
+    vim.notify("nvim-treesitter parser registry unavailable (rewritten API?)", vim.log.levels.WARN)
+    return
+  end
+  local parser_config = parsers_mod.get_parser_configs()
   if not parser_config.mojo then
     parser_config.mojo = {
       install_info = {
         url = "https://github.com/qompassai/blaze-ts.nvim",
-        files = { "src/parser.c", "src/grammar.js" },
+        files = { "src/parser.c", "src/scanner.c" },
         branch = "main",
         requires_generate_from_grammar = false,
       },
@@ -61,7 +71,7 @@ function Config.setup_ts(opts)
   })
   vim.defer_fn(function()
     for _, q in ipairs({ "highlights", "indents", "folds", "locals" }) do
-      if vim.treesitter.query.get(q, "mojo") then
+      if vim.treesitter.query.get("mojo", q) then
         vim.notify("Loaded " .. q .. ".scm for mojo", vim.log.levels.DEBUG)
       end
     end
