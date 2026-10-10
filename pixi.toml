@@ -1,7 +1,14 @@
+# -------------------------------------------------------------------------------
 # /qompassai/blaze-ts.nvim/pixi.toml
-# Qompass AI Blaze-ts Pixi Config
-# Copyright (C) 2025 Qompass AI, All rights reserved
-#####################################################
+# Qompass AI Pixi project manifest
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Qompass AI
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not
+# use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+# -------------------------------------------------------------------------------
+
 [project]
 name = "blaze-ts_nvim"
 version = "0.1.0"
