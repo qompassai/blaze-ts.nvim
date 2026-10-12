@@ -1,0 +1,3422 @@
+[
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 12,
+    "col": 6,
+    "end_col": 12,
+    "name": "Config",
+    "symbol": "local 1",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 14,
+    "col": 15,
+    "end_col": 22,
+    "name": "default",
+    "symbol": "local 2",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 14,
+    "col": 23,
+    "end_col": 28,
+    "name": "value",
+    "symbol": "local 3",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 14,
+    "col": 30,
+    "end_col": 38,
+    "name": "fallback",
+    "symbol": "local 4",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 18,
+    "col": 16,
+    "end_col": 24,
+    "name": "setup_ts",
+    "symbol": "scip-lua . diver-config . blaze-ts/config/setup_ts().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 18,
+    "col": 25,
+    "end_col": 29,
+    "name": "opts",
+    "symbol": "local 5",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 21,
+    "col": 8,
+    "end_col": 13,
+    "name": "ok_ts",
+    "symbol": "local 6",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 21,
+    "col": 15,
+    "end_col": 25,
+    "name": "ts_configs",
+    "symbol": "local 7",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 29,
+    "col": 8,
+    "end_col": 18,
+    "name": "ok_parsers",
+    "symbol": "local 8",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 29,
+    "col": 20,
+    "end_col": 31,
+    "name": "parsers_mod",
+    "symbol": "local 9",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 34,
+    "col": 8,
+    "end_col": 21,
+    "name": "parser_config",
+    "symbol": "local 10",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 38,
+    "col": 8,
+    "end_col": 11,
+    "name": "url",
+    "symbol": "local 11",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 39,
+    "col": 8,
+    "end_col": 13,
+    "name": "files",
+    "symbol": "local 12",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 40,
+    "col": 8,
+    "end_col": 14,
+    "name": "branch",
+    "symbol": "local 13",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 41,
+    "col": 8,
+    "end_col": 38,
+    "name": "requires_generate_from_grammar",
+    "symbol": "local 14",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 37,
+    "col": 6,
+    "end_col": 18,
+    "name": "install_info",
+    "symbol": "local 15",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 43,
+    "col": 6,
+    "end_col": 14,
+    "name": "filetype",
+    "symbol": "local 16",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 44,
+    "col": 6,
+    "end_col": 17,
+    "name": "maintainers",
+    "symbol": "local 17",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 49,
+    "col": 6,
+    "end_col": 12,
+    "name": "enable",
+    "symbol": "local 18",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 50,
+    "col": 6,
+    "end_col": 13,
+    "name": "disable",
+    "symbol": "local 19",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 51,
+    "col": 6,
+    "end_col": 39,
+    "name": "additional_vim_regex_highlighting",
+    "symbol": "local 20",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 48,
+    "col": 4,
+    "end_col": 13,
+    "name": "highlight",
+    "symbol": "local 21",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 53,
+    "col": 15,
+    "end_col": 21,
+    "name": "enable",
+    "symbol": "local 22",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 53,
+    "col": 4,
+    "end_col": 10,
+    "name": "indent",
+    "symbol": "local 23",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 54,
+    "col": 15,
+    "end_col": 21,
+    "name": "enable",
+    "symbol": "local 24",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 54,
+    "col": 4,
+    "end_col": 8,
+    "name": "fold",
+    "symbol": "local 25",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 56,
+    "col": 6,
+    "end_col": 12,
+    "name": "enable",
+    "symbol": "local 26",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 58,
+    "col": 8,
+    "end_col": 22,
+    "name": "init_selection",
+    "symbol": "local 27",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 59,
+    "col": 8,
+    "end_col": 24,
+    "name": "node_incremental",
+    "symbol": "local 28",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 60,
+    "col": 8,
+    "end_col": 24,
+    "name": "node_decremental",
+    "symbol": "local 29",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 61,
+    "col": 8,
+    "end_col": 25,
+    "name": "scope_incremental",
+    "symbol": "local 30",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 57,
+    "col": 6,
+    "end_col": 13,
+    "name": "keymaps",
+    "symbol": "local 31",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 55,
+    "col": 4,
+    "end_col": 25,
+    "name": "incremental_selection",
+    "symbol": "local 32",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 64,
+    "col": 23,
+    "end_col": 29,
+    "name": "enable",
+    "symbol": "local 33",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 64,
+    "col": 67,
+    "end_col": 83,
+    "name": "use_virtual_text",
+    "symbol": "local 34",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 64,
+    "col": 4,
+    "end_col": 16,
+    "name": "query_linter",
+    "symbol": "local 35",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 65,
+    "col": 4,
+    "end_col": 20,
+    "name": "ensure_installed",
+    "symbol": "local 36",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 66,
+    "col": 4,
+    "end_col": 16,
+    "name": "sync_install",
+    "symbol": "local 37",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 67,
+    "col": 4,
+    "end_col": 18,
+    "name": "ignore_install",
+    "symbol": "local 38",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 68,
+    "col": 4,
+    "end_col": 16,
+    "name": "auto_install",
+    "symbol": "local 39",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 69,
+    "col": 4,
+    "end_col": 11,
+    "name": "modules",
+    "symbol": "local 40",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 72,
+    "col": 8,
+    "end_col": 9,
+    "name": "_",
+    "symbol": "local 41",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 72,
+    "col": 11,
+    "end_col": 12,
+    "name": "q",
+    "symbol": "local 42",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 79,
+    "col": 16,
+    "end_col": 29,
+    "name": "setup_conform",
+    "symbol": "scip-lua . diver-config . blaze-ts/config/setup_conform().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 79,
+    "col": 30,
+    "end_col": 34,
+    "name": "opts",
+    "symbol": "local 43",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 81,
+    "col": 8,
+    "end_col": 13,
+    "name": "ok_cf",
+    "symbol": "local 44",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 81,
+    "col": 15,
+    "end_col": 22,
+    "name": "conform",
+    "symbol": "local 45",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 89,
+    "col": 6,
+    "end_col": 9,
+    "name": "url",
+    "symbol": "local 46",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 90,
+    "col": 6,
+    "end_col": 17,
+    "name": "description",
+    "symbol": "local 47",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 88,
+    "col": 4,
+    "end_col": 8,
+    "name": "meta",
+    "symbol": "local 48",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 92,
+    "col": 4,
+    "end_col": 11,
+    "name": "command",
+    "symbol": "local 49",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 93,
+    "col": 20,
+    "end_col": 21,
+    "name": "_",
+    "symbol": "local 50",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 93,
+    "col": 23,
+    "end_col": 24,
+    "name": "_",
+    "symbol": "local 51",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 94,
+    "col": 12,
+    "end_col": 13,
+    "name": "a",
+    "symbol": "local 52",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 93,
+    "col": 4,
+    "end_col": 8,
+    "name": "args",
+    "symbol": "local 53",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 104,
+    "col": 4,
+    "end_col": 9,
+    "name": "stdin",
+    "symbol": "local 54",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 105,
+    "col": 4,
+    "end_col": 14,
+    "name": "exit_codes",
+    "symbol": "local 55",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 108,
+    "col": 25,
+    "end_col": 29,
+    "name": "mojo",
+    "symbol": "local 56",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 108,
+    "col": 4,
+    "end_col": 20,
+    "name": "formatters_by_ft",
+    "symbol": "local 57",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 110,
+    "col": 6,
+    "end_col": 16,
+    "name": "timeout_ms",
+    "symbol": "local 58",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 111,
+    "col": 6,
+    "end_col": 18,
+    "name": "lsp_fallback",
+    "symbol": "local 59",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 109,
+    "col": 4,
+    "end_col": 18,
+    "name": "format_on_save",
+    "symbol": "local 60",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 113,
+    "col": 4,
+    "end_col": 21,
+    "name": "format_after_save",
+    "symbol": "local 61",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 114,
+    "col": 4,
+    "end_col": 13,
+    "name": "log_level",
+    "symbol": "local 62",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 117,
+    "col": 16,
+    "end_col": 25,
+    "name": "setup_lsp",
+    "symbol": "scip-lua . diver-config . blaze-ts/config/setup_lsp().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 117,
+    "col": 26,
+    "end_col": 30,
+    "name": "opts",
+    "symbol": "local 63",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 119,
+    "col": 8,
+    "end_col": 14,
+    "name": "ok_lsp",
+    "symbol": "local 64",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 119,
+    "col": 16,
+    "end_col": 25,
+    "name": "lspconfig",
+    "symbol": "local 65",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 124,
+    "col": 8,
+    "end_col": 15,
+    "name": "configs",
+    "symbol": "local 66",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 128,
+    "col": 8,
+    "end_col": 11,
+    "name": "cmd",
+    "symbol": "local 67",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 129,
+    "col": 8,
+    "end_col": 17,
+    "name": "filetypes",
+    "symbol": "local 68",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 130,
+    "col": 8,
+    "end_col": 16,
+    "name": "root_dir",
+    "symbol": "local 69",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 131,
+    "col": 8,
+    "end_col": 16,
+    "name": "settings",
+    "symbol": "local 70",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 127,
+    "col": 6,
+    "end_col": 20,
+    "name": "default_config",
+    "symbol": "local 71",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 141,
+    "col": 43,
+    "end_col": 44,
+    "name": "_",
+    "symbol": "local 72",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 141,
+    "col": 46,
+    "end_col": 51,
+    "name": "bufnr",
+    "symbol": "local 73",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 142,
+    "col": 21,
+    "end_col": 24,
+    "name": "map",
+    "symbol": "local 74",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 142,
+    "col": 25,
+    "end_col": 28,
+    "name": "lhs",
+    "symbol": "local 75",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 142,
+    "col": 30,
+    "end_col": 33,
+    "name": "rhs",
+    "symbol": "local 76",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 142,
+    "col": 35,
+    "end_col": 39,
+    "name": "desc",
+    "symbol": "local 77",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 143,
+    "col": 40,
+    "end_col": 46,
+    "name": "buffer",
+    "symbol": "local 78",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 143,
+    "col": 56,
+    "end_col": 60,
+    "name": "desc",
+    "symbol": "local 79",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 143,
+    "col": 69,
+    "end_col": 76,
+    "name": "noremap",
+    "symbol": "local 80",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 143,
+    "col": 85,
+    "end_col": 91,
+    "name": "silent",
+    "symbol": "local 81",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 141,
+    "col": 4,
+    "end_col": 13,
+    "name": "on_attach",
+    "symbol": "local 82",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 149,
+    "col": 12,
+    "end_col": 18,
+    "name": "ok_cmp",
+    "symbol": "local 83",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 149,
+    "col": 20,
+    "end_col": 23,
+    "name": "cmp",
+    "symbol": "local 84",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 148,
+    "col": 4,
+    "end_col": 16,
+    "name": "capabilities",
+    "symbol": "local 85",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 152,
+    "col": 4,
+    "end_col": 23,
+    "name": "single_file_support",
+    "symbol": "local 86",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 155,
+    "col": 16,
+    "end_col": 32,
+    "name": "setup_completion",
+    "symbol": "scip-lua . diver-config . blaze-ts/config/setup_completion().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 155,
+    "col": 33,
+    "end_col": 37,
+    "name": "opts",
+    "symbol": "local 87",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 158,
+    "col": 4,
+    "end_col": 11,
+    "name": "pattern",
+    "symbol": "local 88",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 161,
+    "col": 10,
+    "end_col": 11,
+    "name": "k",
+    "symbol": "local 89",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 161,
+    "col": 13,
+    "end_col": 14,
+    "name": "v",
+    "symbol": "local 90",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 159,
+    "col": 4,
+    "end_col": 12,
+    "name": "callback",
+    "symbol": "local 91",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 167,
+    "col": 16,
+    "end_col": 33,
+    "name": "setup_diagnostics",
+    "symbol": "scip-lua . diver-config . blaze-ts/config/setup_diagnostics().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 167,
+    "col": 34,
+    "end_col": 38,
+    "name": "opts",
+    "symbol": "local 92",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 169,
+    "col": 4,
+    "end_col": 16,
+    "name": "virtual_text",
+    "symbol": "local 93",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 170,
+    "col": 4,
+    "end_col": 9,
+    "name": "signs",
+    "symbol": "local 94",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 171,
+    "col": 4,
+    "end_col": 13,
+    "name": "underline",
+    "symbol": "local 95",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 172,
+    "col": 4,
+    "end_col": 20,
+    "name": "update_in_insert",
+    "symbol": "local 96",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 173,
+    "col": 4,
+    "end_col": 17,
+    "name": "severity_sort",
+    "symbol": "local 97",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 174,
+    "col": 24,
+    "end_col": 30,
+    "name": "border",
+    "symbol": "local 98",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 174,
+    "col": 44,
+    "end_col": 50,
+    "name": "source",
+    "symbol": "local 99",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 174,
+    "col": 4,
+    "end_col": 9,
+    "name": "float",
+    "symbol": "local 100",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 177,
+    "col": 16,
+    "end_col": 29,
+    "name": "setup_keymaps",
+    "symbol": "scip-lua . diver-config . blaze-ts/config/setup_keymaps().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 177,
+    "col": 30,
+    "end_col": 34,
+    "name": "opts",
+    "symbol": "local 101",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 180,
+    "col": 4,
+    "end_col": 11,
+    "name": "pattern",
+    "symbol": "local 102",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 182,
+    "col": 12,
+    "end_col": 15,
+    "name": "buf",
+    "symbol": "local 103",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 183,
+    "col": 21,
+    "end_col": 24,
+    "name": "map",
+    "symbol": "local 104",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 183,
+    "col": 25,
+    "end_col": 28,
+    "name": "lhs",
+    "symbol": "local 105",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 183,
+    "col": 30,
+    "end_col": 33,
+    "name": "rhs",
+    "symbol": "local 106",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 183,
+    "col": 35,
+    "end_col": 39,
+    "name": "desc",
+    "symbol": "local 107",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 184,
+    "col": 40,
+    "end_col": 46,
+    "name": "buffer",
+    "symbol": "local 108",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 184,
+    "col": 54,
+    "end_col": 58,
+    "name": "desc",
+    "symbol": "local 109",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 184,
+    "col": 67,
+    "end_col": 74,
+    "name": "noremap",
+    "symbol": "local 110",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 184,
+    "col": 83,
+    "end_col": 89,
+    "name": "silent",
+    "symbol": "local 111",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 187,
+    "col": 14,
+    "end_col": 18,
+    "name": "ok_c",
+    "symbol": "local 112",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 187,
+    "col": 20,
+    "end_col": 27,
+    "name": "conform",
+    "symbol": "local 113",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 189,
+    "col": 27,
+    "end_col": 32,
+    "name": "bufnr",
+    "symbol": "local 114",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 191,
+    "col": 31,
+    "end_col": 36,
+    "name": "bufnr",
+    "symbol": "local 115",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 202,
+    "col": 10,
+    "end_col": 13,
+    "name": "lhs",
+    "symbol": "local 116",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 202,
+    "col": 15,
+    "end_col": 18,
+    "name": "rhs",
+    "symbol": "local 117",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 181,
+    "col": 4,
+    "end_col": 12,
+    "name": "callback",
+    "symbol": "local 118",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 208,
+    "col": 16,
+    "end_col": 30,
+    "name": "setup_filetype",
+    "symbol": "scip-lua . diver-config . blaze-ts/config/setup_filetype().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 208,
+    "col": 31,
+    "end_col": 35,
+    "name": "opts",
+    "symbol": "local 119",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 211,
+    "col": 18,
+    "end_col": 22,
+    "name": "mojo",
+    "symbol": "local 120",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 211,
+    "col": 4,
+    "end_col": 13,
+    "name": "extension",
+    "symbol": "local 121",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 212,
+    "col": 4,
+    "end_col": 12,
+    "name": "filename",
+    "symbol": "local 122",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 213,
+    "col": 4,
+    "end_col": 11,
+    "name": "pattern",
+    "symbol": "local 123",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 216,
+    "col": 4,
+    "end_col": 11,
+    "name": "pattern",
+    "symbol": "local 124",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 219,
+    "col": 8,
+    "end_col": 15,
+    "name": "tabstop",
+    "symbol": "local 125",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 220,
+    "col": 8,
+    "end_col": 18,
+    "name": "shiftwidth",
+    "symbol": "local 126",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 221,
+    "col": 8,
+    "end_col": 17,
+    "name": "expandtab",
+    "symbol": "local 127",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 222,
+    "col": 8,
+    "end_col": 18,
+    "name": "autoindent",
+    "symbol": "local 128",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 223,
+    "col": 8,
+    "end_col": 19,
+    "name": "smartindent",
+    "symbol": "local 129",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 218,
+    "col": 12,
+    "end_col": 20,
+    "name": "defaults",
+    "symbol": "local 130",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 225,
+    "col": 10,
+    "end_col": 11,
+    "name": "k",
+    "symbol": "local 131",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 225,
+    "col": 13,
+    "end_col": 14,
+    "name": "v",
+    "symbol": "local 132",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 217,
+    "col": 4,
+    "end_col": 12,
+    "name": "callback",
+    "symbol": "local 133",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 231,
+    "col": 16,
+    "end_col": 21,
+    "name": "setup",
+    "symbol": "scip-lua . diver-config . blaze-ts/config/setup().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/config.lua",
+    "line": 231,
+    "col": 22,
+    "end_col": 31,
+    "name": "user_opts",
+    "symbol": "local 134",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 11,
+    "col": 6,
+    "end_col": 7,
+    "name": "M",
+    "symbol": "local 1",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 13,
+    "col": 6,
+    "end_col": 9,
+    "name": "sep",
+    "symbol": "local 2",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 15,
+    "col": 15,
+    "end_col": 19,
+    "name": "join",
+    "symbol": "local 3",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 21,
+    "col": 15,
+    "end_col": 26,
+    "name": "plugin_root",
+    "symbol": "local 4",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 22,
+    "col": 10,
+    "end_col": 13,
+    "name": "src",
+    "symbol": "local 5",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 29,
+    "col": 15,
+    "end_col": 38,
+    "name": "register_bundled_parser",
+    "symbol": "local 6",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 29,
+    "col": 39,
+    "end_col": 43,
+    "name": "root",
+    "symbol": "local 7",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 30,
+    "col": 10,
+    "end_col": 20,
+    "name": "candidates",
+    "symbol": "local 8",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 31,
+    "col": 8,
+    "end_col": 9,
+    "name": "_",
+    "symbol": "local 9",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 31,
+    "col": 11,
+    "end_col": 15,
+    "name": "path",
+    "symbol": "local 10",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 33,
+    "col": 68,
+    "end_col": 72,
+    "name": "path",
+    "symbol": "local 11",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 33,
+    "col": 18,
+    "end_col": 20,
+    "name": "ok",
+    "symbol": "local 12",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 44,
+    "col": 15,
+    "end_col": 27,
+    "name": "query_status",
+    "symbol": "local 13",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 45,
+    "col": 10,
+    "end_col": 16,
+    "name": "status",
+    "symbol": "local 14",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 46,
+    "col": 8,
+    "end_col": 9,
+    "name": "_",
+    "symbol": "local 15",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 46,
+    "col": 11,
+    "end_col": 15,
+    "name": "name",
+    "symbol": "local 16",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 47,
+    "col": 14,
+    "end_col": 16,
+    "name": "ok",
+    "symbol": "local 17",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 47,
+    "col": 18,
+    "end_col": 23,
+    "name": "query",
+    "symbol": "local 18",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 53,
+    "col": 6,
+    "end_col": 21,
+    "name": "CONFIG_SECTIONS",
+    "symbol": "local 19",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 57,
+    "col": 15,
+    "end_col": 27,
+    "name": "wants_config",
+    "symbol": "local 20",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 57,
+    "col": 28,
+    "end_col": 32,
+    "name": "opts",
+    "symbol": "local 21",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 58,
+    "col": 8,
+    "end_col": 9,
+    "name": "_",
+    "symbol": "local 22",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 58,
+    "col": 11,
+    "end_col": 14,
+    "name": "key",
+    "symbol": "local 23",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 71,
+    "col": 11,
+    "end_col": 16,
+    "name": "setup",
+    "symbol": "scip-lua . diver-config . blaze-ts/setup().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 71,
+    "col": 17,
+    "end_col": 21,
+    "name": "opts",
+    "symbol": "local 24",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 73,
+    "col": 10,
+    "end_col": 16,
+    "name": "parser",
+    "symbol": "local 25",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 75,
+    "col": 37,
+    "end_col": 41,
+    "name": "mojo",
+    "symbol": "local 26",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 75,
+    "col": 23,
+    "end_col": 32,
+    "name": "extension",
+    "symbol": "local 27",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 77,
+    "col": 10,
+    "end_col": 17,
+    "name": "bundled",
+    "symbol": "local 28",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 78,
+    "col": 10,
+    "end_col": 27,
+    "name": "config_registered",
+    "symbol": "local 29",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 84,
+    "col": 13,
+    "end_col": 27,
+    "name": "bundled_parser",
+    "symbol": "local 30",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 84,
+    "col": 39,
+    "end_col": 63,
+    "name": "parser_config_registered",
+    "symbol": "local 31",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 89,
+    "col": 11,
+    "end_col": 24,
+    "name": "parser_health",
+    "symbol": "scip-lua . diver-config . blaze-ts/parser_health().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 90,
+    "col": 10,
+    "end_col": 16,
+    "name": "status",
+    "symbol": "local 32",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 91,
+    "col": 10,
+    "end_col": 15,
+    "name": "lines",
+    "symbol": "local 33",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 104,
+    "col": 11,
+    "end_col": 23,
+    "name": "health_check",
+    "symbol": "scip-lua . diver-config . blaze-ts/health_check().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 106,
+    "col": 8,
+    "end_col": 19,
+    "name": "environment",
+    "symbol": "local 34",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 107,
+    "col": 8,
+    "end_col": 14,
+    "name": "parser",
+    "symbol": "local 35",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 108,
+    "col": 8,
+    "end_col": 15,
+    "name": "queries",
+    "symbol": "local 36",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 105,
+    "col": 10,
+    "end_col": 16,
+    "name": "status",
+    "symbol": "local 37",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 110,
+    "col": 10,
+    "end_col": 15,
+    "name": "lines",
+    "symbol": "local 38",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 112,
+    "col": 8,
+    "end_col": 12,
+    "name": "name",
+    "symbol": "local 39",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 112,
+    "col": 14,
+    "end_col": 16,
+    "name": "ok",
+    "symbol": "local 40",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 123,
+    "col": 11,
+    "end_col": 27,
+    "name": "reinstall_parser",
+    "symbol": "scip-lua . diver-config . blaze-ts/reinstall_parser().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 125,
+    "col": 14,
+    "end_col": 16,
+    "name": "ok",
+    "symbol": "local 41",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 125,
+    "col": 18,
+    "end_col": 21,
+    "name": "err",
+    "symbol": "local 42",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/init.lua",
+    "line": 132,
+    "col": 10,
+    "end_col": 14,
+    "name": "path",
+    "symbol": "local 43",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 12,
+    "col": 6,
+    "end_col": 9,
+    "name": "Lsp",
+    "symbol": "local 1",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 13,
+    "col": 15,
+    "end_col": 22,
+    "name": "default",
+    "symbol": "local 2",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 13,
+    "col": 23,
+    "end_col": 26,
+    "name": "val",
+    "symbol": "local 3",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 13,
+    "col": 28,
+    "end_col": 36,
+    "name": "fallback",
+    "symbol": "local 4",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 14,
+    "col": 15,
+    "end_col": 27,
+    "name": "root_pattern",
+    "symbol": "local 5",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 15,
+    "col": 18,
+    "end_col": 23,
+    "name": "fname",
+    "symbol": "local 6",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 21,
+    "col": 9,
+    "end_col": 13,
+    "name": "path",
+    "symbol": "local 7",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 21,
+    "col": 23,
+    "end_col": 29,
+    "name": "upward",
+    "symbol": "local 8",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 16,
+    "col": 10,
+    "end_col": 14,
+    "name": "root",
+    "symbol": "local 9",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 25,
+    "col": 15,
+    "end_col": 35,
+    "name": "compute_capabilities",
+    "symbol": "local 10",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 25,
+    "col": 36,
+    "end_col": 53,
+    "name": "user_capabilities",
+    "symbol": "local 11",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 27,
+    "col": 8,
+    "end_col": 14,
+    "name": "ok_cmp",
+    "symbol": "local 12",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 27,
+    "col": 16,
+    "end_col": 19,
+    "name": "cmp",
+    "symbol": "local 13",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 31,
+    "col": 13,
+    "end_col": 18,
+    "name": "setup",
+    "symbol": "scip-lua . diver-config . blaze-ts/lsp/setup().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 31,
+    "col": 19,
+    "end_col": 28,
+    "name": "user_opts",
+    "symbol": "local 14",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 36,
+    "col": 8,
+    "end_col": 12,
+    "name": "opts",
+    "symbol": "local 15",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 39,
+    "col": 47,
+    "end_col": 53,
+    "name": "enable",
+    "symbol": "local 16",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 39,
+    "col": 6,
+    "end_col": 16,
+    "name": "inlayHints",
+    "symbol": "local 17",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 40,
+    "col": 47,
+    "end_col": 55,
+    "name": "snippets",
+    "symbol": "local 18",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 40,
+    "col": 6,
+    "end_col": 16,
+    "name": "completion",
+    "symbol": "local 19",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 38,
+    "col": 4,
+    "end_col": 8,
+    "name": "mojo",
+    "symbol": "local 20",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 37,
+    "col": 8,
+    "end_col": 16,
+    "name": "settings",
+    "symbol": "local 21",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 44,
+    "col": 4,
+    "end_col": 7,
+    "name": "cmd",
+    "symbol": "local 22",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 45,
+    "col": 4,
+    "end_col": 13,
+    "name": "filetypes",
+    "symbol": "local 23",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 46,
+    "col": 4,
+    "end_col": 23,
+    "name": "single_file_support",
+    "symbol": "local 24",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 47,
+    "col": 4,
+    "end_col": 12,
+    "name": "root_dir",
+    "symbol": "local 25",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 48,
+    "col": 4,
+    "end_col": 12,
+    "name": "settings",
+    "symbol": "local 26",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 49,
+    "col": 4,
+    "end_col": 13,
+    "name": "on_attach",
+    "symbol": "local 27",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 50,
+    "col": 4,
+    "end_col": 16,
+    "name": "capabilities",
+    "symbol": "local 28",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 43,
+    "col": 8,
+    "end_col": 16,
+    "name": "base_cfg",
+    "symbol": "local 29",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 52,
+    "col": 8,
+    "end_col": 14,
+    "name": "ok_lsp",
+    "symbol": "local 30",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 52,
+    "col": 16,
+    "end_col": 25,
+    "name": "lspconfig",
+    "symbol": "local 31",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 54,
+    "col": 10,
+    "end_col": 14,
+    "name": "cfgs",
+    "symbol": "local 32",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 55,
+    "col": 40,
+    "end_col": 54,
+    "name": "default_config",
+    "symbol": "local 33",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 62,
+    "col": 4,
+    "end_col": 11,
+    "name": "pattern",
+    "symbol": "local 34",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 64,
+    "col": 12,
+    "end_col": 15,
+    "name": "buf",
+    "symbol": "local 35",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 66,
+    "col": 8,
+    "end_col": 12,
+    "name": "name",
+    "symbol": "local 36",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 67,
+    "col": 8,
+    "end_col": 16,
+    "name": "root_dir",
+    "symbol": "local 37",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 65,
+    "col": 12,
+    "end_col": 15,
+    "name": "cfg",
+    "symbol": "local 38",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 69,
+    "col": 12,
+    "end_col": 19,
+    "name": "started",
+    "symbol": "local 39",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 69,
+    "col": 21,
+    "end_col": 27,
+    "name": "client",
+    "symbol": "local 40",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/lsp.lua",
+    "line": 63,
+    "col": 4,
+    "end_col": 12,
+    "name": "callback",
+    "symbol": "local 41",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 12,
+    "col": 6,
+    "end_col": 12,
+    "name": "Parser",
+    "symbol": "local 1",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 14,
+    "col": 6,
+    "end_col": 9,
+    "name": "sep",
+    "symbol": "local 2",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 15,
+    "col": 15,
+    "end_col": 19,
+    "name": "join",
+    "symbol": "local 3",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 16,
+    "col": 15,
+    "end_col": 25,
+    "name": "script_dir",
+    "symbol": "local 4",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 20,
+    "col": 15,
+    "end_col": 30,
+    "name": "candidate_paths",
+    "symbol": "local 5",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 21,
+    "col": 8,
+    "end_col": 12,
+    "name": "data",
+    "symbol": "local 6",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 30,
+    "col": 16,
+    "end_col": 31,
+    "name": "get_parser_path",
+    "symbol": "scip-lua . diver-config . blaze-ts/parser/get_parser_path().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 31,
+    "col": 6,
+    "end_col": 7,
+    "name": "_",
+    "symbol": "local 7",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 31,
+    "col": 9,
+    "end_col": 10,
+    "name": "p",
+    "symbol": "local 8",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 36,
+    "col": 16,
+    "end_col": 31,
+    "name": "register_config",
+    "symbol": "scip-lua . diver-config . blaze-ts/parser/register_config().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 37,
+    "col": 8,
+    "end_col": 10,
+    "name": "ok",
+    "symbol": "local 9",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 37,
+    "col": 12,
+    "end_col": 19,
+    "name": "parsers",
+    "symbol": "local 10",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 39,
+    "col": 8,
+    "end_col": 12,
+    "name": "cfgs",
+    "symbol": "local 11",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 43,
+    "col": 6,
+    "end_col": 9,
+    "name": "url",
+    "symbol": "local 12",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 44,
+    "col": 6,
+    "end_col": 11,
+    "name": "files",
+    "symbol": "local 13",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 45,
+    "col": 6,
+    "end_col": 12,
+    "name": "branch",
+    "symbol": "local 14",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 46,
+    "col": 6,
+    "end_col": 36,
+    "name": "requires_generate_from_grammar",
+    "symbol": "local 15",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 42,
+    "col": 4,
+    "end_col": 16,
+    "name": "install_info",
+    "symbol": "local 16",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 48,
+    "col": 4,
+    "end_col": 12,
+    "name": "filetype",
+    "symbol": "local 17",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 53,
+    "col": 16,
+    "end_col": 23,
+    "name": "install",
+    "symbol": "scip-lua . diver-config . blaze-ts/parser/install().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 55,
+    "col": 8,
+    "end_col": 10,
+    "name": "ok",
+    "symbol": "local 18",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 55,
+    "col": 12,
+    "end_col": 19,
+    "name": "install",
+    "symbol": "local 19",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 59,
+    "col": 8,
+    "end_col": 11,
+    "name": "ok2",
+    "symbol": "local 20",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 59,
+    "col": 13,
+    "end_col": 16,
+    "name": "res",
+    "symbol": "local 21",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 64,
+    "col": 16,
+    "end_col": 34,
+    "name": "setup_runtime_path",
+    "symbol": "scip-lua . diver-config . blaze-ts/parser/setup_runtime_path().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 65,
+    "col": 8,
+    "end_col": 15,
+    "name": "runtime",
+    "symbol": "local 22",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 71,
+    "col": 16,
+    "end_col": 22,
+    "name": "health",
+    "symbol": "scip-lua . diver-config . blaze-ts/parser/health().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 73,
+    "col": 4,
+    "end_col": 10,
+    "name": "config",
+    "symbol": "local 23",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 74,
+    "col": 4,
+    "end_col": 8,
+    "name": "path",
+    "symbol": "local 24",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 72,
+    "col": 8,
+    "end_col": 14,
+    "name": "status",
+    "symbol": "local 25",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 76,
+    "col": 9,
+    "end_col": 18,
+    "name": "installed",
+    "symbol": "local 26",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 78,
+    "col": 10,
+    "end_col": 13,
+    "name": "buf",
+    "symbol": "local 27",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 80,
+    "col": 10,
+    "end_col": 12,
+    "name": "ok",
+    "symbol": "local 28",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 81,
+    "col": 35,
+    "end_col": 40,
+    "name": "force",
+    "symbol": "local 29",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/parser.lua",
+    "line": 77,
+    "col": 9,
+    "end_col": 17,
+    "name": "loadable",
+    "symbol": "local 30",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/reload.lua",
+    "line": 12,
+    "col": 6,
+    "end_col": 12,
+    "name": "Reload",
+    "symbol": "local 1",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/reload.lua",
+    "line": 15,
+    "col": 15,
+    "end_col": 34,
+    "name": "purge_package_cache",
+    "symbol": "local 2",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/reload.lua",
+    "line": 16,
+    "col": 8,
+    "end_col": 13,
+    "name": "cache",
+    "symbol": "local 3",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/reload.lua",
+    "line": 17,
+    "col": 6,
+    "end_col": 10,
+    "name": "name",
+    "symbol": "local 4",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/reload.lua",
+    "line": 24,
+    "col": 16,
+    "end_col": 19,
+    "name": "run",
+    "symbol": "scip-lua . diver-config . blaze-ts/reload/run().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/reload.lua",
+    "line": 26,
+    "col": 8,
+    "end_col": 10,
+    "name": "ok",
+    "symbol": "local 5",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/reload.lua",
+    "line": 26,
+    "col": 12,
+    "end_col": 15,
+    "name": "mod",
+    "symbol": "local 6",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/tools/magic.lua",
+    "line": 12,
+    "col": 6,
+    "end_col": 11,
+    "name": "Magic",
+    "symbol": "local 1",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/tools/magic.lua",
+    "line": 13,
+    "col": 6,
+    "end_col": 11,
+    "name": "paths",
+    "symbol": "local 2",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/tools/magic.lua",
+    "line": 18,
+    "col": 15,
+    "end_col": 19,
+    "name": "find",
+    "symbol": "scip-lua . diver-config . blaze-ts/tools/magic/find().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/tools/magic.lua",
+    "line": 19,
+    "col": 6,
+    "end_col": 7,
+    "name": "_",
+    "symbol": "local 3",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/tools/magic.lua",
+    "line": 19,
+    "col": 9,
+    "end_col": 10,
+    "name": "p",
+    "symbol": "local 4",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 12,
+    "col": 6,
+    "end_col": 7,
+    "name": "M",
+    "symbol": "local 1",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 14,
+    "col": 1,
+    "end_col": 10,
+    "name": "highlight",
+    "symbol": "local 2",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 15,
+    "col": 1,
+    "end_col": 7,
+    "name": "indent",
+    "symbol": "local 3",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 16,
+    "col": 1,
+    "end_col": 22,
+    "name": "incremental_selection",
+    "symbol": "local 4",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 17,
+    "col": 1,
+    "end_col": 13,
+    "name": "auto_install",
+    "symbol": "local 5",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 18,
+    "col": 1,
+    "end_col": 15,
+    "name": "format_on_save",
+    "symbol": "local 6",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 19,
+    "col": 1,
+    "end_col": 12,
+    "name": "lsp_enabled",
+    "symbol": "local 7",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 13,
+    "col": 2,
+    "end_col": 9,
+    "name": "options",
+    "symbol": "scip-lua . diver-config . blaze-ts/ui/options.",
+    "category": "module-value"
+  },
+  {
+    "file": "lua/blaze-ts/ui.lua",
+    "line": 21,
+    "col": 2,
+    "end_col": 18,
+    "name": "original_options",
+    "symbol": "scip-lua . diver-config . blaze-ts/ui/original_options.",
+    "category": "module-value"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 12,
+    "col": 6,
+    "end_col": 7,
+    "name": "U",
+    "symbol": "local 1",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 13,
+    "col": 6,
+    "end_col": 9,
+    "name": "sep",
+    "symbol": "local 2",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 14,
+    "col": 15,
+    "end_col": 19,
+    "name": "join",
+    "symbol": "local 3",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 15,
+    "col": 15,
+    "end_col": 19,
+    "name": "stat",
+    "symbol": "local 4",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 15,
+    "col": 20,
+    "end_col": 24,
+    "name": "path",
+    "symbol": "local 5",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 16,
+    "col": 11,
+    "end_col": 22,
+    "name": "file_exists",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/file_exists().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 16,
+    "col": 23,
+    "end_col": 24,
+    "name": "p",
+    "symbol": "local 6",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 17,
+    "col": 11,
+    "end_col": 21,
+    "name": "dir_exists",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/dir_exists().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 17,
+    "col": 22,
+    "end_col": 23,
+    "name": "p",
+    "symbol": "local 7",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 18,
+    "col": 15,
+    "end_col": 20,
+    "name": "uname",
+    "symbol": "local 8",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 19,
+    "col": 11,
+    "end_col": 22,
+    "name": "get_os_name",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/get_os_name().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 20,
+    "col": 11,
+    "end_col": 19,
+    "name": "is_linux",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/is_linux().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 21,
+    "col": 11,
+    "end_col": 19,
+    "name": "is_macos",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/is_macos().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 22,
+    "col": 11,
+    "end_col": 21,
+    "name": "is_windows",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/is_windows().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 23,
+    "col": 11,
+    "end_col": 18,
+    "name": "find_up",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/find_up().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 23,
+    "col": 19,
+    "end_col": 25,
+    "name": "target",
+    "symbol": "local 9",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 23,
+    "col": 27,
+    "end_col": 32,
+    "name": "start",
+    "symbol": "local 10",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 24,
+    "col": 8,
+    "end_col": 12,
+    "name": "path",
+    "symbol": "local 11",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 25,
+    "col": 8,
+    "end_col": 12,
+    "name": "root",
+    "symbol": "local 12",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 27,
+    "col": 10,
+    "end_col": 19,
+    "name": "candidate",
+    "symbol": "local 13",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 32,
+    "col": 15,
+    "end_col": 25,
+    "name": "parser_ext",
+    "symbol": "local 14",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 33,
+    "col": 8,
+    "end_col": 10,
+    "name": "os",
+    "symbol": "local 15",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 36,
+    "col": 11,
+    "end_col": 30,
+    "name": "load_parser_library",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/load_parser_library().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 37,
+    "col": 8,
+    "end_col": 11,
+    "name": "src",
+    "symbol": "local 16",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 38,
+    "col": 8,
+    "end_col": 11,
+    "name": "lib",
+    "symbol": "local 17",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 42,
+    "col": 11,
+    "end_col": 32,
+    "name": "setup_ts_runtime_path",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/setup_ts_runtime_path().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 43,
+    "col": 8,
+    "end_col": 11,
+    "name": "rtp",
+    "symbol": "local 18",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 48,
+    "col": 15,
+    "end_col": 19,
+    "name": "exec",
+    "symbol": "local 19",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 48,
+    "col": 20,
+    "end_col": 23,
+    "name": "cmd",
+    "symbol": "local 20",
+    "category": "param"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 49,
+    "col": 8,
+    "end_col": 10,
+    "name": "ok",
+    "symbol": "local 21",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 49,
+    "col": 12,
+    "end_col": 18,
+    "name": "handle",
+    "symbol": "local 22",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 51,
+    "col": 8,
+    "end_col": 11,
+    "name": "out",
+    "symbol": "local 23",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 53,
+    "col": 15,
+    "end_col": 23,
+    "name": "mojo_env",
+    "symbol": "local 24",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 54,
+    "col": 8,
+    "end_col": 19,
+    "name": "has_modular",
+    "symbol": "local 25",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 56,
+    "col": 4,
+    "end_col": 12,
+    "name": "has_mojo",
+    "symbol": "local 26",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 57,
+    "col": 4,
+    "end_col": 15,
+    "name": "has_modular",
+    "symbol": "local 27",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 58,
+    "col": 4,
+    "end_col": 12,
+    "name": "has_pixi",
+    "symbol": "local 28",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 59,
+    "col": 4,
+    "end_col": 14,
+    "name": "has_docker",
+    "symbol": "local 29",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 60,
+    "col": 4,
+    "end_col": 13,
+    "name": "mojo_path",
+    "symbol": "local 30",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 61,
+    "col": 4,
+    "end_col": 11,
+    "name": "has_max",
+    "symbol": "local 31",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 62,
+    "col": 4,
+    "end_col": 16,
+    "name": "pixi_project",
+    "symbol": "local 32",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 63,
+    "col": 4,
+    "end_col": 13,
+    "name": "in_docker",
+    "symbol": "local 33",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 66,
+    "col": 15,
+    "end_col": 22,
+    "name": "gpu_env",
+    "symbol": "local 34",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 67,
+    "col": 16,
+    "end_col": 26,
+    "name": "has_nvidia",
+    "symbol": "local 35",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 67,
+    "col": 36,
+    "end_col": 43,
+    "name": "has_amd",
+    "symbol": "local 36",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 67,
+    "col": 53,
+    "end_col": 62,
+    "name": "has_intel",
+    "symbol": "local 37",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 67,
+    "col": 8,
+    "end_col": 11,
+    "name": "gpu",
+    "symbol": "local 38",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 68,
+    "col": 8,
+    "end_col": 11,
+    "name": "smi",
+    "symbol": "local 39",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 71,
+    "col": 8,
+    "end_col": 17,
+    "name": "gpu_count",
+    "symbol": "local 40",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 72,
+    "col": 8,
+    "end_col": 22,
+    "name": "driver_version",
+    "symbol": "local 41",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 73,
+    "col": 10,
+    "end_col": 14,
+    "name": "nvcc",
+    "symbol": "local 42",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 74,
+    "col": 8,
+    "end_col": 20,
+    "name": "cuda_version",
+    "symbol": "local 43",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 76,
+    "col": 8,
+    "end_col": 12,
+    "name": "rocm",
+    "symbol": "local 44",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 79,
+    "col": 8,
+    "end_col": 20,
+    "name": "rocm_version",
+    "symbol": "local 45",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 84,
+    "col": 15,
+    "end_col": 23,
+    "name": "pixi_env",
+    "symbol": "local 46",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 85,
+    "col": 50,
+    "end_col": 58,
+    "name": "has_pixi",
+    "symbol": "local 47",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 86,
+    "col": 8,
+    "end_col": 12,
+    "name": "toml",
+    "symbol": "local 48",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 87,
+    "col": 28,
+    "end_col": 36,
+    "name": "has_pixi",
+    "symbol": "local 49",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 88,
+    "col": 8,
+    "end_col": 12,
+    "name": "root",
+    "symbol": "local 50",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 89,
+    "col": 8,
+    "end_col": 12,
+    "name": "info",
+    "symbol": "local 51",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 90,
+    "col": 8,
+    "end_col": 11,
+    "name": "env",
+    "symbol": "local 52",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 91,
+    "col": 8,
+    "end_col": 11,
+    "name": "bin",
+    "symbol": "local 53",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 93,
+    "col": 4,
+    "end_col": 12,
+    "name": "has_pixi",
+    "symbol": "local 54",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 94,
+    "col": 4,
+    "end_col": 16,
+    "name": "project_root",
+    "symbol": "local 55",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 95,
+    "col": 4,
+    "end_col": 12,
+    "name": "env_path",
+    "symbol": "local 56",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 96,
+    "col": 4,
+    "end_col": 12,
+    "name": "bin_path",
+    "symbol": "local 57",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 99,
+    "col": 15,
+    "end_col": 27,
+    "name": "magic_docker",
+    "symbol": "local 58",
+    "category": "local-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 100,
+    "col": 8,
+    "end_col": 11,
+    "name": "cfg",
+    "symbol": "local 59",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 101,
+    "col": 53,
+    "end_col": 60,
+    "name": "enabled",
+    "symbol": "local 60",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 102,
+    "col": 8,
+    "end_col": 15,
+    "name": "content",
+    "symbol": "local 61",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 104,
+    "col": 4,
+    "end_col": 11,
+    "name": "enabled",
+    "symbol": "local 62",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 105,
+    "col": 4,
+    "end_col": 15,
+    "name": "config_path",
+    "symbol": "local 63",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 106,
+    "col": 4,
+    "end_col": 9,
+    "name": "image",
+    "symbol": "local 64",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 109,
+    "col": 11,
+    "end_col": 29,
+    "name": "detect_environment",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/detect_environment().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 110,
+    "col": 8,
+    "end_col": 12,
+    "name": "mojo",
+    "symbol": "local 65",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 112,
+    "col": 4,
+    "end_col": 8,
+    "name": "mojo",
+    "symbol": "local 66",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 113,
+    "col": 4,
+    "end_col": 8,
+    "name": "pixi",
+    "symbol": "local 67",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 114,
+    "col": 4,
+    "end_col": 7,
+    "name": "gpu",
+    "symbol": "local 68",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 115,
+    "col": 14,
+    "end_col": 24,
+    "name": "has_docker",
+    "symbol": "local 69",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 115,
+    "col": 44,
+    "end_col": 49,
+    "name": "magic",
+    "symbol": "local 70",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 115,
+    "col": 4,
+    "end_col": 10,
+    "name": "docker",
+    "symbol": "local 71",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 116,
+    "col": 14,
+    "end_col": 16,
+    "name": "os",
+    "symbol": "local 72",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 116,
+    "col": 36,
+    "end_col": 44,
+    "name": "is_linux",
+    "symbol": "local 73",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 116,
+    "col": 61,
+    "end_col": 69,
+    "name": "is_macos",
+    "symbol": "local 74",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 116,
+    "col": 86,
+    "end_col": 96,
+    "name": "is_windows",
+    "symbol": "local 75",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 116,
+    "col": 4,
+    "end_col": 10,
+    "name": "system",
+    "symbol": "local 76",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 119,
+    "col": 11,
+    "end_col": 16,
+    "name": "setup",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/setup().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 124,
+    "col": 11,
+    "end_col": 17,
+    "name": "health",
+    "symbol": "scip-lua . diver-config . blaze-ts/utils/health().",
+    "category": "module-function"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 125,
+    "col": 8,
+    "end_col": 11,
+    "name": "env",
+    "symbol": "local 77",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 126,
+    "col": 8,
+    "end_col": 10,
+    "name": "ok",
+    "symbol": "local 78",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 127,
+    "col": 8,
+    "end_col": 12,
+    "name": "warn",
+    "symbol": "local 79",
+    "category": "local-var"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 132,
+    "col": 11,
+    "end_col": 13,
+    "name": "ok",
+    "symbol": "local 80",
+    "category": "table-field"
+  },
+  {
+    "file": "lua/blaze-ts/utils.lua",
+    "line": 132,
+    "col": 20,
+    "end_col": 24,
+    "name": "warn",
+    "symbol": "local 81",
+    "category": "table-field"
+  }
+]

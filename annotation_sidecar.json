@@ -1,0 +1,30 @@
+{
+  "schema": "scip-lua.annotation-sidecar/v1",
+  "overloads": {},
+  "deprecated": {},
+  "private": [
+    "lua/blaze-ts/reload.lua::purge_package_cache"
+  ],
+  "async": [],
+  "generics": {},
+  "shaped_fields": {},
+  "enums": {},
+  "aliases": {},
+  "scope": {
+    "found": false
+  },
+  "annotation_coverage": {
+    "param": {
+      "count": 4,
+      "disposition": "resolution (parameter types)"
+    },
+    "private": {
+      "count": 1,
+      "disposition": "sidecar (flag; excluded from luacheck exports)"
+    },
+    "return": {
+      "count": 8,
+      "disposition": "resolution (return types)"
+    }
+  }
+}
