@@ -20,3 +20,7 @@ Facts established during the overnight completion pass (all verified on primo):
   now gitignored; regenerate with the same command, do not commit it.
 - `current.md` previously carried a language-mirror template that did not
   describe this repo; refreshed this pass.
+- Correction to the SCIP bullet above: the indexer also drops
+  `pilot_defs.json`, `pilot_occurrences.json`, and `stats.json` beside
+  the index. Those were briefly committed in 8247dcc and removed in
+  follow-up 2a1edf6; all four generated artifacts are gitignored now.
