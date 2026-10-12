@@ -9,3 +9,6 @@ shell.nix
 /nix/
 result*
 /index.scip
+/pilot_defs.json
+/pilot_occurrences.json
+/stats.json
