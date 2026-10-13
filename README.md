@@ -125,6 +125,5 @@ The grammar's structure and the external scanner's logic are adapted from [tree-
 
 ## License
 
-Apache License, Version 2.0 — see [LICENSE](./LICENSE).
+This project is licensed under the [Apache License, Version 2.0](./LICENSE).
 
-Copyright 2026 Qompass AI
