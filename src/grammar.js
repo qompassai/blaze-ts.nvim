@@ -64,7 +64,10 @@ export default grammar({
     [$.parameters, $.tuple_pattern],
     [$.parameter, $.pattern],
     [$._ref_convention, $.argument_convention],
-    [$.convention_parameter, $.constrained_type],
+    [$.untyped_convention_parameter, $._convention_type],
+    [$.typed_splat_parameter, $.list_splat_pattern],
+    [$.typed_splat_parameter, $.dictionary_splat_pattern],
+    [$.typed_splat_parameter, $.constrained_type],
   ],
 
   supertypes: ($) => [
@@ -394,6 +397,7 @@ export default grammar({
         field('name', $.identifier),
         field('type_parameters', optional($.type_parameter)),
         field('parameters', $.parameters),
+        optional(field('abi', $.abi_specifier)),
         // Effect specifiers (raises / capturing / escaping) are
         // whitespace-separated. Whitespace is an extra in this grammar,
         // so an explicit separator token could never match here; the
@@ -446,6 +450,8 @@ export default grammar({
       ),
 
     comptime_for_statement: ($) => seq('comptime', $.for_statement),
+
+    abi_specifier: ($) => seq('abi', '(', $.string, ')'),
 
     _effect_specifier: ($) =>
       choice(
@@ -682,12 +688,13 @@ export default grammar({
     parameter: ($) =>
       choice(
         $.self_parameter,
-        $.convention_parameter,
+        $.untyped_convention_parameter,
         $.identifier,
         $.typed_parameter,
         $.default_parameter,
         $.typed_default_parameter,
         $.list_splat_pattern,
+        $.typed_splat_parameter,
         $.tuple_pattern,
         $.keyword_separator,
         $.positional_separator,
@@ -724,8 +731,21 @@ export default grammar({
         $._ref_convention,
       ),
 
+    untyped_convention_parameter: ($) =>
+      seq($.argument_convention, field('name', $.identifier)),
+
+    // Function-type parameter lists only (def(var T)): a convention applied
+    // to a bare type. Kept out of $.parameter — in signatures the same text
+    // is a typed_parameter (name before the colon), and this rule's type
+    // would swallow it as a constrained_type.
     convention_parameter: ($) =>
-      seq($.argument_convention, field('type', $.type)),
+      prec.dynamic(1, seq($.argument_convention, field('type', $._convention_type))),
+
+    // The type in a convention parameter (def(var T)) excludes
+    // constrained_type: in `var s: String` the colon belongs to a
+    // typed_parameter (s is the name), never to a `type : type` form.
+    _convention_type: ($) =>
+      choice($.identifier, $.generic_type, $.member_type),
 
     self_parameter: ($) => seq(optional($.argument_convention), SELF),
 
@@ -763,6 +783,15 @@ export default grammar({
           field('value', $.expression),
           optional(field('where_clause', $.where_clause)),
         ),
+      ),
+
+    typed_splat_parameter: ($) =>
+      seq(
+        choice('*', '**'),
+        field('name', $.identifier),
+        ':',
+        field('type', $.type),
+        optional(seq('=', field('value', $.expression))),
       ),
 
     list_splat_pattern: ($) =>
@@ -1049,7 +1078,7 @@ export default grammar({
 
     slice: ($) =>
       seq(
-        optional($.expression),
+        optional(choice($.expression, $.keyword_argument)),
         ':',
         optional($.expression),
         optional(seq(':', optional($.expression))),
@@ -1084,11 +1113,25 @@ export default grammar({
         seq(
           optional('thin'),
           choice('def', 'fn'),
-          field('parameters', $.parameters),
+          field('parameters', $.function_type_parameters),
+          optional(field('abi', $.abi_specifier)),
+          optional('thin'),
           optional(seq($._fn_type_effect, repeat($._fn_type_effect))),
           optional(seq('->', field('return_type', $.type))),
           optional(field('where_clause', $.where_clause)),
         ),
+      ),
+
+    function_type_parameters: ($) =>
+      seq(
+        '(',
+        optional(
+          seq(
+            commaSep1(choice($.parameter, $.convention_parameter)),
+            optional(','),
+          ),
+        ),
+        ')',
       ),
 
     _fn_type_effect: ($) =>

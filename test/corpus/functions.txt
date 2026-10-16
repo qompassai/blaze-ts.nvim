@@ -378,3 +378,43 @@ def tag() {var^} -> String:
     (block
       (return_statement
         (identifier)))))
+
+================================================================================
+ABI specifier and splat typed default parameter
+================================================================================
+
+def my_function(name: StaticString) abi("C") -> None:
+    pass
+
+def wrong(*args: Int = 0):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (abi_specifier
+      (string
+        (string_start)
+        (string_content)
+        (string_end)))
+    (type
+      (none))
+    (block
+      (pass_statement)))
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_splat_parameter
+        (identifier)
+        (type
+          (identifier))
+        (integer)))
+    (block
+      (pass_statement))))

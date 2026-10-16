@@ -318,17 +318,16 @@ comptime G = def(var T) -> None
   (comptime_declaration
     (identifier)
     (function_type
-      (parameters
+      (function_type_parameters
         (identifier))
       (type
         (identifier))))
   (comptime_declaration
     (identifier)
     (function_type
-      (parameters
+      (function_type_parameters
         (convention_parameter
           (argument_convention)
-          (type
-            (identifier))))
+          (identifier)))
       (type
         (none)))))

@@ -241,3 +241,21 @@ var allocation = alloc[CacheAligned]({count = 4})
           (brace_literal
             (identifier)
             (integer)))))))
+
+================================================================================
+Keyword slice in subscript
+================================================================================
+
+text[codepoint=0:5]
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (subscript
+      (identifier)
+      (slice
+        (keyword_argument
+          (identifier)
+          (integer))
+        (integer)))))
