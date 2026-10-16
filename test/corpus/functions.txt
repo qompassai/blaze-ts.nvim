@@ -230,3 +230,28 @@ struct Stack[T: Copyable, n: Int]:
         (block
           (expression_statement
             (ellipsis)))))))
+
+================================================================================
+Raises with error type
+================================================================================
+
+def open_file(path: String) raises FileError -> String:
+    return path
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (dotted_name
+      (identifier))
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (identifier)))))

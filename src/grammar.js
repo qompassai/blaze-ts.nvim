@@ -125,6 +125,7 @@ export default grammar({
         $.exec_statement,
         $.type_alias_statement,
         $.comptime_declaration,
+        $.comptime_assert_statement,
         $.ref_declaration,
       ),
 
@@ -388,12 +389,7 @@ export default grammar({
         // so an explicit separator token could never match here; the
         // specifiers are also independent of the return annotation,
         // since `fn f() raises:` carries no arrow.
-        optional(
-          seq(
-            choice('raises', 'capturing', 'escaping'),
-            repeat(choice('raises', 'capturing', 'escaping')),
-          ),
-        ),
+        optional(seq($._effect_specifier, repeat($._effect_specifier))),
         optional(
           seq(
             '->',
@@ -440,10 +436,23 @@ export default grammar({
 
     comptime_for_statement: ($) => seq('comptime', $.for_statement),
 
+    _effect_specifier: ($) =>
+      choice(
+        prec.dynamic(2, seq('raises', optional(field('error_type', $._error_type)))),
+        'capturing',
+        'escaping',
+      ),
+
+    // Error types exclude constrained_type: in `raises A:` the colon ends the
+    // signature; it never starts a `type : type` constraint.
+    _error_type: ($) => prec.dynamic(1, choice($.identifier, $.generic_type, $.dotted_name)),
+
     where_clause: ($) => seq('where', field('condition', $.expression)),
 
     conformance_clause: ($) =>
       seq(field('trait', $.identifier), 'where', field('condition', $.expression)),
+
+    comptime_assert_statement: ($) => seq('comptime', $.assert_statement),
 
     ref_declaration: ($) =>
       seq('ref', field('name', $.identifier), '=', field('value', $.expression)),
@@ -782,6 +791,7 @@ export default grammar({
         $.generator_expression,
         $.ellipsis,
         $.transfer_expression,
+        $.implicit_member_expression,
         alias($.list_splat_pattern, $.list_splat),
         $.mlir_type,
       ),
@@ -985,7 +995,9 @@ export default grammar({
         seq(
           field('value', $.primary_expression),
           '[',
-          commaSep1(field('subscript', choice($.expression, $.slice, $.keyword_argument))),
+          optional(
+            commaSep1(field('subscript', choice($.expression, $.slice, $.keyword_argument))),
+          ),
           optional(','),
           ']',
         ),
@@ -1026,6 +1038,9 @@ export default grammar({
     constrained_type: ($) => prec.right(seq($.type, ':', $.type)),
     member_type: ($) => seq($.type, '.', $.identifier),
 
+    implicit_member_expression: ($) =>
+      prec(PREC.call, seq('.', field('name', $.identifier))),
+
     transfer_expression: ($) =>
       prec(PREC.call, seq(field('value', $.primary_expression), '^')),
 
@@ -1042,6 +1057,7 @@ export default grammar({
       seq(
         '__mlir_type',
         choice(
+          seq('.', $.identifier),
           seq('.`', $._mlir_type, '`'),
           seq(
             '[',

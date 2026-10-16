@@ -304,3 +304,18 @@ comptime for i in range(4):
             (identifier)
             (argument_list
               (identifier))))))))
+
+================================================================================
+Comptime assert statement
+================================================================================
+
+comptime assert size >= 0
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_assert_statement
+    (assert_statement
+      (comparison_operator
+        (identifier)
+        (integer)))))

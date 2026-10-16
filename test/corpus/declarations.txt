@@ -288,3 +288,19 @@ struct Buffer[T: Copyable, n: Int](Writable where conforms_to(T, Writable)):
             (identifier)))))
     (block
       (pass_statement))))
+
+================================================================================
+MLIR type annotation
+================================================================================
+
+var _mlir_value: __mlir_type.index
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (type
+        (mlir_type
+          (identifier))))))

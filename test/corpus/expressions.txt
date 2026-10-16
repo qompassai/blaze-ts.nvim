@@ -181,3 +181,23 @@ var total = a ^ b
       (binary_operator
         (identifier)
         (identifier)))))
+
+================================================================================
+Empty subscript and leading-dot member
+================================================================================
+
+ptr[]
+SIMD[.int16, 1]
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (subscript
+      (identifier)))
+  (expression_statement
+    (subscript
+      (identifier)
+      (implicit_member_expression
+        (identifier))
+      (integer))))

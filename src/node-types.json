@@ -66,6 +66,10 @@
         "named": true
       },
       {
+        "type": "comptime_assert_statement",
+        "named": true
+      },
+      {
         "type": "comptime_declaration",
         "named": true
       },
@@ -295,6 +299,10 @@
       },
       {
         "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "implicit_member_expression",
         "named": true
       },
       {
@@ -1191,6 +1199,21 @@
     }
   },
   {
+    "type": "comptime_assert_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "assert_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comptime_declaration",
     "named": true,
     "fields": {
@@ -1970,6 +1993,24 @@
           }
         ]
       },
+      "error_type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "dotted_name",
+            "named": true
+          },
+          {
+            "type": "generic_type",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": true,
         "required": true,
@@ -2165,6 +2206,22 @@
         "types": [
           {
             "type": "block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "implicit_member_expression",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -2619,6 +2676,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
         {
           "type": "type",
           "named": true
@@ -3140,7 +3201,7 @@
     "fields": {
       "subscript": {
         "multiple": true,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "expression",
