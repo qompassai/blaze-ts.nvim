@@ -125,6 +125,7 @@ export default grammar({
         $.exec_statement,
         $.type_alias_statement,
         $.comptime_declaration,
+        $.ref_declaration,
       ),
 
     import_statement: ($) => seq('import', $._import_list),
@@ -400,6 +401,7 @@ export default grammar({
             field('return_type', $.type),
           ),
         ),
+        optional(field('where_clause', $.where_clause)),
         ':',
         field('body', $._suite),
       ),
@@ -437,6 +439,14 @@ export default grammar({
       ),
 
     comptime_for_statement: ($) => seq('comptime', $.for_statement),
+
+    where_clause: ($) => seq('where', field('condition', $.expression)),
+
+    conformance_clause: ($) =>
+      seq(field('trait', $.identifier), 'where', field('condition', $.expression)),
+
+    ref_declaration: ($) =>
+      seq('ref', field('name', $.identifier), '=', field('value', $.expression)),
 
     comptime_if_statement: ($) => seq('comptime', $.if_statement),
 
@@ -487,6 +497,7 @@ export default grammar({
               $.dictionary_splat,
               alias($.parenthesized_list_splat, $.parenthesized_expression),
               $.keyword_argument,
+              $.conformance_clause,
             ),
           ),
         ),
@@ -662,12 +673,14 @@ export default grammar({
     argument_convention: ($) =>
       choice(
         'borrowed',
+        'deinit',
         'inout',
         'owned',
         'out',
         'read',
         'mut',
         'ref',
+        'var',
         $._ref_convention,
       ),
 

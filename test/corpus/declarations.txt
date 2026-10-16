@@ -229,3 +229,62 @@ struct Stack[T: Copyable]:
       (comptime_declaration
         (identifier)
         (integer)))))
+
+================================================================================
+Ref declaration
+================================================================================
+
+ref view = data[0]
+ref g = global_constant[POWERS]()
+
+--------------------------------------------------------------------------------
+
+(module
+  (ref_declaration
+    (identifier)
+    (subscript
+      (identifier)
+      (integer)))
+  (ref_declaration
+    (identifier)
+    (call
+      (subscript
+        (identifier)
+        (identifier))
+      (argument_list))))
+
+================================================================================
+Struct conformance with where clause
+================================================================================
+
+struct Buffer[T: Copyable, n: Int](Writable where conforms_to(T, Writable)):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier))))
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (argument_list
+      (conformance_clause
+        (identifier)
+        (call
+          (identifier)
+          (argument_list
+            (identifier)
+            (identifier)))))
+    (block
+      (pass_statement))))

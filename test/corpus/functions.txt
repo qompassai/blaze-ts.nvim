@@ -147,3 +147,86 @@ struct Buffer:
               (string_start)
               (string_content)
               (string_end))))))))
+
+================================================================================
+Argument conventions var and deinit
+================================================================================
+
+def exclaim(var s: String):
+    print(s)
+
+def consume(deinit x: Int):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (argument_convention)
+        (identifier)
+        (type
+          (identifier))))
+    (block
+      (expression_statement
+        (call
+          (identifier)
+          (argument_list
+            (identifier))))))
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (argument_convention)
+        (identifier)
+        (type
+          (identifier))))
+    (block
+      (pass_statement))))
+
+================================================================================
+Method with trailing where clause
+================================================================================
+
+struct Stack[T: Copyable, n: Int]:
+    def first(self) -> Self.T where Self.n > 0:
+        ...
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier))))
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (block
+      (function_definition
+        (identifier)
+        (parameters
+          (self_parameter))
+        (type
+          (attribute
+            (identifier)
+            (identifier)))
+        (where_clause
+          (comparison_operator
+            (attribute
+              (identifier)
+              (identifier))
+            (integer)))
+        (block
+          (expression_statement
+            (ellipsis)))))))
