@@ -468,7 +468,11 @@ export default grammar({
         ':',
         field('body', $._suite),
       ),
-    type_parameter: ($) => seq('[', commaSep1($.type), optional(','), ']'),
+    type_parameter: ($) =>
+      seq('[', commaSep1(choice($.type, $.parametric_default, '//')), optional(','), ']'),
+
+    parametric_default: ($) =>
+      seq(field('parameter', $.type), '=', field('value', $.expression)),
 
     trait_definition: ($) =>
       seq(
@@ -706,6 +710,7 @@ export default grammar({
           ),
           ':',
           field('type', $.type),
+          optional(field('where_clause', $.where_clause)),
         ),
       ),
 
@@ -720,11 +725,13 @@ export default grammar({
       prec(
         PREC.typed_parameter,
         seq(
+          optional($.argument_convention),
           field('name', $.identifier),
           ':',
           field('type', $.type),
           '=',
           field('value', $.expression),
+          optional(field('where_clause', $.where_clause)),
         ),
       ),
 

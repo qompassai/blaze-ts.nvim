@@ -255,3 +255,83 @@ def open_file(path: String) raises FileError -> String:
     (block
       (return_statement
         (identifier)))))
+
+================================================================================
+Parametric defaults, separator, and parameter where clause
+================================================================================
+
+def speak[a: Int = 3, msg: String = "woof"]():
+    pass
+
+def fwd[T: Movable, //, U: Copyable](x: T) -> T:
+    return x
+
+def wrong(x: Int where x > 0):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (type_parameter
+      (parametric_default
+        (type
+          (constrained_type
+            (type
+              (identifier))
+            (type
+              (identifier))))
+        (integer))
+      (parametric_default
+        (type
+          (constrained_type
+            (type
+              (identifier))
+            (type
+              (identifier))))
+        (string
+          (string_start)
+          (string_content)
+          (string_end))))
+    (parameters)
+    (block
+      (pass_statement)))
+  (function_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier))))
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (identifier))))
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))
+        (where_clause
+          (comparison_operator
+            (identifier)
+            (integer)))))
+    (block
+      (pass_statement))))
