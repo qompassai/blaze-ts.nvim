@@ -178,6 +178,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "convention_parameter",
+        "named": true
+      },
+      {
         "type": "default_parameter",
         "named": true
       },
@@ -263,6 +267,10 @@
       },
       {
         "type": "binary_operator",
+        "named": true
+      },
+      {
+        "type": "brace_literal",
         "named": true
       },
       {
@@ -874,6 +882,32 @@
     }
   },
   {
+    "type": "brace_literal",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "break_statement",
     "named": true,
     "fields": {}
@@ -913,6 +947,52 @@
       "types": [
         {
           "type": "parameter_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "capture_convention",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "capture_entry",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "capture_convention",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "capture_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "capture_entry",
           "named": true
         }
       ]
@@ -1254,6 +1334,10 @@
           {
             "type": "expression",
             "named": true
+          },
+          {
+            "type": "function_type",
+            "named": true
           }
         ]
       }
@@ -1364,6 +1448,32 @@
     "type": "continue_statement",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "convention_parameter",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_convention",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "decorated_definition",
@@ -1993,6 +2103,16 @@
           }
         ]
       },
+      "captures": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "capture_list",
+            "named": true
+          }
+        ]
+      },
       "error_type": {
         "multiple": true,
         "required": false,
@@ -2068,6 +2188,70 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_type",
+    "named": true,
+    "fields": {
+      "error_type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "dotted_name",
+            "named": true
+          },
+          {
+            "type": "generic_type",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "parameters",
+            "named": true
+          }
+        ]
+      },
+      "return_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "where_clause": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "where_clause",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "capture_entry",
           "named": true
         }
       ]
@@ -2470,12 +2654,54 @@
           }
         ]
       },
+      "captures": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "capture_list",
+            "named": true
+          }
+        ]
+      },
+      "error_type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "dotted_name",
+            "named": true
+          },
+          {
+            "type": "generic_type",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "parameters": {
         "multiple": false,
         "required": false,
         "types": [
           {
             "type": "lambda_parameters",
+            "named": true
+          },
+          {
+            "type": "parameters",
+            "named": true
+          }
+        ]
+      },
+      "return_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
             "named": true
           }
         ]
@@ -3423,6 +3649,10 @@
           "named": true
         },
         {
+          "type": "function_type",
+          "named": true
+        },
+        {
           "type": "generic_type",
           "named": true
         },
@@ -4174,6 +4404,10 @@
     "named": false
   },
   {
+    "type": "imm",
+    "named": false
+  },
+  {
     "type": "import",
     "named": false
   },
@@ -4284,6 +4518,10 @@
   },
   {
     "type": "struct",
+    "named": false
+  },
+  {
+    "type": "thin",
     "named": false
   },
   {

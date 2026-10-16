@@ -55,6 +55,16 @@ export default grammar({
     [$.transfer_expression, $.binary_operator],
     [$.transfer_expression, $.binary_operator, $.unary_operator],
     [$.transfer_expression, $.binary_operator, $.await],
+    [$.list_splat_pattern, $.keyword_separator],
+    [$.function_type, $.member_type],
+    [$.function_type, $.constrained_type],
+    [$.function_type, $.union_type],
+    [$._error_type, $.dotted_name],
+    [$.function_type],
+    [$.parameters, $.tuple_pattern],
+    [$.parameter, $.pattern],
+    [$._ref_convention, $.argument_convention],
+    [$.convention_parameter, $.constrained_type],
   ],
 
   supertypes: ($) => [
@@ -390,6 +400,7 @@ export default grammar({
         // specifiers are also independent of the return annotation,
         // since `fn f() raises:` carries no arrow.
         optional(seq($._effect_specifier, repeat($._effect_specifier))),
+        optional(field('captures', $.capture_list)),
         optional(
           seq(
             '->',
@@ -431,7 +442,7 @@ export default grammar({
         field('parameters', optional($.type_parameter)),
         optional(seq(':', field('type', $.type))),
         '=',
-        field('value', $.expression),
+        field('value', choice($.expression, $.function_type)),
       ),
 
     comptime_for_statement: ($) => seq('comptime', $.for_statement),
@@ -446,6 +457,21 @@ export default grammar({
     // Error types exclude constrained_type: in `raises A:` the colon ends the
     // signature; it never starts a `type : type` constraint.
     _error_type: ($) => prec.dynamic(1, choice($.identifier, $.generic_type, $.dotted_name)),
+
+    capture_convention: ($) => choice('imm', 'mut', 'ref', 'var'),
+
+    capture_entry: ($) =>
+      choice(
+        seq(
+          $.capture_convention,
+          optional(field('name', $.identifier)),
+          optional('^'),
+        ),
+        seq(field('name', $.identifier), optional('^')),
+      ),
+
+    capture_list: ($) =>
+      seq('{', optional(commaSep1($.capture_entry)), optional(','), '}'),
 
     where_clause: ($) => seq('where', field('condition', $.expression)),
 
@@ -656,6 +682,7 @@ export default grammar({
     parameter: ($) =>
       choice(
         $.self_parameter,
+        $.convention_parameter,
         $.identifier,
         $.typed_parameter,
         $.default_parameter,
@@ -696,6 +723,9 @@ export default grammar({
         'var',
         $._ref_convention,
       ),
+
+    convention_parameter: ($) =>
+      seq($.argument_convention, field('type', $.type)),
 
     self_parameter: ($) => seq(optional($.argument_convention), SELF),
 
@@ -799,6 +829,7 @@ export default grammar({
         $.ellipsis,
         $.transfer_expression,
         $.implicit_member_expression,
+        $.brace_literal,
         alias($.list_splat_pattern, $.list_splat),
         $.mlir_type,
       ),
@@ -903,7 +934,13 @@ export default grammar({
         PREC.lambda,
         seq(
           'lambda',
-          field('parameters', optional($.lambda_parameters)),
+          field(
+            'parameters',
+            optional(choice($.parameters, $.lambda_parameters)),
+          ),
+          optional(field('captures', $.capture_list)),
+          optional(seq($._effect_specifier, repeat($._effect_specifier))),
+          optional(seq('->', field('return_type', $.type))),
           ':',
           field('body', $.expression),
         ),
@@ -1038,12 +1075,48 @@ export default grammar({
         $.union_type,
         $.constrained_type,
         $.member_type,
+        $.function_type,
+      ),
+
+    function_type: ($) =>
+      prec.dynamic(
+        2,
+        seq(
+          optional('thin'),
+          choice('def', 'fn'),
+          field('parameters', $.parameters),
+          optional(seq($._fn_type_effect, repeat($._fn_type_effect))),
+          optional(seq('->', field('return_type', $.type))),
+          optional(field('where_clause', $.where_clause)),
+        ),
+      ),
+
+    _fn_type_effect: ($) =>
+      choice(
+        $._effect_specifier,
+        seq(
+          'capturing',
+          '[',
+          commaSep1(choice('_', $.capture_entry)),
+          optional(','),
+          ']',
+        ),
       ),
     splat_type: ($) => prec(1, seq(choice('*', '**'), $.identifier)),
     generic_type: ($) => prec(1, seq($.identifier, $.type_parameter)),
     union_type: ($) => prec.left(seq($.type, '|', $.type)),
     constrained_type: ($) => prec.right(seq($.type, ':', $.type)),
     member_type: ($) => seq($.type, '.', $.identifier),
+
+    brace_literal: ($) =>
+      seq(
+        '{',
+        commaSep1(
+          seq(field('name', $.identifier), '=', field('value', $.expression)),
+        ),
+        optional(','),
+        '}',
+      ),
 
     implicit_member_expression: ($) =>
       prec(PREC.call, seq('.', field('name', $.identifier))),

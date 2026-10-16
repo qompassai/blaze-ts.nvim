@@ -304,3 +304,31 @@ var _mlir_value: __mlir_type.index
       (type
         (mlir_type
           (identifier))))))
+
+================================================================================
+Function types
+================================================================================
+
+comptime F = def(Int) capturing[_] -> Int
+comptime G = def(var T) -> None
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (function_type
+      (parameters
+        (identifier))
+      (type
+        (identifier))))
+  (comptime_declaration
+    (identifier)
+    (function_type
+      (parameters
+        (convention_parameter
+          (argument_convention)
+          (type
+            (identifier))))
+      (type
+        (none)))))

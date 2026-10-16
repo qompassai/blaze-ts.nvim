@@ -335,3 +335,46 @@ def wrong(x: Int where x > 0):
             (integer)))))
     (block
       (pass_statement))))
+
+================================================================================
+Closure capture lists
+================================================================================
+
+def scale(x: Int) {imm multiplier} -> Int:
+    return x * multiplier
+
+def tag() {var^} -> String:
+    return label
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (capture_list
+      (capture_entry
+        (capture_convention)
+        (identifier)))
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (binary_operator
+          (identifier)
+          (identifier)))))
+  (function_definition
+    (identifier)
+    (parameters)
+    (capture_list
+      (capture_entry
+        (capture_convention)))
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (identifier)))))

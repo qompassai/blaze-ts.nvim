@@ -201,3 +201,43 @@ SIMD[.int16, 1]
       (implicit_member_expression
         (identifier))
       (integer))))
+
+================================================================================
+Lambda with captures and brace literal argument
+================================================================================
+
+var f = lambda (x: Int) {imm z} -> Int: x + z
+var allocation = alloc[CacheAligned]({count = 4})
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (lambda
+        (parameters
+          (typed_parameter
+            (identifier)
+            (type
+              (identifier))))
+        (capture_list
+          (capture_entry
+            (capture_convention)
+            (identifier)))
+        (type
+          (identifier))
+        (binary_operator
+          (identifier)
+          (identifier)))))
+  (expression_statement
+    (assignment
+      (identifier)
+      (call
+        (subscript
+          (identifier)
+          (identifier))
+        (argument_list
+          (brace_literal
+            (identifier)
+            (integer)))))))
