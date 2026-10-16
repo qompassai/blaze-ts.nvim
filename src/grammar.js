@@ -68,6 +68,8 @@ export default grammar({
     [$.typed_splat_parameter, $.list_splat_pattern],
     [$.typed_splat_parameter, $.dictionary_splat_pattern],
     [$.typed_splat_parameter, $.constrained_type],
+    [$.self_parameter],
+    [$.self_parameter, $.constrained_type],
   ],
 
   supertypes: ($) => [
@@ -747,7 +749,12 @@ export default grammar({
     _convention_type: ($) =>
       choice($.identifier, $.generic_type, $.member_type),
 
-    self_parameter: ($) => seq(optional($.argument_convention), SELF),
+    self_parameter: ($) =>
+      seq(
+        optional($.argument_convention),
+        SELF,
+        optional(seq(':', field('type', $.type))),
+      ),
 
     typed_parameter: ($) =>
       prec(

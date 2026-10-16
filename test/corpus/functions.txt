@@ -418,3 +418,50 @@ def wrong(*args: Int = 0):
         (integer)))
     (block
       (pass_statement))))
+
+================================================================================
+Typed self parameters
+================================================================================
+
+struct A:
+    def __init__(out self: Self):
+        pass
+
+    def m(mut self: Self):
+        pass
+
+    def n(self: Self):
+        pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (block
+      (function_definition
+        (identifier)
+        (parameters
+          (self_parameter
+            (argument_convention)
+            (type
+              (identifier))))
+        (block
+          (pass_statement)))
+      (function_definition
+        (identifier)
+        (parameters
+          (self_parameter
+            (argument_convention)
+            (type
+              (identifier))))
+        (block
+          (pass_statement)))
+      (function_definition
+        (identifier)
+        (parameters
+          (self_parameter
+            (type
+              (identifier))))
+        (block
+          (pass_statement))))))
