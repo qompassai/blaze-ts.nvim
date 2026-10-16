@@ -195,6 +195,7 @@
   "await"
   "break"
   "class"
+  "comptime"
   "continue"
   "def"
   "del"

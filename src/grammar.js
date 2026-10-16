@@ -52,6 +52,9 @@ export default grammar({
     [$.print_statement, $.primary_expression],
     [$.type_alias_statement, $.primary_expression],
     [$.match_statement, $.primary_expression],
+    [$.transfer_expression, $.binary_operator],
+    [$.transfer_expression, $.binary_operator, $.unary_operator],
+    [$.transfer_expression, $.binary_operator, $.await],
   ],
 
   supertypes: ($) => [
@@ -121,6 +124,7 @@ export default grammar({
         $.nonlocal_statement,
         $.exec_statement,
         $.type_alias_statement,
+        $.comptime_declaration,
       ),
 
     import_statement: ($) => seq('import', $._import_list),
@@ -235,6 +239,8 @@ export default grammar({
         $.trait_definition,
         $.decorated_definition,
         $.match_statement,
+        $.comptime_if_statement,
+        $.comptime_for_statement,
       ),
 
     if_statement: ($) =>
@@ -419,6 +425,20 @@ export default grammar({
 
     type_alias_statement: ($) =>
       prec.dynamic(1, seq('type', $.type, '=', $.type)),
+
+    comptime_declaration: ($) =>
+      seq(
+        'comptime',
+        field('name', $.identifier),
+        field('parameters', optional($.type_parameter)),
+        optional(seq(':', field('type', $.type))),
+        '=',
+        field('value', $.expression),
+      ),
+
+    comptime_for_statement: ($) => seq('comptime', $.for_statement),
+
+    comptime_if_statement: ($) => seq('comptime', $.if_statement),
 
     class_definition: ($) =>
       seq(
@@ -748,6 +768,7 @@ export default grammar({
         $.parenthesized_expression,
         $.generator_expression,
         $.ellipsis,
+        $.transfer_expression,
         alias($.list_splat_pattern, $.list_splat),
         $.mlir_type,
       ),
@@ -951,7 +972,7 @@ export default grammar({
         seq(
           field('value', $.primary_expression),
           '[',
-          commaSep1(field('subscript', choice($.expression, $.slice))),
+          commaSep1(field('subscript', choice($.expression, $.slice, $.keyword_argument))),
           optional(','),
           ']',
         ),
@@ -991,6 +1012,9 @@ export default grammar({
     union_type: ($) => prec.left(seq($.type, '|', $.type)),
     constrained_type: ($) => prec.right(seq($.type, ':', $.type)),
     member_type: ($) => seq($.type, '.', $.identifier),
+
+    transfer_expression: ($) =>
+      prec(PREC.call, seq(field('value', $.primary_expression), '^')),
 
     keyword_argument: ($) =>
       seq(

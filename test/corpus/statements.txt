@@ -251,3 +251,56 @@ x = f()
       (call
         (identifier)
         (argument_list)))))
+
+================================================================================
+Comptime if statement
+================================================================================
+
+comptime if has_accelerator():
+    run_gpu()
+else:
+    run_cpu()
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_if_statement
+    (if_statement
+      (call
+        (identifier)
+        (argument_list))
+      (block
+        (expression_statement
+          (call
+            (identifier)
+            (argument_list))))
+      (else_clause
+        (block
+          (expression_statement
+            (call
+              (identifier)
+              (argument_list))))))))
+
+================================================================================
+Comptime for statement
+================================================================================
+
+comptime for i in range(4):
+    process(i)
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_for_statement
+    (for_statement
+      (identifier)
+      (call
+        (identifier)
+        (argument_list
+          (integer)))
+      (block
+        (expression_statement
+          (call
+            (identifier)
+            (argument_list
+              (identifier))))))))

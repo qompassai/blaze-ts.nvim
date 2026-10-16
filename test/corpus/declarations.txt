@@ -131,3 +131,101 @@ match value:
                   (string_start)
                   (string_content)
                   (string_end))))))))))
+
+================================================================================
+Comptime value declaration
+================================================================================
+
+comptime DIMENSION_MAX = 16384
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (integer)))
+
+================================================================================
+Comptime type declaration with origin parameter
+================================================================================
+
+comptime FloatPointer = Pointer[Float32, MutUnsafeAnyOrigin]
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (subscript
+      (identifier)
+      (identifier)
+      (identifier))))
+
+================================================================================
+Comptime typed declaration
+================================================================================
+
+comptime table: List[Int] = [3, 5, 7]
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (type
+      (generic_type
+        (identifier)
+        (type_parameter
+          (type
+            (identifier)))))
+    (list
+      (integer)
+      (integer)
+      (integer))))
+
+================================================================================
+Comptime parametric declaration
+================================================================================
+
+comptime Scalar[dt: DType] = SIMD[dt, 1]
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (subscript
+      (identifier)
+      (identifier)
+      (integer))))
+
+================================================================================
+Comptime member in struct body
+================================================================================
+
+struct Stack[T: Copyable]:
+    comptime capacity = 1024
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (block
+      (comptime_declaration
+        (identifier)
+        (integer)))))

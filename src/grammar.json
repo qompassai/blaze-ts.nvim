@@ -135,6 +135,10 @@
         {
           "type": "SYMBOL",
           "name": "type_alias_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comptime_declaration"
         }
       ]
     },
@@ -802,6 +806,14 @@
         {
           "type": "SYMBOL",
           "name": "match_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comptime_if_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comptime_for_statement"
         }
       ]
     },
@@ -2013,6 +2025,102 @@
           }
         ]
       }
+    },
+    "comptime_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "comptime"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "parameters",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "type_parameter"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "type",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "type"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        }
+      ]
+    },
+    "comptime_for_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "comptime"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "for_statement"
+        }
+      ]
+    },
+    "comptime_if_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "comptime"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "if_statement"
+        }
+      ]
     },
     "class_definition": {
       "type": "SEQ",
@@ -3992,6 +4100,10 @@
           "name": "ellipsis"
         },
         {
+          "type": "SYMBOL",
+          "name": "transfer_expression"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
@@ -5175,6 +5287,10 @@
                     {
                       "type": "SYMBOL",
                       "name": "slice"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_argument"
                     }
                   ]
                 }
@@ -5201,6 +5317,10 @@
                           {
                             "type": "SYMBOL",
                             "name": "slice"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_argument"
                           }
                         ]
                       }
@@ -5471,6 +5591,27 @@
           "name": "identifier"
         }
       ]
+    },
+    "transfer_expression": {
+      "type": "PREC",
+      "value": 22,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "value",
+            "content": {
+              "type": "SYMBOL",
+              "name": "primary_expression"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "^"
+          }
+        ]
+      }
     },
     "keyword_argument": {
       "type": "SEQ",
@@ -7194,6 +7335,20 @@
     [
       "match_statement",
       "primary_expression"
+    ],
+    [
+      "transfer_expression",
+      "binary_operator"
+    ],
+    [
+      "transfer_expression",
+      "binary_operator",
+      "unary_operator"
+    ],
+    [
+      "transfer_expression",
+      "binary_operator",
+      "await"
     ]
   ],
   "precedences": [],

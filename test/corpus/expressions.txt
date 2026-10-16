@@ -137,3 +137,47 @@ squares = [n * n for n in nums]
         (for_in_clause
           (identifier)
           (identifier))))))
+
+================================================================================
+Subscript with keyword argument
+================================================================================
+
+ptr[unsafe_offset=index]
+ptr[0, named=value]
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (subscript
+      (identifier)
+      (keyword_argument
+        (identifier)
+        (identifier))))
+  (expression_statement
+    (subscript
+      (identifier)
+      (integer)
+      (keyword_argument
+        (identifier)
+        (identifier)))))
+
+================================================================================
+Transfer operator and xor regression
+================================================================================
+
+samples^
+var total = a ^ b
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (transfer_expression
+      (identifier)))
+  (expression_statement
+    (assignment
+      (identifier)
+      (binary_operator
+        (identifier)
+        (identifier)))))
