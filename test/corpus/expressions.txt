@@ -259,3 +259,28 @@ text[codepoint=0:5]
           (identifier)
           (integer))
         (integer)))))
+
+================================================================================
+MLIR op and attr literals
+================================================================================
+
+_ = __mlir_op.`pop.add`(x, y)
+self._mlir_value = __mlir_attr.`0 : index`
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (call
+        (mlir_op)
+        (argument_list
+          (identifier)
+          (identifier)))))
+  (expression_statement
+    (assignment
+      (attribute
+        (identifier)
+        (identifier))
+      (mlir_attr))))

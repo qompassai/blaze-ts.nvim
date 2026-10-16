@@ -334,6 +334,14 @@
         "named": true
       },
       {
+        "type": "mlir_attr",
+        "named": true
+      },
+      {
+        "type": "mlir_op",
+        "named": true
+      },
+      {
         "type": "mlir_type",
         "named": true
       },
@@ -2961,6 +2969,16 @@
     }
   },
   {
+    "type": "mlir_attr",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "mlir_op",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "mlir_type",
     "named": true,
     "fields": {},
@@ -4384,6 +4402,14 @@
   },
   {
     "type": "__future__",
+    "named": false
+  },
+  {
+    "type": "__mlir_attr",
+    "named": false
+  },
+  {
+    "type": "__mlir_op",
     "named": false
   },
   {

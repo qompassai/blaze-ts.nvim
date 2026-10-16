@@ -859,6 +859,8 @@ export default grammar({
         $.transfer_expression,
         $.implicit_member_expression,
         $.brace_literal,
+        $.mlir_op,
+        $.mlir_attr,
         alias($.list_splat_pattern, $.list_splat),
         $.mlir_type,
       ),
@@ -1175,6 +1177,12 @@ export default grammar({
       ),
 
     // Literals
+
+    mlir_op: ($) => seq('__mlir_op', '.', $._mlir_literal),
+
+    mlir_attr: ($) => seq('__mlir_attr', '.', $._mlir_literal),
+
+    _mlir_literal: ($) => token(seq('`', /[^`]*/, '`')),
 
     mlir_type: ($) =>
       seq(

@@ -4702,6 +4702,14 @@
           "name": "brace_literal"
         },
         {
+          "type": "SYMBOL",
+          "name": "mlir_op"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mlir_attr"
+        },
+        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
@@ -6749,6 +6757,60 @@
           }
         }
       ]
+    },
+    "mlir_op": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "__mlir_op"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_mlir_literal"
+        }
+      ]
+    },
+    "mlir_attr": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "__mlir_attr"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_mlir_literal"
+        }
+      ]
+    },
+    "_mlir_literal": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "`"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^`]*"
+          },
+          {
+            "type": "STRING",
+            "value": "`"
+          }
+        ]
+      }
     },
     "mlir_type": {
       "type": "SEQ",
