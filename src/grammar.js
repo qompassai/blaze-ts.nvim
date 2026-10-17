@@ -88,6 +88,8 @@ export default grammar({
     [$.parenthesized_function_type, $.type],
     [$.where_clause],
     [$.dotted_type_parameter, $._fn_convention_type],
+    [$.superclass_list, $.argument_list],
+    [$.superclass_list, $.type],
   ],
 
   supertypes: ($) => [
@@ -292,6 +294,11 @@ export default grammar({
         seq(
           '__extension',
           field('type', choice($.identifier, $.generic_type, $.member_type)),
+          // An extension may add conformances: `__extension Ship(Flying):`.
+          field(
+            'superclasses',
+            optional(alias($.superclass_list, $.argument_list)),
+          ),
           ':',
           field('body', $._suite),
         ),

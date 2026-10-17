@@ -2349,6 +2349,16 @@
           }
         ]
       },
+      "superclasses": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
       "type": {
         "multiple": false,
         "required": true,

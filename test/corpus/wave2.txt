@@ -94,3 +94,20 @@ def f(x: Int):
                     (integer)))))
             (block
               (pass_statement))))))))
+
+================================================================================
+Extension with a conformance list
+================================================================================
+
+__extension Spaceship(Flying):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (extension_definition
+    (identifier)
+    (argument_list
+      (identifier))
+    (block
+      (pass_statement))))

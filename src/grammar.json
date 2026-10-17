@@ -885,6 +885,27 @@
             }
           },
           {
+            "type": "FIELD",
+            "name": "superclasses",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "superclass_list"
+                  },
+                  "named": true,
+                  "value": "argument_list"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          },
+          {
             "type": "STRING",
             "value": ":"
           },
@@ -10969,6 +10990,14 @@
     [
       "dotted_type_parameter",
       "_fn_convention_type"
+    ],
+    [
+      "superclass_list",
+      "argument_list"
+    ],
+    [
+      "superclass_list",
+      "type"
     ]
   ],
   "precedences": [],
