@@ -2883,6 +2883,14 @@
                     {
                       "type": "SYMBOL",
                       "name": "backtick_name"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "tuple_pattern"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "list_pattern"
                     }
                   ]
                 }
@@ -2909,6 +2917,14 @@
                           {
                             "type": "SYMBOL",
                             "name": "backtick_name"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "tuple_pattern"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "list_pattern"
                           }
                         ]
                       }
@@ -2994,6 +3010,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "expression"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "expression_list"
                         },
                         {
                           "type": "SYMBOL",
@@ -6282,8 +6302,17 @@
                     ]
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "identifier"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "backtick_name"
+                      }
+                    ]
                   }
                 ]
               },

@@ -627,7 +627,18 @@ export default grammar({
         1,
         seq(
           'comptime',
-          commaSep1(field('name', choice($.identifier, $.backtick_name))),
+          commaSep1(
+            field(
+              'name',
+              choice(
+                $.identifier,
+                $.backtick_name,
+                // Unpacking targets: `comptime _, (b, c) = 1, (2, 3.0)`.
+                $.tuple_pattern,
+                $.list_pattern,
+              ),
+            ),
+          ),
           field('parameters', optional($.type_parameter)),
           // Either a definition (`= value`, annotation optional) or an
           // associated-type requirement in a trait (`: Trait`, no value).
@@ -641,6 +652,9 @@ export default grammar({
                 'value',
                 choice(
                   $.expression,
+                  // A comma-separated value list for unpacking:
+                  // `comptime _, (b, c) = 1, (2, 3.0)`.
+                  $.expression_list,
                   $.function_type,
                   $.tuple_type,
                   // A generator type as a comptime value:
@@ -1278,7 +1292,12 @@ export default grammar({
         PREC.typed_parameter,
         seq(
           choice(
-            seq(optional($.argument_convention), $.identifier),
+            // A parameter may carry an escaped name (family 6 widened
+            // definition names; parameters take the same slot).
+            seq(
+              optional($.argument_convention),
+              choice($.identifier, $.backtick_name),
+            ),
             $.list_splat_pattern,
             $.dictionary_splat_pattern,
           ),

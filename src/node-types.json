@@ -1482,6 +1482,14 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "list_pattern",
+            "named": true
+          },
+          {
+            "type": "tuple_pattern",
+            "named": true
           }
         ]
       },
@@ -1511,6 +1519,10 @@
         "types": [
           {
             "type": "expression",
+            "named": true
+          },
+          {
+            "type": "expression_list",
             "named": true
           },
           {
@@ -5229,6 +5241,10 @@
       "types": [
         {
           "type": "argument_convention",
+          "named": true
+        },
+        {
+          "type": "backtick_name",
           "named": true
         },
         {

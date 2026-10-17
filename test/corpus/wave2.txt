@@ -464,3 +464,23 @@ comptime P = __async def(Int) capturing thin -> None
         (identifier))
       (type
         (none)))))
+
+================================================================================
+Comptime unpacking: pattern names and an expression-list value
+================================================================================
+
+comptime _, (b, c) = 1, (2, 3.0)
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (tuple_pattern
+      (identifier)
+      (identifier))
+    (expression_list
+      (integer)
+      (tuple
+        (integer)
+        (float)))))
