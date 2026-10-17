@@ -60,7 +60,6 @@ export default grammar({
     [$.function_type],
     [$.parameters, $.tuple_pattern],
     [$.parameter, $.pattern],
-    [$._ref_convention, $.argument_convention],
     [$.untyped_convention_parameter, $._convention_type],
     [$.typed_splat_parameter, $.list_splat_pattern],
     [$.typed_splat_parameter, $.dictionary_splat_pattern],
@@ -739,7 +738,15 @@ export default grammar({
     comptime_assert_statement: ($) => seq('comptime', $.assert_statement),
 
     ref_declaration: ($) =>
-      seq('ref', field('name', $.identifier), '=', field('value', $.expression)),
+      seq(
+        'ref',
+        // `ref var y: Int = n` — a var declaration bound by reference.
+        optional('var'),
+        field('name', $.identifier),
+        optional(seq(':', field('type', $.type))),
+        '=',
+        field('value', $.expression),
+      ),
 
     comptime_if_statement: ($) =>
       seq('comptime', choice($.if_statement, $.if_case_statement)),
@@ -1054,7 +1061,13 @@ export default grammar({
 
     _parameters: ($) => seq(commaSep1($.parameter), optional(',')),
 
-    _patterns: ($) => seq(commaSep1($.pattern), optional(',')),
+    // Elements of a tuple/list pattern may themselves declare:
+    // `(var tup1, var tup2) = 1, 2`, `[(var a), b] = x`.
+    _patterns: ($) =>
+      seq(
+        commaSep1(choice($.pattern, $.var_pattern, $.ref_pattern)),
+        optional(','),
+      ),
 
     parameter: ($) =>
       choice(
@@ -1087,11 +1100,27 @@ export default grammar({
     // Demoted: where the assignment's own `var` prefix reading also
     // exists (statement start), it wins; mid-list this is the only
     // reading, so `_, var r = ...` still declares.
-    var_pattern: ($) => prec(-1, seq('var', field('name', $.identifier))),
+    // The declared target may be a field: `(var lf.field) = []`.
+    var_pattern: ($) =>
+      prec(
+        -1,
+        seq('var', field('name', choice($.identifier, $.attribute))),
+      ),
 
     // A ref-binding element in a destructuring list:
-    // `count, ref chars = get_pair()`.
-    ref_pattern: ($) => prec(-1, seq('ref', field('name', $.identifier))),
+    // `count, ref chars = get_pair()`. The target may itself be a
+    // bracketed pattern: `ref [e, f] = x`, `ref (a, b) = pair`.
+    ref_pattern: ($) =>
+      prec(
+        -1,
+        seq(
+          'ref',
+          field(
+            'name',
+            choice($.identifier, $.list_pattern, $.tuple_pattern),
+          ),
+        ),
+      ),
 
     tuple_pattern: ($) => seq('(', optional($._patterns), ')'),
 
@@ -1429,6 +1458,10 @@ export default grammar({
       choice(
         $.pattern,
         $.pattern_list,
+        // A lone declaring pattern needs no comma: `ref [e, f] = x`,
+        // `(var x) = 42` reaches here via tuple_pattern.
+        $.var_pattern,
+        $.ref_pattern,
         // Assignment through a ref-returning call: `p[].right() = q`,
         // `get_ref() = v`.
         $.call,

@@ -598,6 +598,14 @@
           {
             "type": "pattern_list",
             "named": true
+          },
+          {
+            "type": "ref_pattern",
+            "named": true
+          },
+          {
+            "type": "var_pattern",
+            "named": true
           }
         ]
       },
@@ -709,6 +717,14 @@
           },
           {
             "type": "pattern_list",
+            "named": true
+          },
+          {
+            "type": "ref_pattern",
+            "named": true
+          },
+          {
+            "type": "var_pattern",
             "named": true
           }
         ]
@@ -2527,6 +2543,14 @@
           {
             "type": "pattern_list",
             "named": true
+          },
+          {
+            "type": "ref_pattern",
+            "named": true
+          },
+          {
+            "type": "var_pattern",
+            "named": true
           }
         ]
       },
@@ -2584,6 +2608,14 @@
           },
           {
             "type": "pattern_list",
+            "named": true
+          },
+          {
+            "type": "ref_pattern",
+            "named": true
+          },
+          {
+            "type": "var_pattern",
             "named": true
           }
         ]
@@ -3621,6 +3653,14 @@
         {
           "type": "pattern",
           "named": true
+        },
+        {
+          "type": "ref_pattern",
+          "named": true
+        },
+        {
+          "type": "var_pattern",
+          "named": true
         }
       ]
     }
@@ -4280,6 +4320,16 @@
           }
         ]
       },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
       "value": {
         "multiple": false,
         "required": true,
@@ -4302,6 +4352,14 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "list_pattern",
+            "named": true
+          },
+          {
+            "type": "tuple_pattern",
             "named": true
           }
         ]
@@ -4724,6 +4782,14 @@
         },
         {
           "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "ref_pattern",
+          "named": true
+        },
+        {
+          "type": "var_pattern",
           "named": true
         }
       ]
@@ -5209,6 +5275,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "attribute",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true

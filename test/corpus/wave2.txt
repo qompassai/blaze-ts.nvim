@@ -252,3 +252,38 @@ c = 1_2.3__1e+1_1
     (assignment
       (identifier)
       (float))))
+
+================================================================================
+Declaring patterns: parenthesized var, ref of a pattern, ref var declaration
+================================================================================
+
+def f():
+    (var x) = 42
+    ref [e, f] = x
+    ref var y: Int = 1
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (expression_statement
+        (assignment
+          (tuple_pattern
+            (var_pattern
+              (identifier)))
+          (integer)))
+      (expression_statement
+        (assignment
+          (ref_pattern
+            (list_pattern
+              (identifier)
+              (identifier)))
+          (identifier)))
+      (ref_declaration
+        (identifier)
+        (type
+          (identifier))
+        (integer)))))

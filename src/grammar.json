@@ -3502,12 +3502,49 @@
           "value": "ref"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "var"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "FIELD",
           "name": "name",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "type",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "type"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -5454,8 +5491,21 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "pattern"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "pattern"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "var_pattern"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "ref_pattern"
+                }
+              ]
             },
             {
               "type": "REPEAT",
@@ -5467,8 +5517,21 @@
                     "value": ","
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "pattern"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "pattern"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "var_pattern"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "ref_pattern"
+                      }
+                    ]
                   }
                 ]
               }
@@ -5593,8 +5656,17 @@
             "type": "FIELD",
             "name": "name",
             "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "attribute"
+                }
+              ]
             }
           }
         ]
@@ -5614,8 +5686,21 @@
             "type": "FIELD",
             "name": "name",
             "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "list_pattern"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "tuple_pattern"
+                }
+              ]
             }
           }
         ]
@@ -7485,6 +7570,14 @@
         {
           "type": "SYMBOL",
           "name": "pattern_list"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "var_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ref_pattern"
         },
         {
           "type": "SYMBOL",
@@ -11501,10 +11594,6 @@
     [
       "parameter",
       "pattern"
-    ],
-    [
-      "_ref_convention",
-      "argument_convention"
     ],
     [
       "untyped_convention_parameter",
