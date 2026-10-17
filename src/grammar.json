@@ -5810,6 +5810,60 @@
         }
       ]
     },
+    "_out_convention": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "out"
+        },
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "expression"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ","
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
     "argument_convention": {
       "type": "CHOICE",
       "members": [
@@ -5856,6 +5910,10 @@
         {
           "type": "SYMBOL",
           "name": "_ref_convention"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_out_convention"
         }
       ]
     },
@@ -11711,6 +11769,10 @@
     ],
     [
       "_match_block"
+    ],
+    [
+      "_out_convention",
+      "argument_convention"
     ]
   ],
   "precedences": [],

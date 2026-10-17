@@ -90,6 +90,7 @@ export default grammar({
     [$.superclass_list, $.argument_list],
     [$.superclass_list, $.type],
     [$._match_block],
+    [$._out_convention, $.argument_convention],
   ],
 
   supertypes: ($) => [
@@ -1128,6 +1129,12 @@ export default grammar({
 
     _ref_convention: ($) =>
       seq('ref', '[', commaSep1($.expression), optional(','), ']'),
+
+    // The out convention may carry an address space:
+    // `def __init__(out[addr_space] self)`, `out[_] self`,
+    // `out[AddressSpace.GLOBAL] self`.
+    _out_convention: ($) =>
+      seq('out', '[', commaSep1($.expression), optional(','), ']'),
     argument_convention: ($) =>
       choice(
         'borrowed',
@@ -1143,6 +1150,7 @@ export default grammar({
         'ref',
         'var',
         $._ref_convention,
+        $._out_convention,
       ),
 
     untyped_convention_parameter: ($) =>

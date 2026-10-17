@@ -287,3 +287,26 @@ def f():
         (type
           (identifier))
         (integer)))))
+
+================================================================================
+Self parameter with an out address-space convention
+================================================================================
+
+struct S:
+    def __init__(out[addr_space] self):
+        pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (block
+      (function_definition
+        (identifier)
+        (parameters
+          (self_parameter
+            (argument_convention
+              (identifier))))
+        (block
+          (pass_statement))))))
