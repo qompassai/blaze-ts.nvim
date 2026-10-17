@@ -90,6 +90,7 @@ export default grammar({
     [$.dotted_type_parameter, $._fn_convention_type],
     [$.superclass_list, $.argument_list],
     [$.superclass_list, $.type],
+    [$._match_block],
   ],
 
   supertypes: ($) => [
@@ -285,6 +286,7 @@ export default grammar({
         $.comptime_match_statement,
         $.decorated_field,
         $.extension_definition,
+        $.enum_definition,
       ),
 
     // `__extension List:` — adds methods to an existing type (Mojo 1.2+).
@@ -301,6 +303,57 @@ export default grammar({
           ),
           ':',
           field('body', $._suite),
+        ),
+      ),
+
+    // `__enum Color:` — a sum type whose body mixes `case` members with
+    // ordinary declarations (methods, comptime values, docstrings).
+    enum_definition: ($) =>
+      seq(
+        '__enum',
+        field('name', $.identifier),
+        field('type_parameters', optional($.type_parameter)),
+        field(
+          'superclasses',
+          optional(alias($.superclass_list, $.argument_list)),
+        ),
+        field('where_clause', optional($.where_clause)),
+        ':',
+        field('body', $._enum_suite),
+      ),
+
+    _enum_suite: ($) =>
+      choice(
+        alias($._enum_simple_statements, $.block),
+        seq($._indent, alias($._enum_block, $.block)),
+        alias($._newline, $.block),
+      ),
+
+    _enum_block: ($) =>
+      seq(
+        repeat(choice($._enum_simple_statements, $._compound_statement)),
+        $._dedent,
+      ),
+
+    // One enum-body line: cases and simple statements, `;`-separated so
+    // `case a; case b(Int)` works, newline-terminated like _simple_statements.
+    _enum_simple_statements: ($) =>
+      seq(
+        sep1(choice($.enum_case, $._simple_statement), SEMICOLON),
+        optional(SEMICOLON),
+        $._newline,
+      ),
+
+    enum_case: ($) =>
+      seq(
+        'case',
+        field('name', choice($.identifier, $.backtick_name)),
+        optional(
+          seq(
+            '(',
+            optional(seq(commaSep1(field('payload', $.type)), optional(','))),
+            ')',
+          ),
         ),
       ),
 
@@ -814,6 +867,7 @@ export default grammar({
             $.function_definition,
             $.trait_definition,
             $.comptime_declaration,
+            $.enum_definition,
           ),
         ),
       ),

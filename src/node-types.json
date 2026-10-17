@@ -28,6 +28,10 @@
         "named": true
       },
       {
+        "type": "enum_definition",
+        "named": true
+      },
+      {
         "type": "extension_definition",
         "named": true
       },
@@ -916,6 +920,10 @@
         {
           "type": "_simple_statement",
           "named": true
+        },
+        {
+          "type": "enum_case",
+          "named": true
         }
       ]
     }
@@ -1729,6 +1737,10 @@
             "named": true
           },
           {
+            "type": "enum_definition",
+            "named": true
+          },
+          {
             "type": "function_definition",
             "named": true
           },
@@ -2219,6 +2231,92 @@
         "types": [
           {
             "type": "block",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "enum_case",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "backtick_name",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "payload": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "enum_definition",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "superclasses": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
+      "type_parameters": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_parameter",
+            "named": true
+          }
+        ]
+      },
+      "where_clause": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "where_clause",
             "named": true
           }
         ]
@@ -5457,6 +5555,10 @@
   },
   {
     "type": "__disable_del",
+    "named": false
+  },
+  {
+    "type": "__enum",
     "named": false
   },
   {

@@ -111,3 +111,43 @@ __extension Spaceship(Flying):
       (identifier))
     (block
       (pass_statement))))
+
+================================================================================
+Enum with payload cases
+================================================================================
+
+__enum Color:
+    case red
+    case rgb(Int, Int, Int)
+
+--------------------------------------------------------------------------------
+
+(module
+  (enum_definition
+    (identifier)
+    (block
+      (enum_case
+        (identifier))
+      (enum_case
+        (identifier)
+        (type
+          (identifier))
+        (type
+          (identifier))
+        (type
+          (identifier))))))
+
+================================================================================
+One-line enum
+================================================================================
+
+__enum OneLine: case only
+
+--------------------------------------------------------------------------------
+
+(module
+  (enum_definition
+    (identifier)
+    (block
+      (enum_case
+        (identifier)))))
