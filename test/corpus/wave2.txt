@@ -202,3 +202,29 @@ def f(a: __mlir_type.`vector<4xf32>`):
             (integer)))))
     (block
       (pass_statement))))
+
+
+================================================================================
+Backtick-escaped import path and function name
+================================================================================
+
+import `dotted.pkg`.module
+
+def `fn.with.dots`() -> Int:
+    return 7
+
+--------------------------------------------------------------------------------
+
+(module
+  (import_statement
+    (dotted_name
+      (backtick_name)
+      (identifier)))
+  (function_definition
+    (backtick_name)
+    (parameters)
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (integer)))))

@@ -185,8 +185,13 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "dotted_name"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_import_dotted_name"
+              },
+              "named": true,
+              "value": "dotted_name"
             },
             {
               "type": "BLANK"
@@ -194,6 +199,53 @@
           ]
         }
       ]
+    },
+    "_import_dotted_name": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "backtick_name"
+              }
+            ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "."
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "backtick_name"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "future_import_statement": {
       "type": "SEQ",
@@ -256,8 +308,13 @@
                 "name": "relative_import"
               },
               {
-                "type": "SYMBOL",
-                "name": "dotted_name"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_import_dotted_name"
+                },
+                "named": true,
+                "value": "dotted_name"
               }
             ]
           }
@@ -311,8 +368,13 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "dotted_name"
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_import_dotted_name"
+                    },
+                    "named": true,
+                    "value": "dotted_name"
                   },
                   {
                     "type": "SYMBOL",
@@ -337,8 +399,13 @@
                       "type": "CHOICE",
                       "members": [
                         {
-                          "type": "SYMBOL",
-                          "name": "dotted_name"
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_import_dotted_name"
+                          },
+                          "named": true,
+                          "value": "dotted_name"
                         },
                         {
                           "type": "SYMBOL",
@@ -373,8 +440,13 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "dotted_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_import_dotted_name"
+            },
+            "named": true,
+            "value": "dotted_name"
           }
         },
         {
@@ -2344,8 +2416,17 @@
                   "type": "FIELD",
                   "name": "name",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "backtick_name"
+                      }
+                    ]
                   }
                 },
                 {
@@ -2387,8 +2468,17 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "backtick_name"
+              }
+            ]
           }
         },
         {
@@ -3488,8 +3578,17 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "backtick_name"
+              }
+            ]
           }
         },
         {
@@ -7567,8 +7666,17 @@
                 "type": "FIELD",
                 "name": "attribute",
                 "content": {
-                  "type": "SYMBOL",
-                  "name": "identifier"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "backtick_name"
+                    }
+                  ]
                 }
               },
               {
@@ -7971,6 +8079,10 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "backtick_name"
         },
         {
           "type": "SYMBOL",
@@ -8818,6 +8930,10 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "backtick_name"
         },
         {
           "type": "SYMBOL",

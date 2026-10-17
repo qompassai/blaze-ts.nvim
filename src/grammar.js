@@ -170,7 +170,13 @@ export default grammar({
 
     import_prefix: (_) => repeat1('.'),
 
-    relative_import: ($) => seq($.import_prefix, optional($.dotted_name)),
+    relative_import: ($) =>
+      seq($.import_prefix, optional(alias($._import_dotted_name, $.dotted_name))),
+
+    // Import paths may escape a dotted segment in backticks:
+    // `import `dotted.pkg`.module`, `from `a`.`b.c` import x`.
+    _import_dotted_name: ($) =>
+      prec(1, sep1(choice($.identifier, $.backtick_name), '.')),
 
     future_import_statement: ($) =>
       seq(
@@ -183,7 +189,10 @@ export default grammar({
     import_from_statement: ($) =>
       seq(
         'from',
-        field('module_name', choice($.relative_import, $.dotted_name)),
+        field(
+          'module_name',
+          choice($.relative_import, alias($._import_dotted_name, $.dotted_name)),
+        ),
         'import',
         choice(
           $.wildcard_import,
@@ -194,12 +203,21 @@ export default grammar({
 
     _import_list: ($) =>
       seq(
-        commaSep1(field('name', choice($.dotted_name, $.aliased_import))),
+        commaSep1(
+          field(
+            'name',
+            choice(alias($._import_dotted_name, $.dotted_name), $.aliased_import),
+          ),
+        ),
         optional(','),
       ),
 
     aliased_import: ($) =>
-      seq(field('name', $.dotted_name), 'as', field('alias', $.identifier)),
+      seq(
+        field('name', alias($._import_dotted_name, $.dotted_name)),
+        'as',
+        field('alias', $.identifier),
+      ),
 
     wildcard_import: (_) => '*',
 
@@ -541,13 +559,13 @@ export default grammar({
         optional(
           seq(
             '[',
-            field('name', $.identifier),
+            field('name', choice($.identifier, $.backtick_name)),
             field('type_parameters', optional($.type_parameter)),
             field('parameters', $.parameters),
             ']',
           ),
         ),
-        field('name', $.identifier),
+        field('name', choice($.identifier, $.backtick_name)),
         field('type_parameters', optional($.type_parameter)),
         field('parameters', $.parameters),
         optional(field('abi', $.abi_specifier)),
@@ -731,7 +749,7 @@ export default grammar({
     class_definition: ($) =>
       seq(
         choice('class', 'struct'),
-        field('name', $.identifier),
+        field('name', choice($.identifier, $.backtick_name)),
         field('type_parameters', optional($.type_parameter)),
         field('superclasses', optional(alias($.superclass_list, $.argument_list))),
         field('where_clause', optional($.where_clause)),
@@ -1457,7 +1475,7 @@ export default grammar({
           field('object', $.primary_expression),
           '.',
           choice(
-            field('attribute', $.identifier),
+            field('attribute', choice($.identifier, $.backtick_name)),
             seq($.string_start, $.string_content, $.string_end),
           ),
         ),
@@ -1554,6 +1572,8 @@ export default grammar({
         // for trait intersections, fatal for fn-type operands). Every
         // legitimate type form has a dedicated rule below.
         $.identifier,
+        // An escaped name used as a type: `-> `weird()struct[]``.
+        $.backtick_name,
         // Keyword names as types/parameters: `P[type: AnyType]`.
         $.keyword_identifier,
         // `None` as a type keeps its literal node: `-> None`.
@@ -1764,6 +1784,7 @@ export default grammar({
     _return_type: ($) =>
       choice(
         $.identifier,
+        $.backtick_name,
         $.keyword_identifier,
         $.none,
         $.splat_type,
