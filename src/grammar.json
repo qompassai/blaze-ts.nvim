@@ -1345,6 +1345,26 @@
           ]
         },
         {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "FIELD",
+                "name": "alternative",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "case_clause"
+                }
+              }
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "_newline"
         }
@@ -4673,6 +4693,10 @@
                         {
                           "type": "SYMBOL",
                           "name": "splat_pattern"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "case_pattern"
                         }
                       ]
                     },
@@ -4695,6 +4719,10 @@
                               {
                                 "type": "SYMBOL",
                                 "name": "splat_pattern"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "case_pattern"
                               }
                             ]
                           }

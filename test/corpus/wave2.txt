@@ -20,3 +20,77 @@ struct List[T: A]():
     (argument_list)
     (block
       (pass_statement))))
+
+================================================================================
+Match with case clauses at the same indentation as match
+================================================================================
+
+def f(i: Int):
+    match i:
+    case _ if i > 0:
+        pass
+    case 0:
+        pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (block
+      (match_statement
+        (identifier)
+        (block
+          (case_clause
+            (case_pattern)
+            (if_clause
+              (comparison_operator
+                (identifier)
+                (integer)))
+            (block
+              (pass_statement)))
+          (case_clause
+            (case_pattern
+              (integer))
+            (block
+              (pass_statement))))))))
+
+================================================================================
+Match with an initializer-list dict pattern
+================================================================================
+
+def f(x: Int):
+    match x:
+    case {1, offset=2}:
+        pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (block
+      (match_statement
+        (identifier)
+        (block
+          (case_clause
+            (case_pattern
+              (dict_pattern
+                (case_pattern
+                  (integer))
+                (case_pattern
+                  (keyword_pattern
+                    (identifier)
+                    (integer)))))
+            (block
+              (pass_statement))))))))

@@ -1997,6 +1997,10 @@
       "required": false,
       "types": [
         {
+          "type": "case_pattern",
+          "named": true
+        },
+        {
           "type": "splat_pattern",
           "named": true
         }

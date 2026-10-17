@@ -377,6 +377,9 @@ export default grammar({
     _match_block: ($) =>
       choice(
         seq($._indent, repeat(field('alternative', $.case_clause)), $._dedent),
+        // Case clauses at the same indentation as `match` itself:
+        // `match i:` / `case _:` / body indented under the case.
+        seq($._newline, repeat1(field('alternative', $.case_clause))),
         $._newline,
       ),
 
@@ -929,7 +932,12 @@ export default grammar({
         '{',
         optional(
           seq(
-            commaSep1(choice($._key_value_pattern, $.splat_pattern)),
+            // Entries are key:value pairs, splats, or — in initializer-list
+            // patterns like `case {1, offset=2}:` — positional and keyword
+            // case patterns.
+            commaSep1(
+              choice($._key_value_pattern, $.splat_pattern, $.case_pattern),
+            ),
             optional(','),
           ),
         ),
