@@ -378,6 +378,10 @@
         "named": true
       },
       {
+        "type": "mlir_deferred_attr",
+        "named": true
+      },
+      {
         "type": "mlir_op",
         "named": true
       },
@@ -3724,9 +3728,42 @@
     }
   },
   {
+    "type": "mlir_deferred_attr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "mlir_op",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "keyword_argument",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "mlir_region_statement",
@@ -5571,6 +5608,10 @@
   },
   {
     "type": "__mlir_attr",
+    "named": false
+  },
+  {
+    "type": "__mlir_deferred_attr",
     "named": false
   },
   {

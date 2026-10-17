@@ -151,3 +151,54 @@ __enum OneLine: case only
     (block
       (enum_case
         (identifier)))))
+
+
+================================================================================
+MLIR op bracket form with an f-string template
+================================================================================
+
+def f(x: Int) -> Int:
+    return __mlir_op[`index.add %{x}, %{x}`, _type=__mlir_type.index]
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (mlir_op
+          (backtick_name)
+          (keyword_argument
+            (identifier)
+            (mlir_type
+              (identifier))))))))
+
+================================================================================
+MLIR type with an unspaced dimensioned tail
+================================================================================
+
+def f(a: __mlir_type.`vector<4xf32>`):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (mlir_type
+            (type)
+            (integer)))))
+    (block
+      (pass_statement))))

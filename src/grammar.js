@@ -1241,6 +1241,7 @@ export default grammar({
         $.brace_literal,
         $.mlir_op,
         $.mlir_attr,
+        $.mlir_deferred_attr,
         alias($.list_splat_pattern, $.list_splat),
         $.mlir_type,
       ),
@@ -1854,7 +1855,22 @@ export default grammar({
 
     // Literals
 
-    mlir_op: ($) => seq('__mlir_op', '.', $._mlir_literal),
+    mlir_op: ($) =>
+      choice(
+        seq('__mlir_op', '.', $._mlir_literal),
+        // Bracket form with an f-string template: the backtick literal may
+        // carry `%{name}` / `%{type_of(x)}` interpolations (kept opaque in
+        // the literal token), alongside keyword entries like `_type=...`.
+        seq(
+          '__mlir_op',
+          '[',
+          commaSep1(
+            choice($._mlir_literal, $.keyword_argument, $.expression),
+          ),
+          optional(','),
+          ']',
+        ),
+      ),
 
     mlir_attr: ($) =>
       choice(
@@ -1862,6 +1878,19 @@ export default grammar({
         seq('__mlir_attr', '.', $.identifier),
         seq(
           '__mlir_attr',
+          '[',
+          commaSep1(choice($._mlir_literal, $.expression)),
+          optional(','),
+          ']',
+        ),
+      ),
+
+    mlir_deferred_attr: ($) =>
+      choice(
+        seq('__mlir_deferred_attr', '.', $._mlir_literal),
+        seq('__mlir_deferred_attr', '.', $.identifier),
+        seq(
+          '__mlir_deferred_attr',
           '[',
           commaSep1(choice($._mlir_literal, $.expression)),
           optional(','),
@@ -1916,8 +1945,15 @@ export default grammar({
               seq(
                 '<',
                 // Dimensioned forms: `vector<4 x bf16>`, `vector<8 x i8>`
-                // — size segments joined by `x`, element type last.
-                seq($._mlir_type, repeat(seq('x', $._mlir_type))),
+                // — size segments joined by `x`, element type last. The
+                // unspaced spelling `vector<4xf32>` lexes the tail as one
+                // fused token (see _mlir_fused_dimension).
+                seq(
+                  $._mlir_type,
+                  repeat(
+                    choice(seq('x', $._mlir_type), $._mlir_fused_dimension),
+                  ),
+                ),
                 '>',
               ),
               '<',
@@ -1937,6 +1973,11 @@ export default grammar({
           ),
         ),
       ),
+
+    // The tail of an unspaced dimensioned MLIR type: in `vector<4xf32>`
+    // the lexer cannot split `xf32` into `x` + `f32` (longest match wins),
+    // so the joined segment is a single token.
+    _mlir_fused_dimension: (_) => token(/x[0-9]*[a-zA-Z][a-zA-Z0-9_]*/),
 
     list: ($) => seq('[', optional($._collection_elements), ']'),
 
