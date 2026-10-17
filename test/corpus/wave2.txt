@@ -228,3 +228,27 @@ def `fn.with.dots`() -> Int:
     (block
       (return_statement
         (integer)))))
+
+================================================================================
+Underscore-saturated numeric literals
+================================================================================
+
+a = 0____0__0_0
+b = 1__9_
+c = 1_2.3__1e+1_1
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (integer)))
+  (expression_statement
+    (assignment
+      (identifier)
+      (integer)))
+  (expression_statement
+    (assignment
+      (identifier)
+      (float))))

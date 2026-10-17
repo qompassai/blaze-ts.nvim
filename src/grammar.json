@@ -10987,11 +10987,8 @@
                 ]
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "_?[A-Fa-f0-9]+"
-                }
+                "type": "PATTERN",
+                "value": "[0-9a-fA-F_]*[0-9a-fA-F][0-9a-fA-F_]*"
               },
               {
                 "type": "CHOICE",
@@ -11024,11 +11021,8 @@
                 ]
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "_?[0-7]+"
-                }
+                "type": "PATTERN",
+                "value": "[0-7_]*[0-7][0-7_]*"
               },
               {
                 "type": "CHOICE",
@@ -11061,11 +11055,8 @@
                 ]
               },
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "_?[0-1]+"
-                }
+                "type": "PATTERN",
+                "value": "[0-1_]*[0-1][0-1_]*"
               },
               {
                 "type": "CHOICE",
@@ -11085,11 +11076,8 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "PATTERN",
-                  "value": "[0-9]+_?"
-                }
+                "type": "PATTERN",
+                "value": "[0-9_]*[0-9][0-9_]*"
               },
               {
                 "type": "CHOICE",
@@ -11137,11 +11125,8 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "REPEAT1",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[0-9]+_?"
-                    }
+                    "type": "PATTERN",
+                    "value": "[0-9_]*[0-9][0-9_]*"
                   },
                   {
                     "type": "STRING",
@@ -11151,11 +11136,8 @@
                     "type": "CHOICE",
                     "members": [
                       {
-                        "type": "REPEAT1",
-                        "content": {
-                          "type": "PATTERN",
-                          "value": "[0-9]+_?"
-                        }
+                        "type": "PATTERN",
+                        "value": "[0-9_]*[0-9][0-9_]*"
                       },
                       {
                         "type": "BLANK"
@@ -11173,11 +11155,8 @@
                             "value": "[eE][\\+-]?"
                           },
                           {
-                            "type": "REPEAT1",
-                            "content": {
-                              "type": "PATTERN",
-                              "value": "[0-9]+_?"
-                            }
+                            "type": "PATTERN",
+                            "value": "[0-9_]*[0-9][0-9_]*"
                           }
                         ]
                       },
@@ -11195,11 +11174,8 @@
                     "type": "CHOICE",
                     "members": [
                       {
-                        "type": "REPEAT1",
-                        "content": {
-                          "type": "PATTERN",
-                          "value": "[0-9]+_?"
-                        }
+                        "type": "PATTERN",
+                        "value": "[0-9_]*[0-9][0-9_]*"
                       },
                       {
                         "type": "BLANK"
@@ -11211,11 +11187,8 @@
                     "value": "."
                   },
                   {
-                    "type": "REPEAT1",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[0-9]+_?"
-                    }
+                    "type": "PATTERN",
+                    "value": "[0-9_]*[0-9][0-9_]*"
                   },
                   {
                     "type": "CHOICE",
@@ -11228,11 +11201,8 @@
                             "value": "[eE][\\+-]?"
                           },
                           {
-                            "type": "REPEAT1",
-                            "content": {
-                              "type": "PATTERN",
-                              "value": "[0-9]+_?"
-                            }
+                            "type": "PATTERN",
+                            "value": "[0-9_]*[0-9][0-9_]*"
                           }
                         ]
                       },
@@ -11247,11 +11217,8 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "REPEAT1",
-                    "content": {
-                      "type": "PATTERN",
-                      "value": "[0-9]+_?"
-                    }
+                    "type": "PATTERN",
+                    "value": "[0-9_]*[0-9][0-9_]*"
                   },
                   {
                     "type": "SEQ",
@@ -11261,11 +11228,8 @@
                         "value": "[eE][\\+-]?"
                       },
                       {
-                        "type": "REPEAT1",
-                        "content": {
-                          "type": "PATTERN",
-                          "value": "[0-9]+_?"
-                        }
+                        "type": "PATTERN",
+                        "value": "[0-9_]*[0-9][0-9_]*"
                       }
                     ]
                   }

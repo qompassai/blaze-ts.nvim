@@ -2142,11 +2142,17 @@ export default grammar({
     integer: (_) =>
       token(
         choice(
-          seq(choice('0x', '0X'), repeat1(/_?[A-Fa-f0-9]+/), optional(/[Ll]/)),
-          seq(choice('0o', '0O'), repeat1(/_?[0-7]+/), optional(/[Ll]/)),
-          seq(choice('0b', '0B'), repeat1(/_?[0-1]+/), optional(/[Ll]/)),
+          // Underscores may appear in runs anywhere among the digits
+          // (`0____0__0_0`, `1__9_`); at least one digit is required.
           seq(
-            repeat1(/[0-9]+_?/),
+            choice('0x', '0X'),
+            /[0-9a-fA-F_]*[0-9a-fA-F][0-9a-fA-F_]*/,
+            optional(/[Ll]/),
+          ),
+          seq(choice('0o', '0O'), /[0-7_]*[0-7][0-7_]*/, optional(/[Ll]/)),
+          seq(choice('0b', '0B'), /[0-1_]*[0-1][0-1_]*/, optional(/[Ll]/)),
+          seq(
+            /[0-9_]*[0-9][0-9_]*/,
             choice(
               optional(/[Ll]/), // long numbers
               optional(/[jJ]/), // complex numbers
@@ -2156,7 +2162,8 @@ export default grammar({
       ),
 
     float: (_) => {
-      const digits = repeat1(/[0-9]+_?/);
+      // Underscore runs are free among float digits too: `1_2.3__1e+1_1`.
+      const digits = /[0-9_]*[0-9][0-9_]*/;
       const exponent = seq(/[eE][\+-]?/, digits);
 
       return token(
