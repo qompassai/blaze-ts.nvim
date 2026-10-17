@@ -388,3 +388,32 @@ def g[f: def (mut: Matrix) thin [_] -> None]():
     (parameters)
     (block
       (pass_statement))))
+
+================================================================================
+Generator types: bare and bracketed forms as comptime values
+================================================================================
+
+comptime gen_empty = __generator_type Int
+
+comptime gen_idx = __generator_type[Idx: Int] Int
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (generator_type
+      (type
+        (identifier))))
+  (comptime_declaration
+    (identifier)
+    (generator_type
+      (type_parameter
+        (type
+          (constrained_type
+            (type
+              (identifier))
+            (type
+              (identifier)))))
+      (type
+        (identifier)))))

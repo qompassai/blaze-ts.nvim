@@ -1518,6 +1518,10 @@
             "named": true
           },
           {
+            "type": "generator_type",
+            "named": true
+          },
+          {
             "type": "parenthesized_type",
             "named": true
           },
@@ -3015,6 +3019,25 @@
         },
         {
           "type": "if_clause",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "generator_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "type_parameter",
           "named": true
         }
       ]
@@ -4981,6 +5004,10 @@
           "named": true
         },
         {
+          "type": "generator_type",
+          "named": true
+        },
+        {
           "type": "generator_type_application",
           "named": true
         },
@@ -5820,6 +5847,10 @@
   },
   {
     "type": "__future__",
+    "named": false
+  },
+  {
+    "type": "__generator_type",
     "named": false
   },
   {

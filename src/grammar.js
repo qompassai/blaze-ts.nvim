@@ -632,6 +632,9 @@ export default grammar({
                   $.expression,
                   $.function_type,
                   $.tuple_type,
+                  // A generator type as a comptime value:
+                  // `comptime gen_empty = __generator_type Int`.
+                  $.generator_type,
                   // A parenthesized function type: `comptime F = (def(...) thin)`.
                   alias(seq('(', $.function_type, ')'), $.parenthesized_type),
                 ),
@@ -1706,12 +1709,18 @@ export default grammar({
         $.function_type,
         $.mlir_type,
         $.parenthesized_type,
+        $.generator_type,
         $.generator_type_application,
         $.conditional_type,
       ),
 
     parenthesized_generic_type: ($) =>
       prec(1, seq($.parenthesized_type, $.type_parameter)),
+
+    // A generator type: `__generator_type Int`, or with parameter
+    // brackets applied to a result type: `__generator_type[Idx: Int] Int`.
+    generator_type: ($) =>
+      prec(PREC.call, seq('__generator_type', optional($.type_parameter), $.type)),
 
     // A type-level function applied to a type argument written after its
     // brackets: `__generator_type[Idx: Int] Trait`.
@@ -1949,6 +1958,7 @@ export default grammar({
         $.function_type,
         $.mlir_type,
         $.parenthesized_type,
+        $.generator_type,
         $.generator_type_application,
       ),
 

@@ -2996,6 +2996,10 @@
                           "name": "tuple_type"
                         },
                         {
+                          "type": "SYMBOL",
+                          "name": "generator_type"
+                        },
+                        {
                           "type": "ALIAS",
                           "content": {
                             "type": "SEQ",
@@ -8518,6 +8522,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "generator_type"
+        },
+        {
+          "type": "SYMBOL",
           "name": "generator_type_application"
         },
         {
@@ -8539,6 +8547,35 @@
           {
             "type": "SYMBOL",
             "name": "type_parameter"
+          }
+        ]
+      }
+    },
+    "generator_type": {
+      "type": "PREC",
+      "value": 22,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "__generator_type"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "type_parameter"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "type"
           }
         ]
       }
@@ -9503,6 +9540,10 @@
         {
           "type": "SYMBOL",
           "name": "parenthesized_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "generator_type"
         },
         {
           "type": "SYMBOL",
