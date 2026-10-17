@@ -3725,6 +3725,14 @@
                         {
                           "type": "SYMBOL",
                           "name": "conformance_clause"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "intersection_conformance_clause"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "negative_conformance_clause"
                         }
                       ]
                     },
@@ -3751,6 +3759,14 @@
                               {
                                 "type": "SYMBOL",
                                 "name": "conformance_clause"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "intersection_conformance_clause"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "negative_conformance_clause"
                               }
                             ]
                           }
@@ -3925,6 +3941,160 @@
         }
       ]
     },
+    "intersection_conformance_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "trait",
+          "content": {
+            "type": "SYMBOL",
+            "name": "intersection_type"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "where"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "else"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "message",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "string"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "concatenated_string"
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "("
+                          },
+                          {
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "string"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "concatenated_string"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "STRING",
+                            "value": ")"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "negative_conformance_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "not"
+        },
+        {
+          "type": "FIELD",
+          "name": "trait",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type"
+          }
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "else"
+            },
+            {
+              "type": "FIELD",
+              "name": "message",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "string"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "concatenated_string"
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "("
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "string"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "concatenated_string"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "STRING",
+                        "value": ")"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
     "trait_definition": {
       "type": "SEQ",
       "members": [
@@ -4002,6 +4172,14 @@
                     {
                       "type": "SYMBOL",
                       "name": "conformance_clause"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "intersection_conformance_clause"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "negative_conformance_clause"
                     }
                   ]
                 },
@@ -4024,6 +4202,14 @@
                           {
                             "type": "SYMBOL",
                             "name": "conformance_clause"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "intersection_conformance_clause"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "negative_conformance_clause"
                           }
                         ]
                       }

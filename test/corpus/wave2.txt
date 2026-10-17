@@ -310,3 +310,40 @@ struct S:
               (identifier))))
         (block
           (pass_statement))))))
+
+================================================================================
+Negative conformance with a reason, and a conditional conformance
+================================================================================
+
+struct S[T: AnyType](not Movable else "pinned", Copyable where conforms_to(T, Copyable)):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (argument_list
+      (negative_conformance_clause
+        (type
+          (identifier))
+        (string
+          (string_start)
+          (string_content)
+          (string_end)))
+      (conformance_clause
+        (identifier)
+        (call
+          (identifier)
+          (argument_list
+            (identifier)
+            (identifier)))))
+    (block
+      (pass_statement))))

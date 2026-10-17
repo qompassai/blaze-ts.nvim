@@ -773,7 +773,15 @@ export default grammar({
         // The list may be empty: `struct List[T: A]():`.
         optional(
           seq(
-            commaSep1(choice($.expression, $.function_type, $.conformance_clause)),
+            commaSep1(
+              choice(
+                $.expression,
+                $.function_type,
+                $.conformance_clause,
+                $.intersection_conformance_clause,
+                $.negative_conformance_clause,
+              ),
+            ),
             optional(','),
           ),
         ),
@@ -809,6 +817,51 @@ export default grammar({
     parametric_default: ($) =>
       seq(field('parameter', $.type), '=', field('value', $.expression)),
 
+    // A conditional conformance over a trait composition, kept OUT of
+    // the shared conformance_clause: `A & B where conforms_to(T, A)`.
+    // (Widening conformance_clause itself poisons argument_list, whose
+    // entries include it — the intersection fork culls expression stacks
+    // in ordinary calls.)
+    intersection_conformance_clause: ($) =>
+      seq(
+        field('trait', $.intersection_type),
+        'where',
+        field('condition', $.expression),
+        optional(
+          seq(
+            'else',
+            field(
+              'message',
+              choice(
+                $.string,
+                $.concatenated_string,
+                seq('(', choice($.string, $.concatenated_string), ')'),
+              ),
+            ),
+          ),
+        ),
+      ),
+
+    // A negated conformance with a reason: `not Movable else "..."`,
+    // `not (Base & Other) else (...)`. Bare `not X` entries keep the
+    // not_operator expression reading; only the else form needs this rule.
+    negative_conformance_clause: ($) =>
+      seq(
+        'not',
+        field('trait', $.type),
+        seq(
+          'else',
+          field(
+            'message',
+            choice(
+              $.string,
+              $.concatenated_string,
+              seq('(', choice($.string, $.concatenated_string), ')'),
+            ),
+          ),
+        ),
+      ),
+
     trait_definition: ($) =>
       seq(
         'trait',
@@ -823,7 +876,16 @@ export default grammar({
         '(',
         // Supertraits may be member or generic types, or conformance
         // clauses: `trait T(std.traits.Movable, A where conforms_to(B))`.
-        optional(commaSep1(choice($.type, $.conformance_clause))),
+        optional(
+          commaSep1(
+            choice(
+              $.type,
+              $.conformance_clause,
+              $.intersection_conformance_clause,
+              $.negative_conformance_clause,
+            ),
+          ),
+        ),
         optional(','),
         ')',
       ),

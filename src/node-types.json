@@ -516,11 +516,19 @@
           "named": true
         },
         {
+          "type": "intersection_conformance_clause",
+          "named": true
+        },
+        {
           "type": "keyword_argument",
           "named": true
         },
         {
           "type": "list_splat",
+          "named": true
+        },
+        {
+          "type": "negative_conformance_clause",
           "named": true
         },
         {
@@ -3339,6 +3347,54 @@
     }
   },
   {
+    "type": "intersection_conformance_clause",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "message": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "concatenated_string",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "trait": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "intersection_type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "intersection_type",
     "named": true,
     "fields": {},
@@ -3924,6 +3980,44 @@
         "types": [
           {
             "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "negative_conformance_clause",
+    "named": true,
+    "fields": {
+      "message": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "concatenated_string",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "trait": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
             "named": true
           }
         ]
@@ -4678,6 +4772,14 @@
       "types": [
         {
           "type": "conformance_clause",
+          "named": true
+        },
+        {
+          "type": "intersection_conformance_clause",
+          "named": true
+        },
+        {
+          "type": "negative_conformance_clause",
           "named": true
         },
         {
