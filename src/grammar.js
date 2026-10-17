@@ -793,9 +793,15 @@ export default grammar({
         // `ref var y: Int = n` — a var declaration bound by reference.
         optional('var'),
         field('name', $.identifier),
-        optional(seq(':', field('type', $.type))),
-        '=',
-        field('value', $.expression),
+        choice(
+          seq('=', field('value', $.expression)),
+          // An annotated declaration with no initializer: `ref r5: Int`.
+          seq(
+            ':',
+            field('type', $.type),
+            optional(seq('=', field('value', $.expression))),
+          ),
+        ),
       ),
 
     comptime_if_statement: ($) =>

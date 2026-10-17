@@ -484,3 +484,22 @@ comptime _, (b, c) = 1, (2, 3.0)
       (tuple
         (integer)
         (float)))))
+
+================================================================================
+Ref declaration with an annotation and no initializer
+================================================================================
+
+def f():
+    ref r5: Int
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (ref_declaration
+        (identifier)
+        (type
+          (identifier))))))
