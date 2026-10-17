@@ -352,7 +352,7 @@ bool tree_sitter_mojo_external_scanner_scan(void *payload, TSLexer *lexer, const
             }
 
             bool next_tok_is_string_start =
-                lexer->lookahead == '\"' || lexer->lookahead == '\'' || lexer->lookahead == '`';
+                lexer->lookahead == '\"' || lexer->lookahead == '\'';
 
             if ((valid_symbols[DEDENT] ||
                  (!valid_symbols[NEWLINE] && !(valid_symbols[STRING_START] && next_tok_is_string_start) &&
@@ -394,11 +394,7 @@ bool tree_sitter_mojo_external_scanner_scan(void *payload, TSLexer *lexer, const
             advance(lexer);
         }
 
-        if (lexer->lookahead == '`') {
-            set_end_character(&delimiter, '`');
-            advance(lexer);
-            lexer->mark_end(lexer);
-        } else if (lexer->lookahead == '\'') {
+        if (lexer->lookahead == '\'') {
             set_end_character(&delimiter, '\'');
             advance(lexer);
             lexer->mark_end(lexer);

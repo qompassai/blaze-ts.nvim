@@ -218,8 +218,9 @@ struct Stack[T: Copyable, n: Int]:
         (parameters
           (self_parameter))
         (type
-          (attribute
-            (identifier)
+          (member_type
+            (type
+              (identifier))
             (identifier)))
         (where_clause
           (comparison_operator
@@ -465,3 +466,86 @@ struct A:
               (identifier))))
         (block
           (pass_statement))))))
+
+================================================================================
+Parametric function type, parametric lambda, type-parameter star separator
+================================================================================
+
+comptime F = def[T: Copyable](T) -> T
+
+def g() -> Int:
+    var h = lambda [i: Int]() -> Int: i
+    return h()
+
+def quicksort[T: Copyable, //, *, flag: Bool = False](x: T) -> T:
+    return x
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (function_type
+      (type_parameter
+        (type
+          (constrained_type
+            (type
+              (identifier))
+            (type
+              (identifier)))))
+      (function_type_parameters
+        (identifier))
+      (type
+        (identifier))))
+  (function_definition
+    (identifier)
+    (parameters)
+    (type
+      (identifier))
+    (block
+      (expression_statement
+        (assignment
+          (identifier)
+          (lambda
+            (type_parameter
+              (type
+                (constrained_type
+                  (type
+                    (identifier))
+                  (type
+                    (identifier)))))
+            (parameters)
+            (type
+              (identifier))
+            (identifier))))
+      (return_statement
+        (call
+          (identifier)
+          (argument_list)))))
+  (function_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier))))
+      (parametric_default
+        (type
+          (constrained_type
+            (type
+              (identifier))
+            (type
+              (identifier))))
+        (false)))
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (type
+      (identifier))
+    (block
+      (return_statement
+        (identifier)))))

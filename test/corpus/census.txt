@@ -1,0 +1,619 @@
+================================================================================
+Empty type parameter brackets
+================================================================================
+
+comptime Empty = Tuple[]
+
+def f[]() -> _CString[]:
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (subscript
+      (identifier)))
+  (function_definition
+    (identifier)
+    (type_parameter)
+    (parameters)
+    (type
+      (generic_type
+        (identifier)
+        (type_parameter)))
+    (block
+      (pass_statement))))
+
+================================================================================
+Struct with trailing where clause
+================================================================================
+
+struct S[A: Iterator](Copyable) where conforms_to(A.Element, Deinitable):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (argument_list
+      (identifier))
+    (where_clause
+      (call
+        (identifier)
+        (argument_list
+          (attribute
+            (identifier)
+            (identifier))
+          (identifier))))
+    (block
+      (pass_statement))))
+
+================================================================================
+Chained where clauses
+================================================================================
+
+def f(x: Int) -> Int where a() where b():
+    return x
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (type
+      (identifier))
+    (where_clause
+      (call
+        (identifier)
+        (argument_list))
+      (call
+        (identifier)
+        (argument_list)))
+    (block
+      (return_statement
+        (identifier)))))
+
+================================================================================
+Where clause with parenthesized else message
+================================================================================
+
+def f[T: AnyType]() -> T where (IsTriviallyCopyable[T]) else ("T must be copyable" " and movable"):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (parameters)
+    (type
+      (identifier))
+    (where_clause
+      (parenthesized_expression
+        (subscript
+          (identifier)
+          (identifier)))
+      (concatenated_string
+        (string
+          (string_start)
+          (string_content)
+          (string_end))
+        (string
+          (string_start)
+          (string_content)
+          (string_end))))
+    (block
+      (pass_statement))))
+
+================================================================================
+Conformance clause with else message
+================================================================================
+
+struct S[T: AnyType](Movable where IsTriviallyMovable[T] else ("T must be movable")):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (argument_list
+      (conformance_clause
+        (identifier)
+        (subscript
+          (identifier)
+          (identifier))
+        (string
+          (string_start)
+          (string_content)
+          (string_end))))
+    (block
+      (pass_statement))))
+
+================================================================================
+Brace literal with bare and named entries
+================================================================================
+
+def f():
+    return {ctx, function_name = info.function_name}
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (return_statement
+        (brace_literal
+          (identifier)
+          (identifier)
+          (attribute
+            (identifier)
+            (identifier)))))))
+
+================================================================================
+Double underscore await
+================================================================================
+
+async def f():
+    return __await t0 + __await t1
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (return_statement
+        (binary_operator
+          (await
+            (identifier))
+          (await
+            (identifier)))))))
+
+================================================================================
+Ref call argument
+================================================================================
+
+def f():
+    g(ref smem.clc_response)
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (expression_statement
+        (call
+          (identifier)
+          (argument_list
+            (attribute
+              (identifier)
+              (identifier))))))))
+
+================================================================================
+Destructuring with ref and var elements
+================================================================================
+
+def f():
+    count, ref chars = get_pair()
+    _, var r = udivmod(x, y)
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (expression_statement
+        (assignment
+          (pattern_list
+            (identifier)
+            (ref_pattern
+              (identifier)))
+          (call
+            (identifier)
+            (argument_list))))
+      (expression_statement
+        (assignment
+          (pattern_list
+            (identifier)
+            (var_pattern
+              (identifier)))
+          (call
+            (identifier)
+            (argument_list
+              (identifier)
+              (identifier))))))))
+
+================================================================================
+Parenthesized conditional type annotation
+================================================================================
+
+def f(out result: (A if type_of(output).flag else B)):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (argument_convention)
+        (identifier)
+        (type
+          (parenthesized_type
+            (type
+              (conditional_type
+                (type
+                  (identifier))
+                (attribute
+                  (call
+                    (identifier)
+                    (argument_list
+                      (identifier)))
+                  (identifier))
+                (type
+                  (identifier))))))))
+    (block
+      (pass_statement))))
+
+================================================================================
+Trait composition with parenthesized function type operand
+================================================================================
+
+comptime T = A & (def[width: Int](row: Int) -> SIMD[D, width])
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (binary_operator
+      (identifier)
+      (parenthesized_function_type
+        (function_type
+          (type_parameter
+            (type
+              (constrained_type
+                (type
+                  (identifier))
+                (type
+                  (identifier)))))
+          (function_type_parameters
+            (typed_parameter
+              (identifier)
+              (type
+                (identifier))))
+          (type
+            (generic_type
+              (identifier)
+              (type_parameter
+                (type
+                  (identifier))
+                (type
+                  (identifier))))))))))
+
+================================================================================
+Trait with member supertrait
+================================================================================
+
+trait RegisterPassable(std.traits.Movable):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (trait_definition
+    (identifier)
+    (trait_list
+      (type
+        (member_type
+          (type
+            (member_type
+              (type
+                (identifier))
+              (identifier)))
+          (identifier))))
+    (block
+      (pass_statement))))
+
+================================================================================
+Function type with dotted generic entry
+================================================================================
+
+def g(predicate: def(IterableType.IteratorType[origin].Element) thin -> Bool):
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (function_type
+            (function_type_parameters
+              (dotted_type_parameter
+                (identifier)
+                (identifier)
+                (type_parameter
+                  (type
+                    (identifier)))
+                (identifier)))
+            (type
+              (identifier))))))
+    (block
+      (pass_statement))))
+
+================================================================================
+Nested function type entry
+================================================================================
+
+var cb: def(def(Int16) thin raises -> None) thin -> Result
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (type
+        (function_type
+          (function_type_parameters
+            (function_type
+              (function_type_parameters
+                (identifier))
+              (type
+                (none))))
+          (type
+            (identifier)))))))
+
+================================================================================
+Function type with MLIR type entry
+================================================================================
+
+var populate: def(__mlir_type.`!kgen.pointer<none>`) capturing -> None
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (type
+        (function_type
+          (function_type_parameters
+            (mlir_type
+              (type)
+              (type)
+              (type)))
+          (type
+            (none)))))))
+
+================================================================================
+MLIR vector type literal
+================================================================================
+
+def f():
+    var x = __mlir_type.`vector<4 x bf16>`
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (expression_statement
+        (assignment
+          (identifier)
+          (mlir_type
+            (type)
+            (integer)
+            (type)))))))
+
+================================================================================
+type_of in type positions
+================================================================================
+
+def f(x: type_of(y)) -> type_of(y).T:
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (generic_type_expression
+            (argument_list
+              (identifier))))))
+    (type
+      (member_type
+        (type
+          (generic_type_expression
+            (argument_list
+              (identifier))))
+        (identifier)))
+    (block
+      (pass_statement))))
+
+================================================================================
+Function type with convention parameters and splat
+================================================================================
+
+var x: def(mut y: Int, var **kwargs: PythonObject) -> None
+
+--------------------------------------------------------------------------------
+
+(module
+  (expression_statement
+    (assignment
+      (identifier)
+      (type
+        (function_type
+          (function_type_parameters
+            (typed_parameter
+              (argument_convention)
+              (identifier)
+              (type
+                (identifier)))
+            (typed_splat_parameter
+              (argument_convention)
+              (identifier)
+              (type
+                (identifier))))
+          (type
+            (none)))))))
+
+================================================================================
+While case statement with var pattern
+================================================================================
+
+def f():
+    while case.Some(var cur) = it.next():
+        pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (while_case_statement
+        (case_pattern
+          (dot_pattern
+            (identifier)
+            (case_pattern
+              (identifier))))
+        (call
+          (attribute
+            (identifier)
+            (identifier))
+          (argument_list))
+        (block
+          (pass_statement))))))
+
+================================================================================
+Slice keyword argument in subscript
+================================================================================
+
+def f():
+    x = text[byte =: len(text)]
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (expression_statement
+        (assignment
+          (identifier)
+          (subscript
+            (identifier)
+            (keyword_argument
+              (identifier)
+              (slice
+                (call
+                  (identifier)
+                  (argument_list
+                    (identifier)))))))))))
+
+================================================================================
+Comptime declaration with member generic annotation
+================================================================================
+
+comptime M[element_type: CoordLike]: TypeList.of[Trait=CoordLike]()._mlir_type = element_type._ParamListType
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (type
+      (member_type
+        (type
+          (generic_type_expression
+            (member_type
+              (type
+                (identifier))
+              (identifier))
+            (type_parameter
+              (parametric_default
+                (type
+                  (identifier))
+                (identifier)))
+            (argument_list)))
+        (identifier)))
+    (attribute
+      (identifier)
+      (identifier))))
+
+================================================================================
+Generic value with function type entry
+================================================================================
+
+comptime V = Variant[Bool, def() capturing -> Path]
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (subscript
+      (identifier)
+      (identifier)
+      (function_type
+        (function_type_parameters)
+        (type
+          (identifier))))))

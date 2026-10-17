@@ -319,3 +319,98 @@ comptime assert size >= 0
       (comparison_operator
         (identifier)
         (integer)))))
+
+================================================================================
+Match with dot patterns, if case, comptime match
+================================================================================
+
+def f(x: Int) -> Int:
+    match x:
+        case .zero:
+            return 0
+        case _:
+            return 1
+
+def g(opt: Int) -> Int:
+    if case .Some(v) = opt:
+        return v
+    return 0
+
+def h() -> Int:
+    comptime match 3:
+        case 1:
+            return 1
+        case _:
+            return 0
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (type
+      (identifier))
+    (block
+      (match_statement
+        (identifier)
+        (block
+          (case_clause
+            (case_pattern
+              (dot_pattern
+                (identifier)))
+            (block
+              (return_statement
+                (integer))))
+          (case_clause
+            (case_pattern)
+            (block
+              (return_statement
+                (integer))))))))
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (identifier))))
+    (type
+      (identifier))
+    (block
+      (if_case_statement
+        (case_pattern
+          (dot_pattern
+            (identifier)
+            (case_pattern
+              (identifier))))
+        (identifier)
+        (block
+          (return_statement
+            (identifier))))
+      (return_statement
+        (integer))))
+  (function_definition
+    (identifier)
+    (parameters)
+    (type
+      (identifier))
+    (block
+      (comptime_match_statement
+        (match_statement
+          (integer)
+          (block
+            (case_clause
+              (case_pattern
+                (integer))
+              (block
+                (return_statement
+                  (integer))))
+            (case_clause
+              (case_pattern)
+              (block
+                (return_statement
+                  (integer))))))))))
