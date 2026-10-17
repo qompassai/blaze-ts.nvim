@@ -2841,6 +2841,10 @@
       "required": false,
       "types": [
         {
+          "type": "capture_list",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         }
@@ -2930,6 +2934,10 @@
       "types": [
         {
           "type": "capture_entry",
+          "named": true
+        },
+        {
+          "type": "capture_list",
           "named": true
         }
       ]
@@ -3663,6 +3671,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "capture_list",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4012,7 +4030,15 @@
         "required": true,
         "types": [
           {
+            "type": "attribute",
+            "named": true
+          },
+          {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "subscript",
             "named": true
           }
         ]
@@ -4349,6 +4375,10 @@
       "types": [
         {
           "type": "capture_entry",
+          "named": true
+        },
+        {
+          "type": "capture_list",
           "named": true
         },
         {
@@ -5222,7 +5252,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
@@ -5234,6 +5264,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "splat_type",
+            "named": true
+          },
           {
             "type": "type",
             "named": true

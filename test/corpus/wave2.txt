@@ -417,3 +417,50 @@ comptime gen_idx = __generator_type[Idx: Int] Int
               (identifier)))))
       (type
         (identifier)))))
+
+================================================================================
+Walrus targets, lambda raises effect set, async function type
+================================================================================
+
+def f():
+    arr[x] := str^
+    var g = lambda (x: Int) raises {} -> Int: x + 1
+
+comptime P = __async def(Int) capturing thin -> None
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (expression_statement
+        (named_expression
+          (subscript
+            (identifier)
+            (identifier))
+          (transfer_expression
+            (identifier))))
+      (expression_statement
+        (assignment
+          (identifier)
+          (lambda
+            (parameters
+              (typed_parameter
+                (identifier)
+                (type
+                  (identifier))))
+            (capture_list)
+            (type
+              (identifier))
+            (binary_operator
+              (identifier)
+              (integer)))))))
+  (comptime_declaration
+    (identifier)
+    (function_type
+      (function_type_parameters
+        (identifier))
+      (type
+        (none)))))

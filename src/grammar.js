@@ -85,6 +85,9 @@ export default grammar({
     [$.generic_type_expression],
     [$.where_clause, $.concatenated_string],
     [$.parenthesized_function_type, $.type],
+    // `thin` in a function type: the post-parameter thin slot vs the
+    // thin-as-effect reading (`def(Int) capturing thin -> None`).
+    [$.function_type, $._fn_type_effect],
     [$.where_clause],
     [$.dotted_type_parameter, $._fn_convention_type],
     [$.superclass_list, $.argument_list],
@@ -265,7 +268,15 @@ export default grammar({
         field('value', $.expression),
       ),
 
-    _named_expression_lhs: ($) => choice($.identifier, $.keyword_identifier),
+    _named_expression_lhs: ($) =>
+      choice(
+        $.identifier,
+        $.keyword_identifier,
+        // Member and subscript targets: `self.b := v`, `arr[x] := v`,
+        // `(setter[0] := b^)`.
+        $.attribute,
+        $.subscript,
+      ),
 
     return_statement: ($) => seq('return', optional($._expressions)),
 
@@ -667,7 +678,16 @@ export default grammar({
 
     _effect_specifier: ($) =>
       choice(
-        prec.dynamic(2, seq('raises', optional(field('error_type', $._error_type)))),
+        prec.dynamic(
+          2,
+          seq(
+            'raises',
+            optional(field('error_type', $._error_type)),
+            // An effect set after raises: `lambda (x: Int) raises {} -> Int`,
+            // `lambda [N: Int](var x: Int) raises {mut} -> Int`.
+            optional($.capture_list),
+          ),
+        ),
         'capturing',
         'escaping',
       ),
@@ -1803,6 +1823,8 @@ export default grammar({
       prec.dynamic(
         2,
         seq(
+          // `__async def(...) thin -> None` — the async fn-type spelling.
+          optional('__async'),
           optional('thin'),
           choice('def', 'fn'),
           field('type_parameters', optional($.type_parameter)),
@@ -1840,6 +1862,9 @@ export default grammar({
                 // convention the shared-parameter path loses the splat
                 // continuation in this list (`def(var **kwargs: T)`).
                 $.typed_splat_parameter,
+                // An unnamed splat of a splat type (pack expansion):
+                // `def[*Ts: AnyType](* *Ts) thin -> None`.
+                alias($._fn_splat_parameter, $.typed_splat_parameter),
                 $.parameter,
                 $.call,
                 // Bare type parameters: `def(SIMD[dtype, width])` — a
@@ -1869,6 +1894,8 @@ export default grammar({
       ),
 
     _colon_typed_parameter: ($) => seq(':', field('type', $.type)),
+
+    _fn_splat_parameter: ($) => seq('*', field('type', $.splat_type)),
 
     _keyword_typed_parameter: ($) =>
       seq(
@@ -1967,6 +1994,10 @@ export default grammar({
         $._effect_specifier,
         // Bare `capturing` with no capture list: `def(...) capturing`.
         'capturing',
+        // `thin` after the effects: `def(Int) capturing thin -> None`.
+        // (Duplicating the whole thin/abi segment after the effects
+        // exploded generate's state space; a bare token here does not.)
+        'thin',
         seq(
           'capturing',
           '[',
