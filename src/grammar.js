@@ -671,7 +671,17 @@ export default grammar({
 
     // Error types exclude constrained_type: in `raises A:` the colon ends the
     // signature; it never starts a `type : type` constraint.
-    _error_type: ($) => prec.dynamic(1, choice($.identifier, $.generic_type, $.dotted_name)),
+    _error_type: ($) =>
+      prec.dynamic(
+        1,
+        choice(
+          $.identifier,
+          $.generic_type,
+          $.dotted_name,
+          // `def f() raises (Int) -> String:` — a parenthesized error type.
+          $.parenthesized_type,
+        ),
+      ),
 
     capture_convention: ($) => choice('imm', 'mut', 'ref', 'var'),
 
@@ -683,6 +693,8 @@ export default grammar({
           optional('^'),
         ),
         seq(field('name', $.identifier), optional('^')),
+        // A dotted capture path: `capturing [lt._mlir_origin]`.
+        seq(field('name', $.dotted_name), optional('^')),
       ),
 
     capture_list: ($) =>
@@ -1683,6 +1695,8 @@ export default grammar({
         $.none,
         $.splat_type,
         $.generic_type,
+        // A parenthesized head with type arguments: `(SIMD)[dt, size]`.
+        alias($.parenthesized_generic_type, $.generic_type),
         $.generic_type_expression,
         alias($.type_call, $.generic_type_expression),
         $.union_type,
@@ -1695,6 +1709,9 @@ export default grammar({
         $.generator_type_application,
         $.conditional_type,
       ),
+
+    parenthesized_generic_type: ($) =>
+      prec(1, seq($.parenthesized_type, $.type_parameter)),
 
     // A type-level function applied to a type argument written after its
     // brackets: `__generator_type[Idx: Int] Trait`.
@@ -1804,6 +1821,12 @@ export default grammar({
               choice(
                 alias($.fn_bare_convention_parameter, $.convention_parameter),
                 alias($.fn_typed_convention_parameter, $.typed_parameter),
+                // An unnamed parameter written with a leading colon:
+                // `def (:Int) thin -> MyInt`.
+                alias($._colon_typed_parameter, $.typed_parameter),
+                // A parameter named by a convention keyword:
+                // `def (mut: Matrix) thin -> None`.
+                alias($._keyword_typed_parameter, $.typed_parameter),
                 // Direct entry (not only via $.parameter): with a leading
                 // convention the shared-parameter path loses the splat
                 // continuation in this list (`def(var **kwargs: T)`).
@@ -1834,6 +1857,32 @@ export default grammar({
       seq(
         $.identifier,
         repeat1(choice(seq('.', $.identifier), $.type_parameter)),
+      ),
+
+    _colon_typed_parameter: ($) => seq(':', field('type', $.type)),
+
+    _keyword_typed_parameter: ($) =>
+      seq(
+        field(
+          'name',
+          alias(
+            choice(
+              'borrowed',
+              'deinit',
+              'imm',
+              'inout',
+              'mut',
+              'out',
+              'owned',
+              'read',
+              'ref',
+              'var',
+            ),
+            $.identifier,
+          ),
+        ),
+        ':',
+        field('type', $.type),
       ),
 
     // A convention + typed parameter inside a function type:
@@ -1915,6 +1964,10 @@ export default grammar({
           optional(','),
           ']',
         ),
+        // A capture list with no keyword: `def () thin [_] -> None`,
+        // `def () capturing [lt._mlir_origin] -> None` uses the form
+        // above; this one follows `thin` directly.
+        seq('[', commaSep1(choice('_', $.capture_entry)), optional(','), ']'),
       ),
     splat_type: ($) =>
       prec(
@@ -2080,6 +2133,8 @@ export default grammar({
                 ),
                 '>',
               ),
+              // Comma-separated arguments: `!kgen.simd<17, f32>`.
+              seq('<', commaSep1($._mlir_type), optional(','), '>'),
               '<',
             ),
           ),

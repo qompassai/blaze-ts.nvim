@@ -347,3 +347,44 @@ struct S[T: AnyType](not Movable else "pinned", Copyable where conforms_to(T, Co
             (identifier)))))
     (block
       (pass_statement))))
+
+================================================================================
+Function types: colon parameter, keyword-named parameter, bare capture list
+================================================================================
+
+comptime T = def (:Int) thin -> MyInt
+
+def g[f: def (mut: Matrix) thin [_] -> None]():
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (comptime_declaration
+    (identifier)
+    (function_type
+      (function_type_parameters
+        (typed_parameter
+          (type
+            (identifier))))
+      (type
+        (identifier))))
+  (function_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (function_type
+              (function_type_parameters
+                (typed_parameter
+                  (identifier)
+                  (type
+                    (identifier))))
+              (type
+                (none)))))))
+    (parameters)
+    (block
+      (pass_statement))))
