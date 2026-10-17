@@ -1,0 +1,22 @@
+================================================================================
+Struct with empty superclass parentheses
+================================================================================
+
+struct List[T: A]():
+    pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (class_definition
+    (identifier)
+    (type_parameter
+      (type
+        (constrained_type
+          (type
+            (identifier))
+          (type
+            (identifier)))))
+    (argument_list)
+    (block
+      (pass_statement))))

@@ -681,8 +681,13 @@ export default grammar({
     superclass_list: ($) =>
       seq(
         '(',
-        commaSep1(choice($.expression, $.function_type, $.conformance_clause)),
-        optional(','),
+        // The list may be empty: `struct List[T: A]():`.
+        optional(
+          seq(
+            commaSep1(choice($.expression, $.function_type, $.conformance_clause)),
+            optional(','),
+          ),
+        ),
         ')',
       ),
     type_parameter: ($) =>
