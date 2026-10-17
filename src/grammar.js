@@ -44,6 +44,9 @@ export default grammar({
   conflicts: ($) => [
     [$.parameter_list, $.subscript],
     [$.primary_expression, $.pattern],
+    // A tuple-pattern walrus target forks pattern/expression/type in
+    // bracketed contexts (lambda captures and parameters).
+    [$.pattern, $.primary_expression, $.type],
     [$.primary_expression, $.list_splat_pattern],
     [$.tuple, $.tuple_pattern],
     [$.list, $.list_pattern],
@@ -276,6 +279,8 @@ export default grammar({
         // `(setter[0] := b^)`.
         $.attribute,
         $.subscript,
+        // A tuple-pattern target: `((a, b) := Tuple(1, 2))[0]`.
+        $.tuple_pattern,
       ),
 
     return_statement: ($) => seq('return', optional($._expressions)),
@@ -704,6 +709,9 @@ export default grammar({
         ),
         'capturing',
         'escaping',
+        // Deprecated but accepted with a warning by the compiler:
+        // `def closure(x: Int) register_passable -> Int:`.
+        'register_passable',
       ),
 
     // Error types exclude constrained_type: in `raises A:` the colon ends the
@@ -1096,10 +1104,13 @@ export default grammar({
           // dotted path is a value pattern. Must precede $.dotted_name,
           // whose single-segment form would otherwise swallow captures.
           prec(2, $.identifier),
-          // An explicit owning binding: `case .Some(var nn)`.
-          prec(2, seq('var', $.identifier)),
-          // A reference binding: `case .Some(ref fd_out)`.
-          prec(2, seq('ref', $.identifier)),
+          // An explicit owning binding: `case .Some(var nn)`. The
+          // binding keywords stack (redundant, warning only):
+          // `case var ref x:`.
+          prec(2, seq('var', choice($.identifier, seq('ref', $.identifier)))),
+          // A reference binding: `case .Some(ref fd_out)`, stacked as
+          // `case ref var y:`.
+          prec(2, seq('ref', choice($.identifier, seq('var', $.identifier)))),
           $.class_pattern,
           $.splat_pattern,
           $.union_pattern,
@@ -1222,7 +1233,19 @@ export default grammar({
     var_pattern: ($) =>
       prec(
         -1,
-        seq('var', field('name', choice($.identifier, $.attribute))),
+        seq(
+          'var',
+          field(
+            'name',
+            choice(
+              $.identifier,
+              $.attribute,
+              // Stacked binding patterns (redundant per the compiler,
+              // accepted with a warning): `case var ref x:`.
+              $.ref_pattern,
+            ),
+          ),
+        ),
       ),
 
     // A ref-binding element in a destructuring list:
@@ -1235,7 +1258,13 @@ export default grammar({
           'ref',
           field(
             'name',
-            choice($.identifier, $.list_pattern, $.tuple_pattern),
+            choice(
+              $.identifier,
+              $.list_pattern,
+              $.tuple_pattern,
+              // Stacked the other way: `case ref var y:`.
+              $.var_pattern,
+            ),
           ),
         ),
       ),
@@ -1848,8 +1877,10 @@ export default grammar({
       prec.dynamic(
         2,
         seq(
-          // `__async def(...) thin -> None` — the async fn-type spelling.
-          optional('__async'),
+          // Async fn types: `__async def(...) thin -> None`, and the
+          // unprefixed `async def() thin -> Int` (experimental in the
+          // compiler, accepted with a warning).
+          optional(choice('async', '__async')),
           optional('thin'),
           choice('def', 'fn'),
           field('type_parameters', optional($.type_parameter)),

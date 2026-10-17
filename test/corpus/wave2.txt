@@ -503,3 +503,57 @@ def f():
         (identifier)
         (type
           (identifier))))))
+
+================================================================================
+Spot-check forms: async fn type, register_passable effect, stacked case binding
+================================================================================
+
+def g(f: async def() thin -> Int):
+    pass
+
+def h():
+    def closure(x: Int) register_passable -> Int:
+        return x
+    match v:
+        case var ref x:
+            pass
+
+--------------------------------------------------------------------------------
+
+(module
+  (function_definition
+    (identifier)
+    (parameters
+      (typed_parameter
+        (identifier)
+        (type
+          (function_type
+            (function_type_parameters)
+            (type
+              (identifier))))))
+    (block
+      (pass_statement)))
+  (function_definition
+    (identifier)
+    (parameters)
+    (block
+      (function_definition
+        (identifier)
+        (parameters
+          (typed_parameter
+            (identifier)
+            (type
+              (identifier))))
+        (type
+          (identifier))
+        (block
+          (return_statement
+            (identifier))))
+      (match_statement
+        (identifier)
+        (block
+          (case_clause
+            (case_pattern
+              (identifier))
+            (block
+              (pass_statement))))))))

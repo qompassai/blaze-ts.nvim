@@ -4052,6 +4052,10 @@
           {
             "type": "subscript",
             "named": true
+          },
+          {
+            "type": "tuple_pattern",
+            "named": true
           }
         ]
       },
@@ -4543,6 +4547,10 @@
           },
           {
             "type": "tuple_pattern",
+            "named": true
+          },
+          {
+            "type": "var_pattern",
             "named": true
           }
         ]
@@ -5485,6 +5493,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "ref_pattern",
+            "named": true
           }
         ]
       }
@@ -6171,6 +6183,10 @@
   },
   {
     "type": "ref",
+    "named": false
+  },
+  {
+    "type": "register_passable",
     "named": false
   },
   {
