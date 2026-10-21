@@ -1,6 +1,6 @@
 # Shipped-code census program — grammar grown from Modular's official repos
 
-Date: 2026-10-16. Commission: Matt, after the Mojo 1.1.0 update
+Date: 2026-10-16. Commission: Owner, after the Mojo 1.1.0 update
 (iterations 1–14) and iteration 14 (typed self parameters, a74f4f6).
 Method: census the *shipped* code of `modular/modular` (sparse blobless
 clone, HEAD efb7c37, 2026-10-15) — `Mojo/stdlib/std` +

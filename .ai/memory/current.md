@@ -18,5 +18,5 @@ not a mirror of an upstream repo.
 
 - License: Apache-2.0 (SPDX). `LICENSE` file byte-identical to canonical
   text except filled copyright line.
-- Code changes are pushed only under Matt's explicit direction
+- Code changes are pushed only under Owner's explicit direction
   (the 2026-10-11 overnight campaign authorization covered this pass).
